@@ -1,0 +1,23 @@
+training:
+  defense: fixed_mixed_at
+  apgd_every_n_batches: 5
+  stages:
+    - name: warmup_fgsm
+      start_epoch: 0
+      end_epoch: 24
+      mix:
+        clean: 0.5
+        fgsm: 0.5
+    - name: pgd_phase
+      start_epoch: 25
+      end_epoch: 59
+      mix:
+        clean: 0.3
+        pgd: 0.7
+    - name: apgd_calibration
+      start_epoch: 60
+      end_epoch: 79
+      mix:
+        clean: 0.3
+        pgd: 0.5
+        apgd_ce: 0.2

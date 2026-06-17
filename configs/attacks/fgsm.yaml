@@ -1,0 +1,5 @@
+attack:
+  name: fgsm
+  eps: 0.031372549
+  steps: 1
+  restarts: 1

@@ -1,0 +1,3 @@
+experiment:
+  name: g4_mixed_ablation
+  defenses: [fgsm_at, pgd_at, fixed_mixed_at]

@@ -1,0 +1,4 @@
+model:
+  name: preact_resnet18
+  num_classes: 10
+  normalize: true

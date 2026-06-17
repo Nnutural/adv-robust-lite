@@ -1,0 +1,5 @@
+experiment:
+  name: g2_defense
+  models: [preact_resnet18]
+  defenses: [standard, fgsm_at, pgd_at, fixed_mixed_at]
+  attacks: [fgsm, pgd20, apgd_ce, apgd_dlr]

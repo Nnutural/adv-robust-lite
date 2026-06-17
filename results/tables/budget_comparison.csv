@@ -1,0 +1,4 @@
+defense,epoch_budget,gpu_hour_budget,clean_acc,r_lite,clean_drop,robust_gain,gain_per_gpu_hour
+,,0.0,0.0,,0.24,,0.0
+standard,,0.0002777778,0.24,0.09,0.0,0.0,0.0
+standard,,0.0,0.24,,0.0,,0.0

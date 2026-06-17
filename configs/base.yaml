@@ -1,0 +1,50 @@
+project:
+  name: adv_robust_lite
+  seed: 0
+  device: auto
+  output_dir: results
+  checkpoint_dir: checkpoints
+  log_dir: logs
+
+dataset:
+  name: cifar10
+  root: data/raw/cifar10
+  processed_dir: data/processed
+  val_ratio: 0.1
+  batch_size: 128
+  num_workers: 4
+  download: true
+  train_subset_size: null
+  val_subset_size: null
+  aa_subset_size: 1000
+  vis_subset_size: 64
+
+threat_model:
+  norm: linf
+  eps: 0.031372549
+  eps_list: [0.007843137, 0.015686274, 0.031372549, 0.062745098]
+  targeted: false
+  input_space: pixel_0_1
+
+model:
+  name: smallcnn
+  num_classes: 10
+  normalize: true
+  mean: [0.4914, 0.4822, 0.4465]
+  std: [0.2470, 0.2435, 0.2616]
+
+training:
+  defense: standard
+  epochs: 80
+  optimizer: sgd
+  lr: 0.1
+  momentum: 0.9
+  weight_decay: 0.0005
+  scheduler: cosine
+  amp: true
+  max_train_batches: null
+  max_eval_batches: null
+
+logging:
+  save_every: 10
+  eval_every: 1

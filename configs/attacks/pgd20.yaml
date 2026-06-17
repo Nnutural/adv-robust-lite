@@ -1,0 +1,7 @@
+attack:
+  name: pgd20
+  eps: 0.031372549
+  alpha: 0.007843137
+  steps: 20
+  restarts: 1
+  random_start: true

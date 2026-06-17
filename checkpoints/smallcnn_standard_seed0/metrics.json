@@ -1,0 +1,14 @@
+{
+  "exp_id": "smallcnn_standard_seed0",
+  "model": "smallcnn",
+  "defense": "standard",
+  "seed": 0,
+  "clean_acc": 0.125,
+  "train_time_sec": 0.5242238999999991,
+  "train_time_gpu_hours": 0.00014561774999999975,
+  "params": 558538,
+  "checkpoint_path": "D:\\Nnutural\\Desktop\\BUPT_6\\深度学习与安全\\期末大作业\\adv-robust-lite\\checkpoints\\smallcnn_standard_seed0\\best.pt",
+  "device": "cpu",
+  "max_train_batches": 2,
+  "max_eval_batches": 1
+}

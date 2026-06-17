@@ -1,0 +1,3 @@
+experiment:
+  name: g3_eval_protocol
+  protocols: [pgd_only, pgd_apgd_ce, aalite, autoattack_subset]

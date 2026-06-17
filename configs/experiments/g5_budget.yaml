@@ -1,0 +1,3 @@
+experiment:
+  name: g5_budget
+  compare: [equal_epoch, equal_gpu_hours]

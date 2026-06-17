@@ -1,0 +1,12 @@
+numpy>=1.24
+pandas>=2.0
+pyyaml>=6.0
+tqdm>=4.66
+torch>=2.1
+torchvision>=0.16
+matplotlib>=3.8
+pytest>=8.0
+
+# Optional for Subagent B attack/evaluation modules:
+torchattacks>=3.5.1
+autoattack

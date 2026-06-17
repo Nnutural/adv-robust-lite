@@ -1,0 +1,5 @@
+attack:
+  name: autoattack_standard
+  eps: 0.031372549
+  version: standard
+  subset_size: 1000

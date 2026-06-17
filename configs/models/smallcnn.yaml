@@ -1,0 +1,4 @@
+model:
+  name: smallcnn
+  num_classes: 10
+  normalize: true

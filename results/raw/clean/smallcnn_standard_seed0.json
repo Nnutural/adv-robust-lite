@@ -1,0 +1,17 @@
+{
+  "clean_loss": 2.310476541519165,
+  "clean_acc": 0.0,
+  "num_samples": 32,
+  "runtime_sec": 0.08621370000000006,
+  "exp_id": "smallcnn_standard_seed0",
+  "model": "smallcnn",
+  "checkpoint": "checkpoints/smallcnn_standard_seed0/best.pt",
+  "checkpoint_path": "checkpoints/smallcnn_standard_seed0/best.pt",
+  "subset_size": 32,
+  "max_eval_batches": 0,
+  "batch_size": 16,
+  "num_workers": 0,
+  "device": "cpu",
+  "dataset": "fake_cifar10",
+  "seed": 0
+}

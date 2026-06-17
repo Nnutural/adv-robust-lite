@@ -1,0 +1,4 @@
+training:
+  defense: budget_scheduler_at
+  scheduler_interval: 5
+  fallback: fixed_mixed_at

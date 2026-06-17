@@ -1,0 +1,5 @@
+experiment:
+  name: g1_structure
+  models: [smallcnn, resnet18, mobilenetv2]
+  defense: standard
+  attacks: [fgsm, pgd20, apgd_ce, apgd_dlr]

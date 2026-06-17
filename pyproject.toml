@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adv-robust-lite"
+version = "0.1.0"
+description = "CIFAR-10 adversarial robustness experiment framework with pixel-space normalization wrapper."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "pyyaml>=6.0",
+  "tqdm>=4.66",
+  "torch>=2.1",
+  "torchvision>=0.16",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+attacks = [
+  "torchattacks>=3.5.1",
+  "autoattack",
+]
+dev = [
+  "pytest>=8.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

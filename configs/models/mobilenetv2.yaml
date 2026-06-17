@@ -1,0 +1,5 @@
+model:
+  name: mobilenetv2
+  num_classes: 10
+  normalize: true
+  width_mult: 1.0

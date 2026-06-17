@@ -1,0 +1,8 @@
+training:
+  defense: pgd_at
+  train_attack:
+    name: pgd
+    eps: 0.031372549
+    alpha: 0.007843137
+    steps: 7
+    random_start: true

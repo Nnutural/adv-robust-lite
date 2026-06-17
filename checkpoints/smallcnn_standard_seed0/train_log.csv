@@ -1,0 +1,2 @@
+epoch,defense,lr,wall_time_sec,train_loss,train_acc,attack_mix,attack_counts,val_loss,val_acc
+1,standard,0.0,0.5076713000000002,2.363042950630188,0.125,"{""clean"": 1.0}","{""clean"": 2}",2.3054039478302,0.125
