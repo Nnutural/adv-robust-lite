@@ -1,5 +1,10 @@
 # Local datasets and generated artifacts
 data/raw/
+!data/raw/
+data/raw/*
+!data/raw/cifar10/
+data/raw/cifar10/*
+!data/raw/cifar10/cifar-10-python.tar.gz
 logs/
 .pytest_cache/
 __pycache__/
@@ -7,4 +12,5 @@ __pycache__/
 
 # Large binary archives commonly downloaded during experiments
 *.tar.gz
+!data/raw/cifar10/cifar-10-python.tar.gz
 *.zip
