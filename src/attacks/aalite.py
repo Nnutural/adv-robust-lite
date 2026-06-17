@@ -24,6 +24,7 @@ def run_aalite(
     output_json: str | Path | None = None,
     metadata: Mapping[str, Any] | None = None,
     eot_samples: int = 0,
+    eot_required: bool = False,
 ) -> dict[str, Any]:
     attack_results: dict[str, Any] = {}
     accs: dict[str, float] = {}
@@ -48,6 +49,8 @@ def run_aalite(
             errors[attack_name] = result.get("error", "unknown attack failure")
 
     successful = len(accs)
+    if metadata and "eot_required" in metadata:
+        eot_required = bool(metadata["eot_required"])
     payload: dict[str, Any] = {
         "eps": eps,
         "steps": steps,
@@ -60,10 +63,11 @@ def run_aalite(
         "blackbox_handled_separately": True,
         "blackbox_notes": "Square subset and black-box sanity diagnostics are evaluated separately.",
         "eot_samples": eot_samples,
-        "eot_disabled_for_demo": eot_samples == 0,
+        "eot_disabled_for_demo": eot_required and eot_samples == 0,
     }
     if metadata:
         payload.update(dict(metadata))
+        payload["eot_disabled_for_demo"] = eot_required and eot_samples == 0
     if clean_accs and "clean_acc" not in payload:
         payload["clean_acc"] = clean_accs[0]
     payload.update(accs)

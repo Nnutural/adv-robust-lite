@@ -10,6 +10,10 @@ ROOT = add_project_root()
 from src.utils.config import parse_float_or_fraction
 
 
+def _requires_eot(wrappers) -> bool:
+    return any((wrapper or {}).get("kind") == "input_random" for wrapper in wrappers or [])
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run AA-Lite: PGD-20, APGD-CE, APGD-DLR.")
     parser.add_argument("--checkpoint", required=True)
@@ -50,6 +54,7 @@ def main() -> None:
     if args.model_wrappers:
         wrapper_cfg = load_yaml(args.model_wrappers)
         wrappers = wrapper_cfg.get("eval", {}).get("model_wrappers") or wrapper_cfg.get("model", {}).get("wrappers")
+    eot_required = _requires_eot(wrappers)
     model = build_model(args.model, normalize=True, wrappers=wrappers).to(device)
     checkpoint = load_checkpoint(args.checkpoint, map_location=str(device))
     model.load_state_dict(extract_model_state(checkpoint), strict=False)
@@ -93,7 +98,8 @@ def main() -> None:
         "mode": args.mode,
         "seed": args.seed,
         "eot_samples": args.eot_samples,
-        "eot_disabled_for_demo": args.eot_samples == 0,
+        "eot_required": eot_required,
+        "eot_disabled_for_demo": eot_required and args.eot_samples == 0,
         "eval_subset_id": subset_id,
     }
     result = run_aalite(
@@ -107,6 +113,7 @@ def main() -> None:
         output_json=output,
         metadata=metadata,
         eot_samples=args.eot_samples,
+        eot_required=eot_required,
     )
     print(result)
 

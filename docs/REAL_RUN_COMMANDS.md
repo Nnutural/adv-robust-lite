@@ -1,5 +1,11 @@
 # Real Run 命令清单
 
+> **推荐**：一键调度脚本 `scripts/run_all_real.sh` 已按"课程级砍半参数"配置好，
+> 直接 `bash scripts/run_all_real.sh` 即可从当前进度（已完成 G1 SmallCNN + ResNet-18 standard）
+> 一路跑到论文出图。手动单条命令清单（本文档剩余部分）仅作参考。
+>
+> 砍半参数详见脚本顶部 readonly 变量；若要全口径运行，直接修改这些变量为 plan-v2 默认值。
+
 本文档给出 G1-G5 与后续 P8 诊断/论文材料整理的可复制命令。所有命令都从仓库根目录执行：
 
 ```bash

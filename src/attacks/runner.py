@@ -41,6 +41,7 @@ class AttackRunner:
         model.to(self.device)
         model.eval()
         start = time.perf_counter()
+        eot_required = bool(metadata.get("eot_required", False)) if metadata else False
         total = 0
         clean_correct = 0
         adv_correct = 0
@@ -125,7 +126,7 @@ class AttackRunner:
                 "max_samples": self.max_samples,
                 "max_eval_batches": self.max_eval_batches,
                 "eot_samples": self.attack_config.eot_samples,
-                "eot_disabled_for_demo": self.attack_config.eot_samples == 0,
+                "eot_disabled_for_demo": eot_required and self.attack_config.eot_samples == 0,
             }
         except AttackUnavailableError as exc:
             result = {
@@ -140,7 +141,7 @@ class AttackRunner:
                 "max_samples": self.max_samples,
                 "max_eval_batches": self.max_eval_batches,
                 "eot_samples": self.attack_config.eot_samples,
-                "eot_disabled_for_demo": self.attack_config.eot_samples == 0,
+                "eot_disabled_for_demo": eot_required and self.attack_config.eot_samples == 0,
             }
         except Exception as exc:
             result = {
@@ -155,11 +156,12 @@ class AttackRunner:
                 "max_samples": self.max_samples,
                 "max_eval_batches": self.max_eval_batches,
                 "eot_samples": self.attack_config.eot_samples,
-                "eot_disabled_for_demo": self.attack_config.eot_samples == 0,
+                "eot_disabled_for_demo": eot_required and self.attack_config.eot_samples == 0,
             }
 
         if metadata:
             result.update(dict(metadata))
+            result["eot_disabled_for_demo"] = eot_required and self.attack_config.eot_samples == 0
         if "eval_subset_id" not in result:
             result["eval_subset_id"] = None
 

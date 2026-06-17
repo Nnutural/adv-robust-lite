@@ -67,6 +67,77 @@ def test_aalite_payload_declares_whitebox_scope() -> None:
 
     model = nn.Sequential(nn.Flatten(), nn.Linear(3 * 32 * 32, 10))
     dataset = TensorDataset(torch.rand(2, 3, 32, 32), torch.tensor([0, 1]))
-    result = run_aalite(model, DataLoader(dataset, batch_size=2), device="cpu", steps=2, max_eval_batches=1)
+    result = run_aalite(
+        model,
+        DataLoader(dataset, batch_size=2),
+        device="cpu",
+        steps=2,
+        max_eval_batches=1,
+        metadata={"eot_required": False, "eot_disabled_for_demo": True},
+    )
     assert result["r_lite_scope"] == "whitebox"
     assert result["blackbox_handled_separately"] is True
+    assert result["eot_disabled_for_demo"] is False
+
+
+def test_eot_disabled_for_demo_is_false_for_non_randomized_models() -> None:
+    import torch
+    from torch import nn
+    from torch.utils.data import DataLoader, TensorDataset
+
+    from src.attacks.factory import build_attack_config
+    from src.attacks.runner import AttackRunner
+
+    model = nn.Sequential(nn.Flatten(), nn.Linear(3 * 32 * 32, 10))
+    loader = DataLoader(TensorDataset(torch.rand(2, 3, 32, 32), torch.tensor([0, 1])), batch_size=2)
+    result = AttackRunner(build_attack_config("pgd20", steps=2), device="cpu", max_eval_batches=1).run(
+        model, loader, metadata={"eot_required": False, "eot_disabled_for_demo": True}
+    )
+    assert result["eot_disabled_for_demo"] is False
+
+
+def test_eot_disabled_for_demo_is_true_only_for_randomized_eot0() -> None:
+    import torch
+    from torch import nn
+    from torch.utils.data import DataLoader, TensorDataset
+
+    from src.attacks.factory import build_attack_config
+    from src.attacks.runner import AttackRunner
+
+    model = nn.Sequential(nn.Flatten(), nn.Linear(3 * 32 * 32, 10))
+    loader = DataLoader(TensorDataset(torch.rand(2, 3, 32, 32), torch.tensor([0, 1])), batch_size=2)
+    result = AttackRunner(build_attack_config("pgd20", steps=2, eot_samples=0), device="cpu", max_eval_batches=1).run(
+        model, loader, metadata={"eot_required": True}
+    )
+    assert result["eot_disabled_for_demo"] is True
+
+
+def test_trap_a_logit_scaling_inflates_pgd_ce_robust_acc() -> None:
+    import torch
+
+    from src.attacks.factory import AttackFactory, build_attack_config
+    from src.models.factory import build_model
+
+    torch.manual_seed(0)
+    base_model = build_model("smallcnn", normalize=True)
+    wrapped_model = build_model("smallcnn", normalize=True, wrappers=[{"kind": "logit_scale", "scale": 50.0}])
+    wrapped_model.backbone.load_state_dict(base_model.state_dict())
+
+    images = torch.rand(32, 3, 32, 32)
+    base_model.eval()
+    with torch.no_grad():
+        labels = base_model(images).argmax(dim=1)
+    attack = AttackFactory.create(build_attack_config("pgd20", steps=10))
+
+    def _robust_acc(model, images, labels):
+        model.eval()
+        adv = attack(model, images, labels)
+        with torch.no_grad():
+            preds = model(adv).argmax(dim=1)
+        return float((preds == labels).float().mean().item())
+
+    base_acc = _robust_acc(base_model, images, labels)
+    wrapped_acc = _robust_acc(wrapped_model, images, labels)
+    assert wrapped_acc - base_acc > 0.05, (
+        f"Trap-A did not inflate PGD-CE robust acc as expected: base={base_acc:.4f}, wrapped={wrapped_acc:.4f}"
+    )
