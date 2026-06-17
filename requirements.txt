@@ -9,4 +9,6 @@ pytest>=8.0
 
 # Optional for Subagent B attack/evaluation modules:
 torchattacks>=3.5.1
-autoattack
+# AutoAttack is not reliably published on PyPI/mirrors.
+# Install it separately when full/subset AutoAttack evaluation is needed:
+# python -m pip install git+https://github.com/fra31/auto-attack.git
