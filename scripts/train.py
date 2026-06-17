@@ -38,6 +38,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-name", default=None)
     parser.add_argument("--max-wall-seconds", type=int, default=0)
     parser.add_argument("--experiment-group", default="")
+    parser.add_argument("--progress-log-every", type=int, default=1)
+    parser.add_argument("--no-progress", action="store_true")
     return parser.parse_args()
 
 
@@ -57,6 +59,18 @@ def main() -> None:
     if Path(defense_config_path).exists():
         defense_cfg = load_yaml(defense_config_path).get("training", {})
     device = torch.device(args.device if args.device == "cuda" and torch.cuda.is_available() else "cpu")
+    show_progress = not args.no_progress
+    if show_progress:
+        print(
+            "[setup] "
+            f"model={args.model} defense={args.defense} dataset={args.dataset} mode={args.mode} "
+            f"epochs={args.epochs} batch_size={args.batch_size} device={device} amp={args.amp and device.type == 'cuda'}"
+        )
+        print(
+            "[setup] "
+            f"train_subset_size={args.train_subset_size or 'full'} val_subset_size={args.val_subset_size or 'full'} "
+            f"max_train_batches={args.max_train_batches or 'all'} max_eval_batches={args.max_eval_batches or 'all'}"
+        )
     train_loader, val_loader, _ = build_cifar10_loaders(
         root=ROOT / args.data_root,
         batch_size=args.batch_size,
@@ -97,6 +111,8 @@ def main() -> None:
         co_check_enabled=bool(defense_cfg.get("co_check", {}).get("enabled", False)),
         co_check_every=int(defense_cfg.get("co_check", {}).get("every", 1)),
         co_threshold=float(defense_cfg.get("co_check", {}).get("threshold", 0.15)),
+        show_progress=show_progress,
+        progress_log_every=args.progress_log_every,
     )
     metrics = Trainer(model, train_loader, val_loader, device, config).train()
     print(metrics)

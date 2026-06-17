@@ -5,6 +5,7 @@ import random
 import time
 import uuid
 from dataclasses import dataclass
+from itertools import islice
 from pathlib import Path
 from typing import Any
 
@@ -20,7 +21,7 @@ from src.attacks.factory import build_attack_config, AttackFactory
 from src.evaluation.metrics import accuracy_from_logits
 from src.utils.checkpoint import save_checkpoint
 from src.utils.io import ensure_dir, save_json, write_csv
-from src.utils.timer import gpu_hours_from_seconds
+from src.utils.timer import format_seconds, gpu_hours_from_seconds
 
 
 @dataclass
@@ -56,6 +57,8 @@ class TrainConfig:
     experiment_group: str = ""
     dataset_name: str = "cifar10"
     mode: str = "real"
+    show_progress: bool = True
+    progress_log_every: int = 1
 
 
 class Trainer:
@@ -72,6 +75,31 @@ class Trainer:
         self.run_dir = ensure_dir(Path(config.output_dir) / self.run_name)
         self.session_id = config.session_id or uuid.uuid4().hex[:12]
         self._train_start_time = 0.0
+
+    @staticmethod
+    def _loader_total(loader, max_batches: int = 0) -> int | None:
+        try:
+            total = len(loader)
+        except TypeError:
+            return max_batches or None
+        return min(total, max_batches) if max_batches else total
+
+    @staticmethod
+    def _limited_loader(loader, max_batches: int = 0):
+        return islice(loader, max_batches) if max_batches else loader
+
+    @staticmethod
+    def _fmt(value: Any) -> str:
+        if value is None or value == "":
+            return "n/a"
+        try:
+            return f"{float(value):.4f}"
+        except (TypeError, ValueError):
+            return str(value)
+
+    def _log(self, message: str) -> None:
+        if self.config.show_progress:
+            tqdm.write(message)
 
     def _wall_clock_expired(self) -> bool:
         return bool(
@@ -147,11 +175,17 @@ class Trainer:
         total_acc = 0.0
         mix = self._mix_for_epoch(epoch_zero_based)
         attack_counts = {key: 0 for key in mix}
-        progress = tqdm(self.train_loader, desc=f"train/{self.config.defense}", leave=False)
+        progress = tqdm(
+            self._limited_loader(self.train_loader, self.config.max_train_batches),
+            total=self._loader_total(self.train_loader, self.config.max_train_batches),
+            desc=f"epoch {epoch_zero_based + 1}/{self.config.epochs} train/{self.config.defense}",
+            leave=False,
+            dynamic_ncols=True,
+            unit="batch",
+            disable=not self.config.show_progress,
+        )
 
         for batch_idx, (images, labels) in enumerate(progress):
-            if self.config.max_train_batches and batch_idx >= self.config.max_train_batches:
-                break
             images = images.to(self.device, non_blocking=True)
             labels = labels.to(self.device, non_blocking=True)
             attack_name = self._choose_attack(mix)
@@ -173,7 +207,11 @@ class Trainer:
             total += batch_size
             total_loss += loss.item() * batch_size
             total_acc += accuracy_from_logits(logits.detach(), labels) * batch_size
-            progress.set_postfix(loss=f"{total_loss / max(1, total):.4f}", acc=f"{total_acc / max(1, total):.4f}")
+            progress.set_postfix(
+                loss=f"{total_loss / max(1, total):.4f}",
+                acc=f"{total_acc / max(1, total):.4f}",
+                attack=attack_name,
+            )
             if self._wall_clock_expired():
                 break
 
@@ -185,14 +223,24 @@ class Trainer:
         }
 
     @torch.no_grad()
-    def evaluate_clean(self) -> dict[str, float]:
+    def evaluate_clean(self, epoch_zero_based: int | None = None) -> dict[str, float]:
         self.model.eval()
         total = 0
         total_loss = 0.0
         total_acc = 0.0
-        for batch_idx, (images, labels) in enumerate(tqdm(self.val_loader, desc="val/clean", leave=False)):
-            if self.config.max_eval_batches and batch_idx >= self.config.max_eval_batches:
-                break
+        desc = "val/clean"
+        if epoch_zero_based is not None:
+            desc = f"epoch {epoch_zero_based + 1}/{self.config.epochs} {desc}"
+        progress = tqdm(
+            self._limited_loader(self.val_loader, self.config.max_eval_batches),
+            total=self._loader_total(self.val_loader, self.config.max_eval_batches),
+            desc=desc,
+            leave=False,
+            dynamic_ncols=True,
+            unit="batch",
+            disable=not self.config.show_progress,
+        )
+        for images, labels in progress:
             images = images.to(self.device, non_blocking=True)
             labels = labels.to(self.device, non_blocking=True)
             logits = self.model(images)
@@ -201,6 +249,7 @@ class Trainer:
             total += batch_size
             total_loss += loss.item() * batch_size
             total_acc += accuracy_from_logits(logits, labels) * batch_size
+            progress.set_postfix(loss=f"{total_loss / max(1, total):.4f}", acc=f"{total_acc / max(1, total):.4f}")
         return {"val_loss": total_loss / max(1, total), "val_acc": total_acc / max(1, total)}
 
     def _resolved_best_criterion(self) -> str:
@@ -208,7 +257,7 @@ class Trainer:
             return self.config.best_criterion
         return "clean_val" if self.config.defense.lower() == "standard" else "robust_val"
 
-    def evaluate_robust(self) -> dict[str, float]:
+    def evaluate_robust(self, epoch_zero_based: int | None = None) -> dict[str, float]:
         attack = AttackFactory.create(
             build_attack_config(
                 "pgd20",
@@ -221,9 +270,19 @@ class Trainer:
         self.model.eval()
         total = 0
         total_acc = 0.0
-        for batch_idx, (images, labels) in enumerate(tqdm(self.val_loader, desc="val/pgd7", leave=False)):
-            if self.config.max_eval_batches and batch_idx >= self.config.max_eval_batches:
-                break
+        desc = "val/pgd7"
+        if epoch_zero_based is not None:
+            desc = f"epoch {epoch_zero_based + 1}/{self.config.epochs} {desc}"
+        progress = tqdm(
+            self._limited_loader(self.val_loader, self.config.max_eval_batches),
+            total=self._loader_total(self.val_loader, self.config.max_eval_batches),
+            desc=desc,
+            leave=False,
+            dynamic_ncols=True,
+            unit="batch",
+            disable=not self.config.show_progress,
+        )
+        for images, labels in progress:
             if self.config.robust_val_subset_size and total >= self.config.robust_val_subset_size:
                 break
             if self.config.robust_val_subset_size:
@@ -238,6 +297,7 @@ class Trainer:
             batch_size = labels.size(0)
             total += batch_size
             total_acc += accuracy_from_logits(logits, labels) * batch_size
+            progress.set_postfix(acc=f"{total_acc / max(1, total):.4f}", steps=self.config.robust_val_steps)
         return {"pgd7_val_acc": total_acc / max(1, total)}
 
     def train(self) -> dict[str, Any]:
@@ -255,16 +315,33 @@ class Trainer:
         best_criterion = self._resolved_best_criterion()
         best_metric = "pgd7_val_acc" if best_criterion == "robust_val" else "val_acc"
         best_path = self.run_dir / "best.pt"
-        for epoch in range(self.config.epochs):
+        self._log(
+            "[train] "
+            f"run={self.run_name} model={self.config.model_name} defense={self.config.defense} "
+            f"dataset={self.config.dataset_name} mode={self.config.mode} device={self.device} "
+            f"epochs={self.config.epochs} batch_size={self.config.batch_size or 'loader'} "
+            f"amp={bool(self.config.amp and self.device.type == 'cuda')} output={self.run_dir}"
+        )
+        if self.config.max_wall_seconds:
+            self._log(f"[train] wall-clock budget={format_seconds(self.config.max_wall_seconds)}")
+        epoch_progress = tqdm(
+            range(self.config.epochs),
+            desc=f"epochs/{self.run_name}",
+            total=self.config.epochs,
+            unit="epoch",
+            dynamic_ncols=True,
+            disable=not self.config.show_progress,
+        )
+        for epoch in epoch_progress:
             train_stats = self.train_one_epoch(epoch)
-            val_stats = self.evaluate_clean()
+            val_stats = self.evaluate_clean(epoch)
             robust_stats: dict[str, float] = {}
             if best_criterion == "robust_val" and (epoch + 1) % max(1, self.config.eval_every) == 0:
-                robust_stats = self.evaluate_robust()
+                robust_stats = self.evaluate_robust(epoch)
             if self.config.co_check_enabled and (epoch + 1) % max(1, self.config.co_check_every) == 0:
                 co_value = robust_stats.get("pgd7_val_acc")
                 if co_value is None:
-                    co_value = self.evaluate_robust()["pgd7_val_acc"]
+                    co_value = self.evaluate_robust(epoch)["pgd7_val_acc"]
                 co_pgd7_history.append(co_value)
                 if len(co_pgd7_history) >= 2 and co_pgd7_history[-2] - co_pgd7_history[-1] > self.config.co_threshold:
                     co_detected = True
@@ -299,15 +376,38 @@ class Trainer:
                 best_clean_epoch = epoch + 1
                 save_checkpoint(self.run_dir / "best_clean.pt", checkpoint)
             current_metric = robust_stats.get(best_metric) if best_criterion == "robust_val" else val_stats["val_acc"]
+            best_updated = False
             if current_metric is not None and current_metric > best_metric_value:
                 best_metric_value = current_metric
                 best_epoch = epoch + 1
                 if best_criterion == "robust_val":
                     best_robust_acc = current_metric
                 save_checkpoint(best_path, checkpoint)
+                best_updated = True
+            epoch_progress.set_postfix(
+                train_acc=self._fmt(train_stats.get("train_acc")),
+                val_acc=self._fmt(val_stats.get("val_acc")),
+                best=self._fmt(best_metric_value if best_metric_value >= 0 else None),
+            )
+            if self.config.progress_log_every and (epoch + 1) % max(1, self.config.progress_log_every) == 0:
+                robust_part = ""
+                if robust_stats:
+                    robust_part = f" pgd7_val_acc={self._fmt(robust_stats.get('pgd7_val_acc'))}"
+                self._log(
+                    f"[epoch {epoch + 1:03d}/{self.config.epochs:03d}] "
+                    f"train_loss={self._fmt(train_stats.get('train_loss'))} "
+                    f"train_acc={self._fmt(train_stats.get('train_acc'))} "
+                    f"val_loss={self._fmt(val_stats.get('val_loss'))} "
+                    f"val_acc={self._fmt(val_stats.get('val_acc'))}"
+                    f"{robust_part} best_{best_metric}={self._fmt(best_metric_value)} "
+                    f"best_epoch={best_epoch or 'n/a'} best_updated={best_updated} "
+                    f"elapsed={format_seconds(elapsed)}"
+                )
             if co_detected:
+                self._log(f"[train] catastrophic overfitting detected at epoch {co_epoch}; stopping early.")
                 break
             if self._wall_clock_expired():
+                self._log(f"[train] wall-clock budget reached after epoch {epoch + 1}; stopping.")
                 break
 
         elapsed = time.perf_counter() - start
@@ -350,4 +450,10 @@ class Trainer:
             "co_pgd7_history": co_pgd7_history,
         }
         save_json(self.run_dir / "metrics.json", metrics)
+        self._log(
+            "[train] finished "
+            f"run={self.run_name} best_{best_metric}={self._fmt(best_metric_value)} "
+            f"best_epoch={best_epoch or 'n/a'} elapsed={format_seconds(elapsed)} "
+            f"best={best_path} metrics={self.run_dir / 'metrics.json'}"
+        )
         return metrics
