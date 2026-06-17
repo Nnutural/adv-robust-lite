@@ -1,0 +1,17 @@
+experiment:
+  name: g1_structure_smoke
+  mode: smoke
+  models: [smallcnn, resnet18, mobilenetv2]
+  defense: standard
+  attacks: [fgsm, pgd20, apgd_ce, apgd_dlr]
+dataset:
+  name: fake_cifar10
+  mode: smoke
+  train_subset_size: 128
+  val_subset_size: 32
+  eval_subset_size: 32
+training:
+  epochs: 1
+  max_train_batches: 2
+  max_eval_batches: 1
+

@@ -1,0 +1,4 @@
+experiment_group,defense,epoch_budget,gpu_hour_budget,gpu_name,batch_size,amp,session_id,max_wall_seconds,equal_budget_invalid,clean_acc,r_lite,clean_drop,robust_gain,gain_per_gpu_hour
+,,,0.0,,128,,,,False,0.25,,-0.010000000000000009,,0.0
+,standard,,0.0002777778,,,,,,False,0.24,0.09,0.0,0.0,0.0
+,standard,,0.0,,8,,,,False,0.24,,0.0,,0.0

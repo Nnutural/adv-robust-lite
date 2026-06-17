@@ -1,0 +1,13 @@
+experiment:
+  name: g3_eval_protocol_smoke
+  mode: smoke
+  protocols: [pgd_only, pgd_apgd_ce, aalite, autoattack_subset]
+dataset:
+  name: fake_cifar10
+  mode: smoke
+evaluation:
+  subset_size: 32
+  aalite_subset_size: 8
+  square_subset_size: 8
+  max_eval_batches: 1
+

@@ -1,0 +1,13 @@
+experiment:
+  name: g5_budget_smoke
+  mode: smoke
+  compare: [equal_epoch, equal_gpu_hours]
+dataset:
+  name: fake_cifar10
+  mode: smoke
+training:
+  epochs: 1
+  max_wall_seconds: 0
+  max_train_batches: 2
+  max_eval_batches: 1
+

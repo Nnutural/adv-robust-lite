@@ -1,0 +1,37 @@
+{
+  "exp_id": "c4_fgsm_at_smoke",
+  "model": "smallcnn",
+  "defense": "fgsm_at",
+  "seed": 0,
+  "clean_acc": 0.0625,
+  "best_clean_acc": 0.0625,
+  "best_clean_epoch": 1,
+  "best_criterion": "robust_val",
+  "best_metric": "pgd7_val_acc",
+  "best_metric_value": 0.0625,
+  "best_epoch": 1,
+  "best_robust_acc": 0.0625,
+  "train_time_sec": 12.0107018,
+  "train_time_gpu_hours": 0.0033363060555555556,
+  "params": 558538,
+  "checkpoint_path": "D:\\Nnutural\\Desktop\\BUPT_6\\深度学习与安全\\期末大作业\\adv-robust-lite\\checkpoints\\c4_fgsm_at_smoke\\best.pt",
+  "device": "cpu",
+  "max_train_batches": 1,
+  "max_eval_batches": 1,
+  "train_attack_config": {
+    "name": "fgsm_rs",
+    "eps": 0.031372549,
+    "alpha": 0.039215686,
+    "random_start": true
+  },
+  "eval_attacks": [
+    "pgd20",
+    "apgd_ce_50",
+    "apgd_dlr_50"
+  ],
+  "co_detected": false,
+  "co_epoch": null,
+  "co_pgd7_history": [
+    0.0625
+  ]
+}

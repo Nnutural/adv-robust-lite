@@ -1,0 +1,2 @@
+epoch,defense,lr,wall_time_sec,train_loss,train_acc,attack_mix,attack_counts,val_loss,val_acc,pgd7_val_acc
+1,fgsm_at,0.0,11.9708009,2.4513895511627197,0.03125,"{""fgsm_rs"": 1.0}","{""fgsm_rs"": 1}",2.3131327629089355,0.0625,0.0625

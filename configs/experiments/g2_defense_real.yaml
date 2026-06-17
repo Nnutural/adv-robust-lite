@@ -1,0 +1,17 @@
+experiment:
+  name: g2_defense_real
+  mode: real
+  models: [preact_resnet18]
+  defenses: [standard, fgsm_at, pgd_at, fixed_mixed_at]
+  attacks: [fgsm, pgd20, apgd_ce, apgd_dlr]
+dataset:
+  name: cifar10
+  mode: real
+  download: true
+training:
+  epochs: 80
+  batch_size: 128
+evaluation:
+  pgd20_subset_size: 0
+  aalite_subset: aalite_2k
+

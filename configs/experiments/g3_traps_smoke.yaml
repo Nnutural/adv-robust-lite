@@ -1,0 +1,13 @@
+experiment:
+  name: g3_traps_smoke
+  mode: smoke
+  dataset: fake_cifar10
+  objects:
+    - honest_standard
+    - trap_logit
+    - trap_random
+  evaluations:
+    - pgd_only
+    - aalite
+    - square
+  subset_size: 32

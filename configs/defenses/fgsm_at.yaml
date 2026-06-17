@@ -1,3 +1,19 @@
 training:
   defense: fgsm_at
   adv_ratio: 1.0
+  best_criterion: robust_val
+  eval_every: 1
+  robust_val:
+    steps: 7
+    subset_size: 512
+  train_attack:
+    name: fgsm_rs
+    eps: 0.031372549
+    alpha: 0.039215686
+    random_start: true
+  co_check:
+    enabled: true
+    every: 1
+    threshold: 0.15
+  eval:
+    attacks: [pgd20, apgd_ce_50, apgd_dlr_50]

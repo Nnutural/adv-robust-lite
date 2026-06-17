@@ -1,2 +1,5 @@
 training:
   defense: standard
+  best_criterion: clean_val
+  eval:
+    attacks: [pgd20, apgd_ce_50, apgd_dlr_50]

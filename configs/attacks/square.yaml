@@ -1,0 +1,5 @@
+attack:
+  name: square
+  eps: 0.031372549
+  n_queries: 2000
+  subset_size: 1000

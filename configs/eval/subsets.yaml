@@ -1,0 +1,10 @@
+subsets:
+  aalite_2k:
+    size: 2000
+    seed: 0
+  square_1k:
+    size: 1000
+    seed: 0
+  full_test:
+    size: 0
+    seed: 0

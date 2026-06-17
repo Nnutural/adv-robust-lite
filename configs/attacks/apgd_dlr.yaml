@@ -1,6 +1,6 @@
 attack:
   name: apgd_dlr
   eps: 0.031372549
-  steps: 20
+  steps: 50
   restarts: 1
   loss: dlr

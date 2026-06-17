@@ -1,0 +1,6 @@
+defense:
+  name: standard
+eval:
+  model_wrappers:
+    - kind: logit_scale
+      scale: 50.0

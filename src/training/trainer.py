@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import random
 import time
+import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -40,6 +41,21 @@ class TrainConfig:
     apgd_every_n_batches: int = 5
     max_train_batches: int = 0
     max_eval_batches: int = 0
+    best_criterion: str = "auto"
+    robust_val_steps: int = 7
+    robust_val_subset_size: int = 0
+    eval_every: int = 1
+    train_attack: dict[str, Any] | None = None
+    eval_attacks: list[str] | None = None
+    co_check_enabled: bool = False
+    co_check_every: int = 1
+    co_threshold: float = 0.15
+    batch_size: int = 0
+    max_wall_seconds: int = 0
+    session_id: str = ""
+    experiment_group: str = ""
+    dataset_name: str = "cifar10"
+    mode: str = "real"
 
 
 class Trainer:
@@ -54,18 +70,39 @@ class Trainer:
         self.scaler = GradScaler(enabled=config.amp and self.device.type == "cuda")
         self.run_name = config.run_name or f"{config.model_name}_{config.defense}_seed{config.seed}"
         self.run_dir = ensure_dir(Path(config.output_dir) / self.run_name)
+        self.session_id = config.session_id or uuid.uuid4().hex[:12]
+        self._train_start_time = 0.0
+
+    def _wall_clock_expired(self) -> bool:
+        return bool(
+            self.config.max_wall_seconds
+            and self._train_start_time
+            and time.perf_counter() - self._train_start_time >= self.config.max_wall_seconds
+        )
 
     def _attack_batch(self, images: torch.Tensor, labels: torch.Tensor, attack_name: str) -> torch.Tensor:
         if attack_name == "clean":
             return images
+        train_attack = dict(self.config.train_attack or {})
+        configured_name = str(train_attack.get("name", "")).lower()
+        if self.config.defense.lower() in {"fgsm_at", "pgd_at"} and configured_name:
+            attack_name = configured_name.replace("-", "_")
         if attack_name == "fgsm":
-            config = build_attack_config("fgsm", eps=self.config.eps)
+            config = build_attack_config("fgsm", eps=float(train_attack.get("eps", self.config.eps)))
+        elif attack_name == "fgsm_rs":
+            config = build_attack_config(
+                "fgsm_rs",
+                eps=float(train_attack.get("eps", self.config.eps)),
+                alpha=float(train_attack.get("alpha", 10 / 255)),
+                random_start=bool(train_attack.get("random_start", True)),
+            )
         elif attack_name == "pgd":
             config = build_attack_config(
                 "pgd",
-                eps=self.config.eps,
-                steps=self.config.pgd_steps,
-                alpha=self.config.pgd_alpha,
+                eps=float(train_attack.get("eps", self.config.eps)),
+                steps=int(train_attack.get("steps", self.config.pgd_steps)),
+                alpha=float(train_attack.get("alpha", self.config.pgd_alpha)),
+                random_start=bool(train_attack.get("random_start", True)),
             )
         elif attack_name == "apgd_ce":
             config = build_attack_config("apgd_ce", eps=self.config.eps, steps=max(5, self.config.pgd_steps))
@@ -88,7 +125,7 @@ class Trainer:
         if defense == "standard":
             return {"clean": 1.0}
         if defense == "fgsm_at":
-            return {"fgsm": 1.0}
+            return {"fgsm_rs": 1.0}
         if defense == "pgd_at":
             return {"pgd": 1.0}
         if defense == "fixed_mixed_at":
@@ -137,6 +174,8 @@ class Trainer:
             total_loss += loss.item() * batch_size
             total_acc += accuracy_from_logits(logits.detach(), labels) * batch_size
             progress.set_postfix(loss=f"{total_loss / max(1, total):.4f}", acc=f"{total_acc / max(1, total):.4f}")
+            if self._wall_clock_expired():
+                break
 
         return {
             "train_loss": total_loss / max(1, total),
@@ -164,14 +203,72 @@ class Trainer:
             total_acc += accuracy_from_logits(logits, labels) * batch_size
         return {"val_loss": total_loss / max(1, total), "val_acc": total_acc / max(1, total)}
 
+    def _resolved_best_criterion(self) -> str:
+        if self.config.best_criterion != "auto":
+            return self.config.best_criterion
+        return "clean_val" if self.config.defense.lower() == "standard" else "robust_val"
+
+    def evaluate_robust(self) -> dict[str, float]:
+        attack = AttackFactory.create(
+            build_attack_config(
+                "pgd20",
+                eps=self.config.eps,
+                alpha=self.config.pgd_alpha,
+                steps=self.config.robust_val_steps,
+                random_start=True,
+            )
+        )
+        self.model.eval()
+        total = 0
+        total_acc = 0.0
+        for batch_idx, (images, labels) in enumerate(tqdm(self.val_loader, desc="val/pgd7", leave=False)):
+            if self.config.max_eval_batches and batch_idx >= self.config.max_eval_batches:
+                break
+            if self.config.robust_val_subset_size and total >= self.config.robust_val_subset_size:
+                break
+            if self.config.robust_val_subset_size:
+                remaining = self.config.robust_val_subset_size - total
+                images = images[:remaining]
+                labels = labels[:remaining]
+            images = images.to(self.device, non_blocking=True)
+            labels = labels.to(self.device, non_blocking=True)
+            adv_images = attack(self.model, images, labels)
+            with torch.no_grad():
+                logits = self.model(adv_images)
+            batch_size = labels.size(0)
+            total += batch_size
+            total_acc += accuracy_from_logits(logits, labels) * batch_size
+        return {"pgd7_val_acc": total_acc / max(1, total)}
+
     def train(self) -> dict[str, Any]:
         start = time.perf_counter()
+        self._train_start_time = start
         history: list[dict[str, Any]] = []
-        best_val_acc = -1.0
+        co_pgd7_history: list[float] = []
+        co_detected = False
+        co_epoch: int | None = None
+        best_clean_acc = -1.0
+        best_metric_value = -1.0
+        best_epoch = 0
+        best_clean_epoch = 0
+        best_robust_acc: float | None = None
+        best_criterion = self._resolved_best_criterion()
+        best_metric = "pgd7_val_acc" if best_criterion == "robust_val" else "val_acc"
         best_path = self.run_dir / "best.pt"
         for epoch in range(self.config.epochs):
             train_stats = self.train_one_epoch(epoch)
             val_stats = self.evaluate_clean()
+            robust_stats: dict[str, float] = {}
+            if best_criterion == "robust_val" and (epoch + 1) % max(1, self.config.eval_every) == 0:
+                robust_stats = self.evaluate_robust()
+            if self.config.co_check_enabled and (epoch + 1) % max(1, self.config.co_check_every) == 0:
+                co_value = robust_stats.get("pgd7_val_acc")
+                if co_value is None:
+                    co_value = self.evaluate_robust()["pgd7_val_acc"]
+                co_pgd7_history.append(co_value)
+                if len(co_pgd7_history) >= 2 and co_pgd7_history[-2] - co_pgd7_history[-1] > self.config.co_threshold:
+                    co_detected = True
+                    co_epoch = epoch + 1
             self.scheduler.step()
             elapsed = time.perf_counter() - start
             row = {
@@ -181,6 +278,7 @@ class Trainer:
                 "wall_time_sec": elapsed,
                 **train_stats,
                 **val_stats,
+                **robust_stats,
             }
             history.append(row)
             write_csv(self.run_dir / "train_log.csv", history)
@@ -196,18 +294,41 @@ class Trainer:
                 "history": history,
             }
             save_checkpoint(self.run_dir / "last.pt", checkpoint)
-            if val_stats["val_acc"] > best_val_acc:
-                best_val_acc = val_stats["val_acc"]
+            if val_stats["val_acc"] > best_clean_acc:
+                best_clean_acc = val_stats["val_acc"]
+                best_clean_epoch = epoch + 1
+                save_checkpoint(self.run_dir / "best_clean.pt", checkpoint)
+            current_metric = robust_stats.get(best_metric) if best_criterion == "robust_val" else val_stats["val_acc"]
+            if current_metric is not None and current_metric > best_metric_value:
+                best_metric_value = current_metric
+                best_epoch = epoch + 1
+                if best_criterion == "robust_val":
+                    best_robust_acc = current_metric
                 save_checkpoint(best_path, checkpoint)
+            if co_detected:
+                break
+            if self._wall_clock_expired():
+                break
 
         elapsed = time.perf_counter() - start
         device_count = torch.cuda.device_count() if self.device.type == "cuda" else 1
+        gpu_name = torch.cuda.get_device_name(0) if self.device.type == "cuda" else "cpu"
         metrics = {
             "exp_id": self.run_name,
             "model": self.config.model_name,
             "defense": self.config.defense,
+            "dataset": self.config.dataset_name,
+            "dataset_name": self.config.dataset_name,
+            "mode": self.config.mode,
             "seed": self.config.seed,
-            "clean_acc": best_val_acc,
+            "clean_acc": best_clean_acc,
+            "best_clean_acc": best_clean_acc,
+            "best_clean_epoch": best_clean_epoch,
+            "best_criterion": best_criterion,
+            "best_metric": best_metric,
+            "best_metric_value": best_metric_value,
+            "best_epoch": best_epoch,
+            "best_robust_acc": best_robust_acc,
             "train_time_sec": elapsed,
             "train_time_gpu_hours": gpu_hours_from_seconds(elapsed, device_count=device_count),
             "params": sum(parameter.numel() for parameter in self.model.parameters()),
@@ -215,8 +336,18 @@ class Trainer:
             "device": str(self.device),
             "max_train_batches": self.config.max_train_batches,
             "max_eval_batches": self.config.max_eval_batches,
+            "gpu_name": gpu_name,
+            "batch_size": self.config.batch_size,
+            "amp": bool(self.config.amp and self.device.type == "cuda"),
+            "session_id": self.session_id,
+            "max_wall_seconds": self.config.max_wall_seconds,
+            "wall_clock_stopped": self._wall_clock_expired(),
+            "experiment_group": self.config.experiment_group,
+            "train_attack_config": self.config.train_attack or {},
+            "eval_attacks": self.config.eval_attacks or [],
+            "co_detected": co_detected,
+            "co_epoch": co_epoch,
+            "co_pgd7_history": co_pgd7_history,
         }
-        if self.device.type == "cuda":
-            metrics["gpu_name"] = torch.cuda.get_device_name(0)
         save_json(self.run_dir / "metrics.json", metrics)
         return metrics

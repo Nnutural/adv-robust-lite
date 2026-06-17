@@ -30,6 +30,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--data-root", default="data/raw/cifar10")
+    parser.add_argument("--dataset", choices=["cifar10", "fake_cifar10"], default="cifar10")
+    parser.add_argument("--mode", choices=["real", "smoke"], default="real")
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--max-samples", type=int, default=0)
     parser.add_argument("--subset-size", type=int, default=0)
@@ -60,10 +62,12 @@ def main() -> None:
         download=args.download,
         subset_size=sample_limit,
         seed=args.seed,
+        dataset_name=args.dataset,
+        mode=args.mode,
     )
     run_name = Path(args.checkpoint).parent.name
-    output = Path(args.output) if args.output else ROOT / "results/raw/diagnostics" / f"{run_name}.json"
-    csv_output = ROOT / "results/tables/gradient_masking_diagnostics.csv"
+    output = Path(args.output) if args.output else ROOT / "results" / args.mode / "raw" / "diagnostics" / f"{run_name}.json"
+    csv_output = ROOT / "results" / args.mode / "tables" / "gradient_masking_diagnostics.csv"
     result = run_gradient_masking_diagnostics(
         model,
         loader,
@@ -75,6 +79,17 @@ def main() -> None:
         max_eval_batches=args.max_eval_batches,
         output_json=output,
         output_csv=csv_output,
+        metadata={
+            "exp_id": run_name,
+            "model": args.model,
+            "checkpoint": str(args.checkpoint),
+            "checkpoint_path": str(args.checkpoint),
+            "dataset": args.dataset,
+            "dataset_name": args.dataset,
+            "mode": args.mode,
+            "seed": args.seed,
+            "batch_size": args.batch_size,
+        },
     )
     print(result)
 

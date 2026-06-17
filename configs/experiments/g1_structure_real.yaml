@@ -1,0 +1,17 @@
+experiment:
+  name: g1_structure_real
+  mode: real
+  models: [smallcnn, resnet18, mobilenetv2]
+  defense: standard
+  attacks: [fgsm, pgd20, apgd_ce, apgd_dlr]
+dataset:
+  name: cifar10
+  mode: real
+  download: true
+training:
+  epochs: 80
+  batch_size: 128
+evaluation:
+  pgd20_subset_size: 0
+  aalite_subset: aalite_2k
+

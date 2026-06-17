@@ -22,6 +22,8 @@ class AttackConfig:
     restarts: int = 1
     random_start: bool = True
     loss: str = "ce"
+    eot_samples: int = 0
+    n_queries: int = 2000
 
 
 @contextmanager
@@ -73,6 +75,30 @@ def fgsm_attack(
     return adv.clamp(0.0, 1.0).detach()
 
 
+def fgsm_rs_attack(
+    model: nn.Module,
+    images: torch.Tensor,
+    labels: torch.Tensor,
+    eps: float = 8 / 255,
+    alpha: float = 10 / 255,
+    random_start: bool = True,
+    set_eval: bool = True,
+) -> torch.Tensor:
+    images = images.detach()
+    with temporary_eval(model, enabled=set_eval):
+        if random_start:
+            adv = (images + torch.empty_like(images).uniform_(-eps, eps)).clamp(0.0, 1.0)
+        else:
+            adv = images.clone()
+        adv = adv.detach().requires_grad_(True)
+        loss = F.cross_entropy(model(adv), labels)
+        grad = torch.autograd.grad(loss, adv, only_inputs=True)[0]
+        adv = adv + alpha * grad.sign()
+        delta = (adv - images).clamp(-eps, eps)
+        adv = (images + delta).clamp(0.0, 1.0)
+    return adv.detach()
+
+
 def pgd_attack(
     model: nn.Module,
     images: torch.Tensor,
@@ -84,6 +110,7 @@ def pgd_attack(
     random_start: bool = True,
     loss_name: str = "ce",
     set_eval: bool = True,
+    eot_samples: int = 0,
 ) -> torch.Tensor:
     if eps <= 0 or steps <= 0:
         return images.detach()
@@ -102,9 +129,14 @@ def pgd_attack(
 
             for _step in range(steps):
                 adv = adv.detach().requires_grad_(True)
-                logits = model(adv)
-                loss = _loss(logits, labels, loss_name)
-                grad = torch.autograd.grad(loss, adv, only_inputs=True)[0]
+                if eot_samples and eot_samples > 0:
+                    from src.attacks.eot import eot_grad
+
+                    grad = eot_grad(model, adv, labels, lambda logits, y: _loss(logits, y, loss_name), eot_samples)
+                else:
+                    logits = model(adv)
+                    loss = _loss(logits, labels, loss_name)
+                    grad = torch.autograd.grad(loss, adv, only_inputs=True)[0]
                 adv = adv + alpha * grad.sign()
                 delta = (adv - images).clamp(-eps, eps)
                 adv = (images + delta).clamp(0.0, 1.0)
@@ -156,6 +188,15 @@ class AttackFactory:
         name = config.name.lower().replace("-", "_")
         if name == "fgsm":
             return lambda model, x, y: fgsm_attack(model, x, y, eps=config.eps)
+        if name == "fgsm_rs":
+            return lambda model, x, y: fgsm_rs_attack(
+                model,
+                x,
+                y,
+                eps=config.eps,
+                alpha=config.alpha,
+                random_start=config.random_start,
+            )
         if name in {"pgd", "pgd20"}:
             return lambda model, x, y: pgd_attack(
                 model,
@@ -167,6 +208,7 @@ class AttackFactory:
                 restarts=config.restarts,
                 random_start=config.random_start,
                 loss_name="ce",
+                eot_samples=config.eot_samples,
             )
         if name in {"apgd_ce", "apgd_dlr"}:
             loss = "dlr" if name.endswith("dlr") else "ce"
@@ -176,6 +218,13 @@ class AttackFactory:
                 return _torchattacks_apgd(model, x, y, apgd_config)
 
             return _run
+        if name == "square":
+            def _run_square(model: nn.Module, x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+                from src.attacks.square import square_attack
+
+                return square_attack(model, x, y, config)
+
+            return _run_square
         raise ValueError(f"Unsupported attack: {config.name}")
 
 
@@ -183,10 +232,12 @@ def build_attack_config(name: str, eps: float = 8 / 255, steps: int | None = Non
     normalized = name.lower().replace("-", "_")
     defaults = {
         "fgsm": {"steps": 1, "alpha": eps},
+        "fgsm_rs": {"steps": 1, "alpha": 10 / 255, "random_start": True},
         "pgd": {"steps": 20, "alpha": 2 / 255},
         "pgd20": {"steps": 20, "alpha": 2 / 255},
-        "apgd_ce": {"steps": 20, "alpha": 2 / 255, "loss": "ce"},
-        "apgd_dlr": {"steps": 20, "alpha": 2 / 255, "loss": "dlr"},
+        "apgd_ce": {"steps": 50, "alpha": 2 / 255, "loss": "ce"},
+        "apgd_dlr": {"steps": 50, "alpha": 2 / 255, "loss": "dlr"},
+        "square": {"steps": 1, "alpha": 2 / 255, "loss": "ce", "n_queries": 2000},
     }
     if normalized not in defaults:
         raise ValueError(f"Unsupported attack: {name}")

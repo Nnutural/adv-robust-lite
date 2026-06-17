@@ -17,6 +17,7 @@ def run_autoattack_subset(
     r_lite_subset: float | None = None,
     max_eval_batches: int = 0,
     output_json: str | Path | None = None,
+    metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     device = torch.device(device)
     model.to(device)
@@ -25,6 +26,7 @@ def run_autoattack_subset(
         from autoattack import AutoAttack
     except ModuleNotFoundError as exc:
         payload = {
+            **(metadata or {}),
             "status": "skipped",
             "error": f"autoattack package is not installed; skipped official AutoAttack subset: {exc}",
             "eps": eps,
@@ -48,6 +50,7 @@ def run_autoattack_subset(
         ys.append(labels)
     if not xs:
         payload = {
+            **(metadata or {}),
             "status": "failed",
             "error": "AutoAttack subset dataloader produced no samples.",
             "eps": eps,
@@ -68,6 +71,7 @@ def run_autoattack_subset(
         x_adv = adversary.run_standard_evaluation(x_test, y_test, bs=dataloader.batch_size or 128)
     except Exception as exc:
         payload = {
+            **(metadata or {}),
             "status": "failed",
             "error": f"official AutoAttack subset failed: {exc}",
             "eps": eps,
@@ -85,6 +89,7 @@ def run_autoattack_subset(
         preds = model(x_adv).argmax(dim=1)
         aa_subset_acc = (preds == y_test).float().mean().item()
     payload = {
+        **(metadata or {}),
         "status": "ok",
         "eps": eps,
         "r_lite_subset": r_lite_subset,

@@ -1,0 +1,14 @@
+experiment:
+  name: g4_mixed_ablation_real
+  mode: real
+  defenses: [fgsm_at, pgd_at, fixed_mixed_at]
+dataset:
+  name: cifar10
+  mode: real
+  download: true
+training:
+  epochs: 80
+  batch_size: 128
+evaluation:
+  aalite_subset: aalite_2k
+

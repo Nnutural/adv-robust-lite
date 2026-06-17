@@ -23,6 +23,7 @@ def run_aalite(
     max_eval_batches: int = 0,
     output_json: str | Path | None = None,
     metadata: Mapping[str, Any] | None = None,
+    eot_samples: int = 0,
 ) -> dict[str, Any]:
     attack_results: dict[str, Any] = {}
     accs: dict[str, float] = {}
@@ -30,7 +31,7 @@ def run_aalite(
     errors: dict[str, str] = {}
 
     for attack_name in AA_LITE_ATTACKS:
-        config = build_attack_config(attack_name, eps=eps, steps=steps)
+        config = build_attack_config(attack_name, eps=eps, steps=steps, eot_samples=eot_samples)
         result = AttackRunner(
             config,
             device=device,
@@ -55,13 +56,26 @@ def run_aalite(
         "max_eval_batches": max_eval_batches,
         "attacks": attack_results,
         "status": "ok" if not errors else ("partial" if successful else "failed"),
+        "r_lite_scope": "whitebox",
+        "blackbox_handled_separately": True,
+        "blackbox_notes": "Square subset and black-box sanity diagnostics are evaluated separately.",
+        "eot_samples": eot_samples,
+        "eot_disabled_for_demo": eot_samples == 0,
     }
     if metadata:
         payload.update(dict(metadata))
     if clean_accs and "clean_acc" not in payload:
         payload["clean_acc"] = clean_accs[0]
     payload.update(accs)
-    if {"pgd20_acc", "apgd_ce_acc", "apgd_dlr_acc"}.issubset(accs):
+    subset_ids = {result.get("eval_subset_id") for result in attack_results.values() if result.get("eval_subset_id")}
+    if metadata and metadata.get("eval_subset_id"):
+        payload["eval_subset_id"] = metadata["eval_subset_id"]
+    if len(subset_ids) > 1:
+        payload["r_lite"] = None
+        payload["gap_over"] = None
+        payload["gap_over_error"] = "subset_id_mismatch"
+        payload["errors"] = {**errors, "gap_over": "subset_id_mismatch"}
+    elif {"pgd20_acc", "apgd_ce_acc", "apgd_dlr_acc"}.issubset(accs):
         value = r_lite(accs["pgd20_acc"], accs["apgd_ce_acc"], accs["apgd_dlr_acc"])
         payload["r_lite"] = value
         payload["gap_over"] = gap_over(accs["pgd20_acc"], value)

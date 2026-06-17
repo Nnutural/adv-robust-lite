@@ -124,6 +124,8 @@ class AttackRunner:
                 "error": None,
                 "max_samples": self.max_samples,
                 "max_eval_batches": self.max_eval_batches,
+                "eot_samples": self.attack_config.eot_samples,
+                "eot_disabled_for_demo": self.attack_config.eot_samples == 0,
             }
         except AttackUnavailableError as exc:
             result = {
@@ -137,6 +139,8 @@ class AttackRunner:
                 "error": str(exc),
                 "max_samples": self.max_samples,
                 "max_eval_batches": self.max_eval_batches,
+                "eot_samples": self.attack_config.eot_samples,
+                "eot_disabled_for_demo": self.attack_config.eot_samples == 0,
             }
         except Exception as exc:
             result = {
@@ -150,10 +154,14 @@ class AttackRunner:
                 "error": str(exc),
                 "max_samples": self.max_samples,
                 "max_eval_batches": self.max_eval_batches,
+                "eot_samples": self.attack_config.eot_samples,
+                "eot_disabled_for_demo": self.attack_config.eot_samples == 0,
             }
 
         if metadata:
             result.update(dict(metadata))
+        if "eval_subset_id" not in result:
+            result["eval_subset_id"] = None
 
         if output_json:
             if sample_payload:

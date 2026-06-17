@@ -20,6 +20,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--data-root", default="data/raw/cifar10")
+    parser.add_argument("--dataset", choices=["cifar10", "fake_cifar10"], default="cifar10")
+    parser.add_argument("--mode", choices=["real", "smoke"], default="real")
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--max-eval-batches", type=int, default=0)
     parser.add_argument("--output", default=None)
@@ -49,9 +51,11 @@ def main() -> None:
         subset_size=args.subset_size,
         seed=args.seed,
         subset_indices_path=subset_path,
+        dataset_name=args.dataset,
+        mode=args.mode,
     )
     run_name = Path(args.checkpoint).parent.name
-    output = args.output or ROOT / "results/raw/autoattack_subset" / f"{run_name}.json"
+    output = args.output or ROOT / "results" / args.mode / "raw" / "autoattack_subset" / f"{run_name}.json"
     result = run_autoattack_subset(
         model,
         loader,
@@ -59,6 +63,17 @@ def main() -> None:
         eps=args.eps,
         max_eval_batches=args.max_eval_batches,
         output_json=output,
+        metadata={
+            "exp_id": run_name,
+            "model": args.model,
+            "checkpoint": str(args.checkpoint),
+            "checkpoint_path": str(args.checkpoint),
+            "dataset": args.dataset,
+            "dataset_name": args.dataset,
+            "mode": args.mode,
+            "seed": args.seed,
+            "batch_size": args.batch_size,
+        },
     )
     print(result)
 

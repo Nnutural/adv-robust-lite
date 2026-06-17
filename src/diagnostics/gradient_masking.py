@@ -43,6 +43,7 @@ def run_gradient_masking_diagnostics(
     max_eval_batches: int = 0,
     output_json: str | Path | None = None,
     output_csv: str | Path | None = None,
+    metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     eps_rows = run_epsilon_scan(
         model,
@@ -76,6 +77,7 @@ def run_gradient_masking_diagnostics(
     step_pass = is_monotone_nonincreasing([row.get("robust_acc") for row in step_rows])
     restart_pass = restart_stable([row.get("robust_acc") for row in restart_rows])
     payload = {
+        **(metadata or {}),
         "eps_scan": eps_rows,
         "step_scan": step_rows,
         "restart_scan": restart_rows,
@@ -96,6 +98,8 @@ def run_gradient_masking_diagnostics(
             [
                 {
                     "exp_id": Path(output_json).stem if output_json else "diagnostics",
+                    "dataset_name": (metadata or {}).get("dataset_name", ""),
+                    "mode": (metadata or {}).get("mode", ""),
                     "eps_monotone": eps_pass,
                     "step_monotone": step_pass,
                     "restart_stable": restart_pass,

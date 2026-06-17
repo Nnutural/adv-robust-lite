@@ -1,0 +1,14 @@
+experiment:
+  name: g3_traps_real
+  mode: real
+  dataset: cifar10
+  objects:
+    - honest_standard
+    - trap_logit
+    - trap_random
+  evaluations:
+    - pgd_only
+    - aalite
+    - square
+  aalite_subset_size: 2000
+  square_subset_size: 1000

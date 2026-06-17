@@ -1,0 +1,9 @@
+defense:
+  name: standard
+eval:
+  eot_samples: 10
+  model_wrappers:
+    - kind: input_random
+      kind_random: pad_resize
+      pad: 4
+      out_size: 32

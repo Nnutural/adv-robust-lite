@@ -16,6 +16,7 @@ def test_standard_training_one_batch(tmp_path) -> None:
         batch_size=8,
         num_workers=0,
         seed=0,
+        mode="smoke",
         aa_subset_size=16,
         vis_subset_size=8,
     )

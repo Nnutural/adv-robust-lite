@@ -19,6 +19,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--data-root", default="data/raw/cifar10")
     parser.add_argument("--dataset", choices=["cifar10", "fake_cifar10"], default="cifar10")
+    parser.add_argument("--mode", choices=["real", "smoke"], default="real")
     parser.add_argument("--download", action="store_true")
     parser.add_argument("--max-samples", type=int, default=0)
     parser.add_argument("--subset-size", type=int, default=0)
@@ -50,6 +51,7 @@ def main() -> None:
         subset_size=sample_limit,
         seed=args.seed,
         dataset_name=args.dataset,
+        mode=args.mode,
     )
     result = evaluate_clean(model, loader, device=device, max_samples=sample_limit, max_eval_batches=args.max_eval_batches)
     run_name = Path(args.checkpoint).parent.name
@@ -63,8 +65,10 @@ def main() -> None:
     result["num_workers"] = args.num_workers
     result["device"] = str(device)
     result["dataset"] = args.dataset
+    result["dataset_name"] = args.dataset
+    result["mode"] = args.mode
     result["seed"] = args.seed
-    output = args.output or ROOT / "results/raw/clean" / f"{run_name}.json"
+    output = args.output or ROOT / "results" / args.mode / "raw" / "clean" / f"{run_name}.json"
     save_json(output, result)
     print(result)
 

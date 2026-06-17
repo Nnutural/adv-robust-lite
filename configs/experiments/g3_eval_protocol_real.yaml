@@ -1,0 +1,13 @@
+experiment:
+  name: g3_eval_protocol_real
+  mode: real
+  protocols: [pgd_only, pgd_apgd_ce, aalite, autoattack_subset]
+dataset:
+  name: cifar10
+  mode: real
+  download: true
+evaluation:
+  pgd20_subset_size: 0
+  aalite_subset: aalite_2k
+  autoattack_subset_size: 1000
+

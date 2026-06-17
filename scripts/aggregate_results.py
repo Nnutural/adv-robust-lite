@@ -28,6 +28,18 @@ def _load_json_files(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _reject_smoke_or_fake(rows: list[dict[str, Any]]) -> None:
+    offenders: list[str] = []
+    for row in rows:
+        dataset_name = row.get("dataset_name", row.get("dataset", ""))
+        mode = row.get("mode", "")
+        if mode == "smoke" or dataset_name == "fake_cifar10":
+            offenders.append(row.get("_source", "<unknown>"))
+    if offenders:
+        joined = "\n".join(offenders[:20])
+        raise RuntimeError(f"real aggregation refuses smoke/fake results:\n{joined}")
+
+
 def _flatten_aalite(rows: list[dict[str, Any]]) -> pd.DataFrame:
     records = []
     for payload in rows:
@@ -38,6 +50,8 @@ def _flatten_aalite(rows: list[dict[str, Any]]) -> pd.DataFrame:
             "model": payload.get("model", ""),
             "defense": payload.get("defense", ""),
             "seed": payload.get("seed", ""),
+            "dataset_name": payload.get("dataset_name", payload.get("dataset", "")),
+            "mode": payload.get("mode", ""),
             "clean_acc": payload.get("clean_acc", ""),
             "fgsm_acc": payload.get("fgsm_acc", ""),
             "pgd20_acc": payload.get("pgd20_acc", ""),
@@ -54,6 +68,14 @@ def _flatten_aalite(rows: list[dict[str, Any]]) -> pd.DataFrame:
             "max_eval_batches": payload.get("max_eval_batches", ""),
             "batch_size": payload.get("batch_size", ""),
             "num_workers": payload.get("num_workers", ""),
+            "eval_subset_id": payload.get("eval_subset_id", ""),
+            "gap_over_error": payload.get("gap_over_error", ""),
+            "r_lite_scope": payload.get("r_lite_scope", ""),
+            "gpu_name": payload.get("gpu_name", ""),
+            "amp": payload.get("amp", ""),
+            "session_id": payload.get("session_id", ""),
+            "max_wall_seconds": payload.get("max_wall_seconds", ""),
+            "experiment_group": payload.get("experiment_group", ""),
         }
         attacks = payload.get("attacks")
         if isinstance(attacks, dict):
@@ -69,9 +91,11 @@ def _flatten_aalite(rows: list[dict[str, Any]]) -> pd.DataFrame:
     return pd.DataFrame.from_records(records)
 
 
-def aggregate(input_dir: Path, output_dir: Path) -> dict[str, str]:
+def aggregate(input_dir: Path, output_dir: Path, allow_smoke: bool = False) -> dict[str, str]:
     ensure_dir(output_dir)
     json_rows = _load_json_files(input_dir)
+    if not allow_smoke:
+        _reject_smoke_or_fake(json_rows)
     aalite_rows = [row for row in json_rows if "r_lite" in row or "attacks" in row]
     aa_subset_rows = [row for row in json_rows if "aa_subset_acc" in row]
     diagnostics_rows = [row for row in json_rows if "diagnosis_pass" in row]
@@ -96,6 +120,8 @@ def aggregate(input_dir: Path, output_dir: Path) -> dict[str, str]:
         diag_records.append(
             {
                 "exp_id": Path(row.get("_source", "diagnostics")).stem,
+                "dataset_name": row.get("dataset_name", row.get("dataset", "")),
+                "mode": row.get("mode", ""),
                 "eps_monotone": row.get("eps_monotone"),
                 "step_monotone": row.get("step_monotone"),
                 "restart_stable": row.get("restart_stable"),
@@ -118,6 +144,17 @@ def aggregate(input_dir: Path, output_dir: Path) -> dict[str, str]:
         standard = main[main["defense"].fillna("") == "standard"]
         baseline = float(standard.iloc[0]["r_lite"]) if not standard.empty and standard.iloc[0].get("r_lite", "") != "" else None
         baseline_clean = float(standard.iloc[0]["clean_acc"]) if not standard.empty and standard.iloc[0].get("clean_acc", "") != "" else None
+        invalid_groups: set[str] = set()
+        group_key = "experiment_group" if "experiment_group" in main.columns else None
+        if group_key:
+            for group_name, group in main.groupby(main[group_key].fillna("")):
+                if not group_name:
+                    continue
+                for column in ["gpu_name", "batch_size", "amp", "session_id"]:
+                    values = {str(value) for value in group[column].fillna("") if str(value) != ""}
+                    if len(values) > 1:
+                        invalid_groups.add(str(group_name))
+                        break
         for _, row in main.iterrows():
             r_value = row.get("r_lite", "")
             clean_value = row.get("clean_acc", "")
@@ -128,11 +165,19 @@ def aggregate(input_dir: Path, output_dir: Path) -> dict[str, str]:
                 gpu_float = float(gpu_hours)
             except (TypeError, ValueError):
                 continue
+            experiment_group = str(row.get("experiment_group", "") or "")
             budget_rows.append(
                 {
+                    "experiment_group": experiment_group,
                     "defense": row.get("defense", ""),
                     "epoch_budget": "",
                     "gpu_hour_budget": gpu_float,
+                    "gpu_name": row.get("gpu_name", ""),
+                    "batch_size": row.get("batch_size", ""),
+                    "amp": row.get("amp", ""),
+                    "session_id": row.get("session_id", ""),
+                    "max_wall_seconds": row.get("max_wall_seconds", ""),
+                    "equal_budget_invalid": experiment_group in invalid_groups,
                     "clean_acc": clean_float,
                     "r_lite": r_float,
                     "clean_drop": clean_drop(baseline_clean, clean_float) if baseline_clean is not None else "",
@@ -146,16 +191,17 @@ def aggregate(input_dir: Path, output_dir: Path) -> dict[str, str]:
     return outputs
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Aggregate raw JSON results into tables.")
-    parser.add_argument("--input", default="results/raw")
-    parser.add_argument("--output", default="results/tables")
-    return parser.parse_args()
+    parser.add_argument("--input", default="results/real/raw")
+    parser.add_argument("--output", default="results/real/tables")
+    parser.add_argument("--allow-smoke", action="store_true")
+    return parser.parse_args(argv)
 
 
 def main() -> None:
     args = parse_args()
-    outputs = aggregate(ROOT / args.input, ROOT / args.output)
+    outputs = aggregate(ROOT / args.input, ROOT / args.output, allow_smoke=args.allow_smoke)
     print(outputs)
 
 

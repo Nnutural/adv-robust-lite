@@ -6,6 +6,10 @@ This project is a reproducible CIFAR-10 adversarial robustness framework for the
 
 It focuses on a practical smoke-to-main-experiment path, not SOTA performance.
 
+## Smoke/Real Separation
+
+P6 and development smoke outputs are engineering checks only and must not be used as paper results. Fake-data runs require `--mode smoke` and write under `results/smoke/`. Paper-facing runs use `--mode real` with CIFAR-10 and write under `results/real/`; real aggregation rejects `mode=smoke` or `dataset_name=fake_cifar10` unless `--allow-smoke` is explicitly set for development.
+
 ## Research Questions
 
 1. Do SmallCNN, ResNet-18, and MobileNetV2 show consistent architectural vulnerability under FGSM, PGD, and APGD attacks?
@@ -28,12 +32,12 @@ CIFAR-10 is loaded through `torchvision.datasets.CIFAR10`. Training transforms d
 ## Minimal Commands
 
 ```bash
-python scripts/train.py --model smallcnn --defense standard --epochs 1 --train-subset-size 256 --val-subset-size 128 --max-train-batches 2 --max-eval-batches 1 --download
-python scripts/evaluate_clean.py --checkpoint checkpoints/standard_smallcnn_seed0/best.pt --model smallcnn --subset-size 128 --max-eval-batches 1
-python scripts/evaluate_attack.py --checkpoint checkpoints/standard_smallcnn_seed0/best.pt --model smallcnn --attack fgsm --subset-size 128 --max-eval-batches 1
-python scripts/run_aalite.py --checkpoint checkpoints/standard_smallcnn_seed0/best.pt --model smallcnn --subset-size 128 --max-eval-batches 1
-python scripts/aggregate_results.py --input results/raw --output results/tables
-python scripts/make_figures.py --tables results/tables --output results/figures
+python scripts/train.py --model smallcnn --defense standard --epochs 1 --dataset fake_cifar10 --mode smoke --train-subset-size 256 --val-subset-size 128 --max-train-batches 2 --max-eval-batches 1
+python scripts/evaluate_clean.py --checkpoint checkpoints/smallcnn_standard_seed0/best.pt --model smallcnn --dataset fake_cifar10 --mode smoke --subset-size 128 --max-eval-batches 1
+python scripts/evaluate_attack.py --checkpoint checkpoints/smallcnn_standard_seed0/best.pt --model smallcnn --attack fgsm --dataset fake_cifar10 --mode smoke --subset-size 128 --max-eval-batches 1
+python scripts/run_aalite.py --checkpoint checkpoints/smallcnn_standard_seed0/best.pt --model smallcnn --dataset fake_cifar10 --mode smoke --subset-size 128 --max-eval-batches 1
+python scripts/aggregate_results.py --input results/smoke/raw --output results/smoke/tables --allow-smoke
+python scripts/make_figures.py --tables results/smoke/tables --output results/smoke/figures
 ```
 
 ## Full Main Matrix
@@ -66,6 +70,8 @@ python scripts/run_diagnostics.py --checkpoint checkpoints/preact_fixed_mixed_se
 ## AA-Lite Definition
 
 AA-Lite is a project-defined lightweight protocol, not official AutoAttack and not a replacement for full AutoAttack.
+
+`R_lite` is white-box only. It is the worst robust accuracy over PGD-20, APGD-CE, and APGD-DLR; it does not include black-box attacks. Square is evaluated separately on a fixed subset and used with black-box sanity diagnostics.
 
 ```text
 R_lite = min(Acc_PGD20, Acc_APGD_CE, Acc_APGD_DLR)

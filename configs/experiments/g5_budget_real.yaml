@@ -1,0 +1,14 @@
+experiment:
+  name: g5_budget_real
+  mode: real
+  compare: [equal_epoch, equal_gpu_hours]
+dataset:
+  name: cifar10
+  mode: real
+  download: true
+training:
+  epochs: 80
+  batch_size: 128
+  max_wall_seconds: 0
+evaluation:
+  aalite_subset: aalite_2k

@@ -1,0 +1,14 @@
+experiment:
+  name: g4_mixed_ablation_smoke
+  mode: smoke
+  defenses: [fgsm_at, pgd_at, fixed_mixed_at]
+dataset:
+  name: fake_cifar10
+  mode: smoke
+  train_subset_size: 128
+  val_subset_size: 32
+training:
+  epochs: 1
+  max_train_batches: 2
+  max_eval_batches: 1
+
