@@ -4,6 +4,9 @@ set -o pipefail
 
 readonly EPOCHS_STANDARD="${EPOCHS_STANDARD:-50}"
 readonly EPOCHS_AT="${EPOCHS_AT:-40}"
+readonly MAX_TRAIN_BATCHES_AT="${MAX_TRAIN_BATCHES_AT:-100}"
+readonly EPOCHS_PGD_AT="${EPOCHS_PGD_AT:-25}"
+readonly EPOCHS_FIXED_MIXED_AT="${EPOCHS_FIXED_MIXED_AT:-30}"
 readonly PGD20_SUBSET="${PGD20_SUBSET:-5000}"
 readonly AALITE_SUBSET="${AALITE_SUBSET:-1000}"
 readonly AUTOATTACK_SUBSET="${AUTOATTACK_SUBSET:-500}"
@@ -16,6 +19,14 @@ readonly SEED="${SEED:-0}"
 readonly DEVICE="${DEVICE:-cuda}"
 readonly BATCH="${BATCH:-128}"
 readonly WORKERS="${WORKERS:-4}"
+
+# 砍训练量（解决 GPU 较弱时 PGD-AT/fixed_mixed_at 训练时间过长）
+# 训练时间预估（按用户实测 ~195s/ep on full 45k samples，GPU 约 RTX 3060/4060 级）：
+#   FGSM-AT  : 不砍, ~2h10min for 40 epoch（已在跑）
+#   PGD-AT   : 砍后 ~1h (100 batches × 25 epoch)
+#   fixed_mixed_at : 砍后 ~1h (100 batches × 30 epoch)
+#   G5 三个  : 砍后 + wall-clock 1800s 双重截断，~1.5h
+# 全套 G2/G5 训练剩余约 4-5h（vs 不砍 11-25h）。
 
 STAGES=(
   g1_mobilenet_train
@@ -191,10 +202,10 @@ run_stage_body() {
       run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fgsm_at --epochs "${EPOCHS_AT}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed "${SEED}" --device "${DEVICE}" --amp --experiment-group g2_defense
       ;;
     g2_train_pgd_at)
-      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense pgd_at --epochs "${EPOCHS_AT}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed "${SEED}" --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g2_defense
+      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense pgd_at --epochs "${EPOCHS_PGD_AT}" --max-train-batches "${MAX_TRAIN_BATCHES_AT}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed "${SEED}" --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g2_defense
       ;;
     g2_train_fixed_mixed_at)
-      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fixed_mixed_at --epochs "${EPOCHS_AT}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed "${SEED}" --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g2_defense
+      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fixed_mixed_at --epochs "${EPOCHS_FIXED_MIXED_AT}" --max-train-batches "${MAX_TRAIN_BATCHES_AT}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed "${SEED}" --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g2_defense
       ;;
     g2_eval)
       rc=0
@@ -237,13 +248,13 @@ run_stage_body() {
       run_command "${stage}" "${logfile}" python scripts/evaluate_attack.py --mode real --dataset cifar10 --model preact_resnet18 --checkpoint "${ckpt}" --model-wrappers configs/defenses/trap_random.yaml --attack square --subset-size "${SQUARE_SUBSET}" --n-queries "${SQUARE_QUERIES}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --device "${DEVICE}" --output results/real/raw/attacks/preact_resnet18_standard_seed0_trap_random_square.json
       ;;
     g5_train_fgsm_at)
-      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fgsm_at --epochs "${EPOCHS_AT}" --max-wall-seconds "${G5_WALLCLOCK}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed 1 --device "${DEVICE}" --amp --experiment-group g5_equal_gpu_hours
+      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fgsm_at --epochs "${EPOCHS_AT}" --max-train-batches "${MAX_TRAIN_BATCHES_AT}" --max-wall-seconds "${G5_WALLCLOCK}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed 1 --device "${DEVICE}" --amp --experiment-group g5_equal_gpu_hours
       ;;
     g5_train_pgd_at)
-      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense pgd_at --epochs "${EPOCHS_AT}" --max-wall-seconds "${G5_WALLCLOCK}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed 1 --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g5_equal_gpu_hours
+      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense pgd_at --epochs "${EPOCHS_PGD_AT}" --max-train-batches "${MAX_TRAIN_BATCHES_AT}" --max-wall-seconds "${G5_WALLCLOCK}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed 1 --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g5_equal_gpu_hours
       ;;
     g5_train_fixed_mixed_at)
-      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fixed_mixed_at --epochs "${EPOCHS_AT}" --max-wall-seconds "${G5_WALLCLOCK}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed 1 --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g5_equal_gpu_hours
+      run_command "${stage}" "${logfile}" python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fixed_mixed_at --epochs "${EPOCHS_FIXED_MIXED_AT}" --max-train-batches "${MAX_TRAIN_BATCHES_AT}" --max-wall-seconds "${G5_WALLCLOCK}" --batch-size "${BATCH}" --num-workers "${WORKERS}" --seed 1 --device "${DEVICE}" --amp --pgd-steps 7 --experiment-group g5_equal_gpu_hours
       ;;
     g5_eval)
       rc=0
