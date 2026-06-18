@@ -1,1 +1,2 @@
-
+exp_id,model,defense,seed,dataset_name,mode,clean_acc,fgsm_acc,pgd20_acc,apgd_ce_acc,apgd_dlr_acc,r_lite,gap_over,train_time_sec,train_time_gpu_hours,checkpoint_path,status,errors,subset_size,max_eval_batches,batch_size,num_workers,eval_subset_id,gap_over_error,r_lite_scope,gpu_name,amp,session_id,max_wall_seconds,experiment_group
+mobilenetv2_standard_seed0,mobilenetv2,,0,cifar10,real,0.908,,0.0,0.0,0.0,0.0,0.0,,,checkpoints/mobilenetv2_standard_seed0/best.pt,ok,,1000,0,128,4,369ed5c7027b,,whitebox,,,,,
