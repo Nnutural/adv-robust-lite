@@ -15,26 +15,14 @@ bash scripts/run_all_real.sh
 - 从指定阶段继续：`START_STAGE=g2_eval bash scripts/run_all_real.sh`
 - 跳过整组：`SKIP_STAGES=g5 bash scripts/run_all_real.sh`
 - 精确跳过多段：`SKIP_STAGES=g5_train_fgsm_at,g5_train_pgd_at,g5_train_fixed_mixed_at bash scripts/run_all_real.sh`
-- 能看到实时输出：每个 stage 会在终端打印时间戳、stage 名、命令和退出码；训练/评测 stdout/stderr 会实时显示，并同时 `tee` 到 `logs/real_run_*/stage_*.log`，行为类似 Makefile 的逐步输出。
-- 运行前脚本会列出待跑 stage 和 checkpoint 预检查，按 Enter 后才开始；汇总见 `logs/real_run_*/stage_timing.tsv` 和 `failures.txt`。
+- 能看到实时输出：每个 stage 会在终端打印时间戳、stage 名、命令、stdout/stderr 和退出码；内容同步 `tee` 到 `logs/real_run_*/stage_XX_<stage>.log`，行为类似 Makefile。
+- 日志索引见 `logs/real_run_*/stage_map.tsv`；汇总见 `stage_timing.tsv` 和 `failures.txt`。
+- 查看失败细节示例：`tail -n 120 logs/real_run_*/stage_03_g2_train_standard.log`。
 
-## 砍半参数对照
+## 参数与提醒
 
-| 参数 | 脚本值 | 原计划值 |
-| --- | ---: | ---: |
-| `EPOCHS_STANDARD` | 50 | 80 |
-| `EPOCHS_AT` | 40 | 80 |
-| `PGD20_SUBSET` | 5000 | 10000 |
-| `AALITE_SUBSET` | 1000 | 2000 |
-| `AUTOATTACK_SUBSET` | 500 | 1000 |
-| `DIAG_SUBSET` | 500 | 1000 |
-| `SQUARE_SUBSET` | 500 | 1000 |
-| `SQUARE_QUERIES` | 1000 | 2000 |
-| `EOT_SAMPLES` | 10 | 10 |
-| `G5_WALLCLOCK` | 1800s | 自定/更长 |
-
-## 时间估计与提醒
-
+- 砍半参数：`EPOCHS_STANDARD` 50/80，`EPOCHS_AT` 40/80，`PGD20_SUBSET` 5000/10000，`AALITE_SUBSET` 1000/2000。
+- 砍半参数：`AUTOATTACK_SUBSET` 500/1000，`DIAG_SUBSET` 500/1000，`SQUARE_SUBSET` 500/1000，`SQUARE_QUERIES` 1000/2000。
+- 不砍参数：`EOT_SAMPLES` 10/10；预算参数：`G5_WALLCLOCK` 1800s。
 - 估算总时间：RTX 3090 大约 6-8 h；RTX 3060 大约 12-15 h。
-- Trap-B `EOT_SAMPLES=10` 不可再砍，这是 plan-v2 §11 sanity gate。
-- `fixed_mixed_at` stage 会按 trainer 的相对进度自动缩到 40 ep，不需要改 yaml。
+- Trap-B `EOT_SAMPLES=10` 不可再砍，这是 plan-v2 §11 sanity gate；`fixed_mixed_at` 会按相对进度自动缩到 40 ep，不需要改 yaml。

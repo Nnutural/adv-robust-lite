@@ -42,6 +42,7 @@ RUN_ID="$(date +%Y%m%d_%H%M%S)"
 LOG_DIR="logs/real_run_${RUN_ID}"
 TIMING_FILE="${LOG_DIR}/stage_timing.tsv"
 FAILURES_FILE="${LOG_DIR}/failures.txt"
+STAGE_MAP_FILE="${LOG_DIR}/stage_map.tsv"
 mkdir -p "${LOG_DIR}"
 printf "stage\twall_seconds\tstatus\n" > "${TIMING_FILE}"
 : > "${FAILURES_FILE}"
@@ -77,7 +78,18 @@ is_skipped_stage() {
 
 stage_log() {
   local index="$1"
-  printf "%s/stage_%02d.log" "${LOG_DIR}" "${index}"
+  local stage="${2:-stage}"
+  printf "%s/stage_%02d_%s.log" "${LOG_DIR}" "${index}" "${stage}"
+}
+
+write_stage_map() {
+  local index=0
+  local stage
+  printf "index\tstage\tlog_file\n" > "${STAGE_MAP_FILE}"
+  for stage in "${STAGES[@]}"; do
+    index=$((index + 1))
+    printf "%02d\t%s\t%s\n" "${index}" "${stage}" "$(stage_log "${index}" "${stage}")" >> "${STAGE_MAP_FILE}"
+  done
 }
 
 record_stage() {
@@ -96,12 +108,17 @@ run_command() {
   local logfile="$2"
   local rc
   shift 2
+  printf "\n[%s] [%s] --- COMMAND START ---\n" "$(timestamp)" "${stage}" | tee -a "${logfile}"
+  printf "[%s] [%s] PWD: %s\n" "$(timestamp)" "${stage}" "$(pwd)" | tee -a "${logfile}"
   printf "\n[%s] [%s] CMD:" "$(timestamp)" "${stage}" | tee -a "${logfile}"
   printf " %q" "$@" | tee -a "${logfile}"
   printf "\n" | tee -a "${logfile}"
+  printf "[%s] [%s] --- OUTPUT BEGIN ---\n" "$(timestamp)" "${stage}" | tee -a "${logfile}"
   "$@" 2>&1 | tee -a "${logfile}"
   rc="${PIPESTATUS[0]}"
+  printf "[%s] [%s] --- OUTPUT END ---\n" "$(timestamp)" "${stage}" | tee -a "${logfile}"
   printf "[%s] [%s] EXIT: %s\n" "$(timestamp)" "${stage}" "${rc}" | tee -a "${logfile}"
+  printf "[%s] [%s] --- COMMAND END ---\n" "$(timestamp)" "${stage}" | tee -a "${logfile}"
   return "${rc}"
 }
 
@@ -133,6 +150,7 @@ eval_common() {
 print_precheck() {
   cat <<EOF
 Log dir: ${LOG_DIR}
+Stage map: ${STAGE_MAP_FILE}
 START_STAGE=${START_STAGE}
 SKIP_STAGES=${SKIP_STAGES:-<none>}
 
@@ -270,6 +288,7 @@ run_stage() {
   logfile="$(stage_log "${index}" "${stage}")"
   start="$(date +%s)"
   printf "\n[%s] ===== START %s =====\n" "$(timestamp)" "${stage}" | tee -a "${logfile}"
+  printf "[%s] ===== LOG %s =====\n" "$(timestamp)" "${logfile}" | tee -a "${logfile}"
   if run_stage_body "${stage}" "${logfile}"; then
     printf "[%s] ===== OK %s =====\n" "$(timestamp)" "${stage}" | tee -a "${logfile}"
     record_stage "${stage}" "${start}" "OK"
@@ -285,6 +304,7 @@ run_stage() {
   fi
 }
 
+write_stage_map
 print_precheck
 
 index=0
