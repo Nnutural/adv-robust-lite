@@ -1,0 +1,79 @@
+{
+  "exp_id": "preact_resnet18_pgd_at_seed0",
+  "model": "preact_resnet18",
+  "checkpoint": "checkpoints/preact_resnet18_pgd_at_seed0/best.pt",
+  "checkpoint_path": "checkpoints/preact_resnet18_pgd_at_seed0/best.pt",
+  "dataset": "cifar10",
+  "dataset_name": "cifar10",
+  "mode": "real",
+  "seed": 0,
+  "batch_size": 128,
+  "eps_scan": [
+    {
+      "eps": 0.00784313725490196,
+      "attack": "pgd20",
+      "robust_acc": 0.578,
+      "status": "ok"
+    },
+    {
+      "eps": 0.01568627450980392,
+      "attack": "pgd20",
+      "robust_acc": 0.516,
+      "status": "ok"
+    },
+    {
+      "eps": 0.03137254901960784,
+      "attack": "pgd20",
+      "robust_acc": 0.394,
+      "status": "ok"
+    },
+    {
+      "eps": 0.06274509803921569,
+      "attack": "pgd20",
+      "robust_acc": 0.144,
+      "status": "ok"
+    }
+  ],
+  "step_scan": [
+    {
+      "steps": 10,
+      "robust_acc": 0.214,
+      "status": "ok"
+    },
+    {
+      "steps": 20,
+      "robust_acc": 0.144,
+      "status": "ok"
+    },
+    {
+      "steps": 50,
+      "robust_acc": 0.136,
+      "status": "ok"
+    }
+  ],
+  "restart_scan": [
+    {
+      "restarts": 1,
+      "robust_acc": 0.134,
+      "status": "ok"
+    },
+    {
+      "restarts": 3,
+      "robust_acc": 0.134,
+      "status": "ok"
+    },
+    {
+      "restarts": 5,
+      "robust_acc": 0.132,
+      "status": "ok"
+    }
+  ],
+  "eps_monotone": true,
+  "step_monotone": true,
+  "restart_stable": true,
+  "max_samples": 500,
+  "max_eval_batches": 0,
+  "blackbox_not_stronger": null,
+  "diagnosis_pass": true,
+  "notes": "Black-box sanity is reserved unless MI-FGSM/Square results are supplied."
+}

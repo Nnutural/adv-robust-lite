@@ -1,0 +1,19 @@
+{
+  "exp_id": "preact_resnet18_fixed_mixed_at_seed0",
+  "model": "preact_resnet18",
+  "checkpoint": "checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt",
+  "checkpoint_path": "checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt",
+  "dataset": "cifar10",
+  "dataset_name": "cifar10",
+  "mode": "real",
+  "seed": 0,
+  "batch_size": 128,
+  "status": "ok",
+  "eps": 0.03137254901960784,
+  "r_lite_subset": null,
+  "aa_subset_acc": 0.3400000035762787,
+  "bias_aa": null,
+  "dev_aa": null,
+  "subset_size": 500,
+  "max_eval_batches": 0
+}

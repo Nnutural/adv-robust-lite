@@ -1,0 +1,19 @@
+{
+  "clean_loss": 0.6222548561096192,
+  "clean_acc": 0.7883,
+  "num_samples": 10000,
+  "runtime_sec": 9.30047595500946,
+  "exp_id": "preact_resnet18_fgsm_at_seed0",
+  "model": "preact_resnet18",
+  "checkpoint": "checkpoints/preact_resnet18_fgsm_at_seed0/best.pt",
+  "checkpoint_path": "checkpoints/preact_resnet18_fgsm_at_seed0/best.pt",
+  "subset_size": 0,
+  "max_eval_batches": 0,
+  "batch_size": 128,
+  "num_workers": 4,
+  "device": "cuda",
+  "dataset": "cifar10",
+  "dataset_name": "cifar10",
+  "mode": "real",
+  "seed": 0
+}

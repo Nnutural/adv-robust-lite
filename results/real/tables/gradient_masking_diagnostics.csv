@@ -1,1 +1,5 @@
-exp_id,eps_monotone,step_monotone,restart_stable,blackbox_not_stronger,diagnosis_pass,notes
+exp_id,dataset_name,mode,eps_monotone,step_monotone,restart_stable,blackbox_not_stronger,diagnosis_pass,notes
+preact_resnet18_fgsm_at_seed0,cifar10,real,True,True,True,,True,Black-box sanity is reserved unless MI-FGSM/Square results are supplied.
+preact_resnet18_pgd_at_seed0,cifar10,real,True,True,True,,True,Black-box sanity is reserved unless MI-FGSM/Square results are supplied.
+preact_resnet18_fixed_mixed_at_seed0,cifar10,real,True,True,True,,True,Black-box sanity is reserved unless MI-FGSM/Square results are supplied.
+preact_resnet18_standard_seed0,cifar10,real,True,True,True,,True,Black-box sanity is reserved unless MI-FGSM/Square results are supplied.
