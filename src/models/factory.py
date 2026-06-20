@@ -35,6 +35,10 @@ def build_model(
         raise ValueError(f"Unknown model: {model_name}")
 
     model = NormalizeWrapper(backbone, mean=mean, std=std) if normalize else backbone
+    return apply_model_wrappers(model, wrappers)
+
+
+def apply_model_wrappers(model, wrappers: list[dict[str, Any]] | None = None):
     for wrapper in wrappers or []:
         kind = str(wrapper.get("kind", "")).lower()
         if kind == "logit_scale":

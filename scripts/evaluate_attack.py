@@ -37,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", default=None)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--eval-subset", default=None)
+    parser.add_argument("--subset-indices-path", default=None)
     return parser.parse_args()
 
 
@@ -47,7 +48,7 @@ def main() -> None:
     from src.attacks.factory import build_attack_config
     from src.attacks.runner import AttackRunner
     from src.datasets.cifar10 import build_cifar10_test_loader, build_named_eval_loader, eval_subset_id
-    from src.models.factory import build_model
+    from src.models.factory import apply_model_wrappers, build_model
     from src.utils.config import load_yaml
     from src.utils.checkpoint import extract_model_state, load_checkpoint
 
@@ -58,9 +59,10 @@ def main() -> None:
         wrapper_cfg = load_yaml(args.model_wrappers)
         wrappers = wrapper_cfg.get("eval", {}).get("model_wrappers") or wrapper_cfg.get("model", {}).get("wrappers")
     eot_required = _requires_eot(wrappers)
-    model = build_model(args.model, normalize=True, wrappers=wrappers).to(device)
+    model = build_model(args.model, normalize=True, wrappers=None)
     checkpoint = load_checkpoint(args.checkpoint, map_location=str(device))
     model.load_state_dict(extract_model_state(checkpoint), strict=False)
+    model = apply_model_wrappers(model, wrappers).to(device)
     if args.eval_subset:
         subsets_cfg = load_yaml(ROOT / "configs/eval/subsets.yaml")
         loader, subset_id, _ = build_named_eval_loader(
@@ -74,12 +76,14 @@ def main() -> None:
             mode=args.mode,
         )
     else:
-        subset_id = eval_subset_id(args.dataset, "legacy", sample_limit, args.seed)
+        subset_name = Path(args.subset_indices_path).stem if args.subset_indices_path else "legacy"
+        subset_id = eval_subset_id(args.dataset, subset_name, sample_limit, args.seed)
         loader = build_cifar10_test_loader(
             root=ROOT / args.data_root,
             batch_size=args.batch_size,
             num_workers=args.num_workers,
             download=args.download,
+            subset_indices_path=ROOT / args.subset_indices_path if args.subset_indices_path else None,
             subset_size=sample_limit,
             seed=args.seed,
             dataset_name=args.dataset,
