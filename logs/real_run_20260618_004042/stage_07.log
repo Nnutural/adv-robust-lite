@@ -1,0 +1,7 @@
+
+[2026-06-18 01:23:50] ===== START g2_eval =====
+[2026-06-18 01:23:50] [g2_eval] [SKIP missing ckpt] checkpoints/preact_resnet18_standard_seed0/best.pt
+[2026-06-18 01:23:50] [g2_eval] [SKIP missing ckpt] checkpoints/preact_resnet18_fgsm_at_seed0/best.pt
+[2026-06-18 01:23:50] [g2_eval] [SKIP missing ckpt] checkpoints/preact_resnet18_pgd_at_seed0/best.pt
+[2026-06-18 01:23:50] [g2_eval] [SKIP missing ckpt] checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt
+[2026-06-18 01:23:50] ===== SKIP g2_eval =====

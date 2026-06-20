@@ -1,0 +1,24 @@
+
+[2026-06-18 15:40:03] ===== START g3_aa_full_subset =====
+[2026-06-18 15:40:03] ===== LOG logs/real_run_20260618_120635/stage_08_g3_aa_full_subset.log =====
+
+[2026-06-18 15:40:03] [g3_aa_full_subset] --- COMMAND START ---
+[2026-06-18 15:40:03] [g3_aa_full_subset] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 15:40:03] [g3_aa_full_subset] CMD: python scripts/run_autoattack_subset.py --mode real --dataset cifar10 --model preact_resnet18 --checkpoint checkpoints/preact_resnet18_pgd_at_seed0/best.pt --subset-size 500 --batch-size 128 --num-workers 4 --device cuda
+[2026-06-18 15:40:03] [g3_aa_full_subset] --- OUTPUT BEGIN ---
+{'exp_id': 'preact_resnet18_pgd_at_seed0', 'model': 'preact_resnet18', 'checkpoint': 'checkpoints/preact_resnet18_pgd_at_seed0/best.pt', 'checkpoint_path': 'checkpoints/preact_resnet18_pgd_at_seed0/best.pt', 'dataset': 'cifar10', 'dataset_name': 'cifar10', 'mode': 'real', 'seed': 0, 'batch_size': 128, 'status': 'ok', 'eps': 0.03137254901960784, 'r_lite_subset': None, 'aa_subset_acc': 0.3360000252723694, 'bias_aa': None, 'dev_aa': None, 'subset_size': 500, 'max_eval_batches': 0}
+[2026-06-18 16:09:59] [g3_aa_full_subset] --- OUTPUT END ---
+[2026-06-18 16:09:59] [g3_aa_full_subset] EXIT: 0
+[2026-06-18 16:09:59] [g3_aa_full_subset] --- COMMAND END ---
+
+[2026-06-18 16:09:59] [g3_aa_full_subset] --- COMMAND START ---
+[2026-06-18 16:09:59] [g3_aa_full_subset] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 16:09:59] [g3_aa_full_subset] CMD: python scripts/run_autoattack_subset.py --mode real --dataset cifar10 --model preact_resnet18 --checkpoint checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt --subset-size 500 --batch-size 128 --num-workers 4 --device cuda
+[2026-06-18 16:09:59] [g3_aa_full_subset] --- OUTPUT BEGIN ---
+{'exp_id': 'preact_resnet18_fixed_mixed_at_seed0', 'model': 'preact_resnet18', 'checkpoint': 'checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt', 'checkpoint_path': 'checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt', 'dataset': 'cifar10', 'dataset_name': 'cifar10', 'mode': 'real', 'seed': 0, 'batch_size': 128, 'status': 'ok', 'eps': 0.03137254901960784, 'r_lite_subset': None, 'aa_subset_acc': 0.3400000035762787, 'bias_aa': None, 'dev_aa': None, 'subset_size': 500, 'max_eval_batches': 0}
+[2026-06-18 16:40:23] [g3_aa_full_subset] --- OUTPUT END ---
+[2026-06-18 16:40:23] [g3_aa_full_subset] EXIT: 0
+[2026-06-18 16:40:23] [g3_aa_full_subset] --- COMMAND END ---
+[2026-06-18 16:40:23] ===== OK g3_aa_full_subset =====

@@ -1,0 +1,1026 @@
+
+[2026-06-18 11:47:34] ===== START g2_train_pgd_at =====
+[2026-06-18 11:47:34] ===== LOG logs/real_run_20260618_085250/stage_05_g2_train_pgd_at.log =====
+
+[2026-06-18 11:47:34] [g2_train_pgd_at] --- COMMAND START ---
+[2026-06-18 11:47:34] [g2_train_pgd_at] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 11:47:34] [g2_train_pgd_at] CMD: python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense pgd_at --epochs 40 --batch-size 128 --num-workers 4 --seed 0 --device cuda --amp --pgd-steps 7 --experiment-group g2_defense
+[2026-06-18 11:47:34] [g2_train_pgd_at] --- OUTPUT BEGIN ---
+/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/training/trainer.py:73: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  self.scaler = GradScaler(enabled=config.amp and self.device.type == "cuda")
+[setup] model=preact_resnet18 defense=pgd_at dataset=cifar10 mode=real epochs=40 batch_size=128 device=cuda amp=True
+[setup] train_subset_size=full val_subset_size=full max_train_batches=all max_eval_batches=all
+[train] run=preact_resnet18_pgd_at_seed0 model=preact_resnet18 defense=pgd_at dataset=cifar10 mode=real device=cuda epochs=40 batch_size=128 amp=True output=/home/admin2/skq/Lesson/DLS/adv-robust-lite/checkpoints/preact_resnet18_pgd_at_seed0
+epochs/preact_resnet18_pgd_at_seed0:   0%|          | 0/40 [00:00<?, ?epoch/s]
+epoch 1/40 train/pgd_at:   0%|          | 0/352 [00:00<?, ?batch/s][A/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/training/trainer.py:199: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.config.amp and self.device.type == "cuda"):
+
+epoch 1/40 train/pgd_at:   0%|          | 0/352 [00:02<?, ?batch/s, acc=0.0859, attack=pgd, loss=2.3388][A
+epoch 1/40 train/pgd_at:   0%|          | 1/352 [00:02<15:10,  2.59s/batch, acc=0.0859, attack=pgd, loss=2.3388][A
+epoch 1/40 train/pgd_at:   0%|          | 1/352 [00:04<15:10,  2.59s/batch, acc=0.1094, attack=pgd, loss=2.3107][A
+epoch 1/40 train/pgd_at:   1%|          | 2/352 [00:04<14:21,  2.46s/batch, acc=0.1094, attack=pgd, loss=2.3107][A
+epoch 1/40 train/pgd_at:   1%|          | 2/352 [00:07<14:21,  2.46s/batch, acc=0.1250, attack=pgd, loss=2.2886][A
+epoch 1/40 train/pgd_at:   1%|          | 3/352 [00:07<14:04,  2.42s/batch, acc=0.1250, attack=pgd, loss=2.2886][A
+epoch 1/40 train/pgd_at:   1%|          | 3/352 [00:09<14:04,  2.42s/batch, acc=0.1445, attack=pgd, loss=2.3221][A
+epoch 1/40 train/pgd_at:   1%|          | 4/352 [00:09<13:55,  2.40s/batch, acc=0.1445, attack=pgd, loss=2.3221][A
+epoch 1/40 train/pgd_at:   1%|          | 4/352 [00:12<13:55,  2.40s/batch, acc=0.1641, attack=pgd, loss=2.3254][A
+epoch 1/40 train/pgd_at:   1%|▏         | 5/352 [00:12<13:49,  2.39s/batch, acc=0.1641, attack=pgd, loss=2.3254][A
+epoch 1/40 train/pgd_at:   1%|▏         | 5/352 [00:14<13:49,  2.39s/batch, acc=0.1615, attack=pgd, loss=2.3396][A
+epoch 1/40 train/pgd_at:   2%|▏         | 6/352 [00:14<13:44,  2.38s/batch, acc=0.1615, attack=pgd, loss=2.3396][A
+epoch 1/40 train/pgd_at:   2%|▏         | 6/352 [00:16<13:44,  2.38s/batch, acc=0.1708, attack=pgd, loss=2.3287][A
+epoch 1/40 train/pgd_at:   2%|▏         | 7/352 [00:16<13:40,  2.38s/batch, acc=0.1708, attack=pgd, loss=2.3287][A
+epoch 1/40 train/pgd_at:   2%|▏         | 7/352 [00:19<13:40,  2.38s/batch, acc=0.1660, attack=pgd, loss=2.3392][A
+epoch 1/40 train/pgd_at:   2%|▏         | 8/352 [00:19<13:37,  2.38s/batch, acc=0.1660, attack=pgd, loss=2.3392][A
+epoch 1/40 train/pgd_at:   2%|▏         | 8/352 [00:21<13:37,  2.38s/batch, acc=0.1615, attack=pgd, loss=2.3498][A
+epoch 1/40 train/pgd_at:   3%|▎         | 9/352 [00:21<13:34,  2.37s/batch, acc=0.1615, attack=pgd, loss=2.3498][A
+epoch 1/40 train/pgd_at:   3%|▎         | 9/352 [00:23<13:34,  2.37s/batch, acc=0.1656, attack=pgd, loss=2.3464][A
+epoch 1/40 train/pgd_at:   3%|▎         | 10/352 [00:23<13:31,  2.37s/batch, acc=0.1656, attack=pgd, loss=2.3464][A
+epoch 1/40 train/pgd_at:   3%|▎         | 10/352 [00:26<13:31,  2.37s/batch, acc=0.1641, attack=pgd, loss=2.3547][A
+epoch 1/40 train/pgd_at:   3%|▎         | 11/352 [00:26<13:28,  2.37s/batch, acc=0.1641, attack=pgd, loss=2.3547][A
+epoch 1/40 train/pgd_at:   3%|▎         | 11/352 [00:28<13:28,  2.37s/batch, acc=0.1628, attack=pgd, loss=2.3543][A
+epoch 1/40 train/pgd_at:   3%|▎         | 12/352 [00:28<13:26,  2.37s/batch, acc=0.1628, attack=pgd, loss=2.3543][A
+epoch 1/40 train/pgd_at:   3%|▎         | 12/352 [00:31<13:26,  2.37s/batch, acc=0.1629, attack=pgd, loss=2.3495][A
+epoch 1/40 train/pgd_at:   4%|▎         | 13/352 [00:31<13:23,  2.37s/batch, acc=0.1629, attack=pgd, loss=2.3495][A
+epoch 1/40 train/pgd_at:   4%|▎         | 13/352 [00:33<13:23,  2.37s/batch, acc=0.1641, attack=pgd, loss=2.3346][A
+epoch 1/40 train/pgd_at:   4%|▍         | 14/352 [00:33<13:21,  2.37s/batch, acc=0.1641, attack=pgd, loss=2.3346][A
+epoch 1/40 train/pgd_at:   4%|▍         | 14/352 [00:35<13:21,  2.37s/batch, acc=0.1729, attack=pgd, loss=2.3162][A
+epoch 1/40 train/pgd_at:   4%|▍         | 15/352 [00:35<13:18,  2.37s/batch, acc=0.1729, attack=pgd, loss=2.3162][A
+epoch 1/40 train/pgd_at:   4%|▍         | 15/352 [00:38<13:18,  2.37s/batch, acc=0.1758, attack=pgd, loss=2.3108][A
+epoch 1/40 train/pgd_at:   5%|▍         | 16/352 [00:38<13:16,  2.37s/batch, acc=0.1758, attack=pgd, loss=2.3108][A
+epoch 1/40 train/pgd_at:   5%|▍         | 16/352 [00:40<13:16,  2.37s/batch, acc=0.1811, attack=pgd, loss=2.2957][A
+epoch 1/40 train/pgd_at:   5%|▍         | 17/352 [00:40<13:13,  2.37s/batch, acc=0.1811, attack=pgd, loss=2.2957][A
+epoch 1/40 train/pgd_at:   5%|▍         | 17/352 [00:42<13:13,  2.37s/batch, acc=0.1836, attack=pgd, loss=2.2868][A
+epoch 1/40 train/pgd_at:   5%|▌         | 18/352 [00:42<13:11,  2.37s/batch, acc=0.1836, attack=pgd, loss=2.2868][A
+epoch 1/40 train/pgd_at:   5%|▌         | 18/352 [00:45<13:11,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2893][A
+epoch 1/40 train/pgd_at:   5%|▌         | 19/352 [00:45<13:09,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2893][A
+epoch 1/40 train/pgd_at:   5%|▌         | 19/352 [00:47<13:09,  2.37s/batch, acc=0.1844, attack=pgd, loss=2.2821][A
+epoch 1/40 train/pgd_at:   6%|▌         | 20/352 [00:47<13:06,  2.37s/batch, acc=0.1844, attack=pgd, loss=2.2821][A
+epoch 1/40 train/pgd_at:   6%|▌         | 20/352 [00:49<13:06,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2799][A
+epoch 1/40 train/pgd_at:   6%|▌         | 21/352 [00:49<13:04,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2799][A
+epoch 1/40 train/pgd_at:   6%|▌         | 21/352 [00:52<13:04,  2.37s/batch, acc=0.1843, attack=pgd, loss=2.2745][A
+epoch 1/40 train/pgd_at:   6%|▋         | 22/352 [00:52<13:01,  2.37s/batch, acc=0.1843, attack=pgd, loss=2.2745][A
+epoch 1/40 train/pgd_at:   6%|▋         | 22/352 [00:54<13:01,  2.37s/batch, acc=0.1831, attack=pgd, loss=2.2730][A
+epoch 1/40 train/pgd_at:   7%|▋         | 23/352 [00:54<12:59,  2.37s/batch, acc=0.1831, attack=pgd, loss=2.2730][A
+epoch 1/40 train/pgd_at:   7%|▋         | 23/352 [00:57<12:59,  2.37s/batch, acc=0.1823, attack=pgd, loss=2.2721][A
+epoch 1/40 train/pgd_at:   7%|▋         | 24/352 [00:57<12:57,  2.37s/batch, acc=0.1823, attack=pgd, loss=2.2721][A
+epoch 1/40 train/pgd_at:   7%|▋         | 24/352 [00:59<12:57,  2.37s/batch, acc=0.1809, attack=pgd, loss=2.2654][A
+epoch 1/40 train/pgd_at:   7%|▋         | 25/352 [00:59<12:54,  2.37s/batch, acc=0.1809, attack=pgd, loss=2.2654][A
+epoch 1/40 train/pgd_at:   7%|▋         | 25/352 [01:01<12:54,  2.37s/batch, acc=0.1824, attack=pgd, loss=2.2601][A
+epoch 1/40 train/pgd_at:   7%|▋         | 26/352 [01:01<12:52,  2.37s/batch, acc=0.1824, attack=pgd, loss=2.2601][A
+epoch 1/40 train/pgd_at:   7%|▋         | 26/352 [01:04<12:52,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2592][A
+epoch 1/40 train/pgd_at:   8%|▊         | 27/352 [01:04<12:50,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2592][A
+epoch 1/40 train/pgd_at:   8%|▊         | 27/352 [01:06<12:50,  2.37s/batch, acc=0.1833, attack=pgd, loss=2.2588][A
+epoch 1/40 train/pgd_at:   8%|▊         | 28/352 [01:06<12:47,  2.37s/batch, acc=0.1833, attack=pgd, loss=2.2588][A
+epoch 1/40 train/pgd_at:   8%|▊         | 28/352 [01:08<12:47,  2.37s/batch, acc=0.1832, attack=pgd, loss=2.2604][A
+epoch 1/40 train/pgd_at:   8%|▊         | 29/352 [01:08<12:45,  2.37s/batch, acc=0.1832, attack=pgd, loss=2.2604][A
+epoch 1/40 train/pgd_at:   8%|▊         | 29/352 [01:11<12:45,  2.37s/batch, acc=0.1818, attack=pgd, loss=2.2611][A
+epoch 1/40 train/pgd_at:   9%|▊         | 30/352 [01:11<12:43,  2.37s/batch, acc=0.1818, attack=pgd, loss=2.2611][A
+epoch 1/40 train/pgd_at:   9%|▊         | 30/352 [01:13<12:43,  2.37s/batch, acc=0.1799, attack=pgd, loss=2.2612][A
+epoch 1/40 train/pgd_at:   9%|▉         | 31/352 [01:13<12:40,  2.37s/batch, acc=0.1799, attack=pgd, loss=2.2612][A
+epoch 1/40 train/pgd_at:   9%|▉         | 31/352 [01:16<12:40,  2.37s/batch, acc=0.1792, attack=pgd, loss=2.2609][A
+epoch 1/40 train/pgd_at:   9%|▉         | 32/352 [01:16<12:38,  2.37s/batch, acc=0.1792, attack=pgd, loss=2.2609][A
+epoch 1/40 train/pgd_at:   9%|▉         | 32/352 [01:18<12:38,  2.37s/batch, acc=0.1771, attack=pgd, loss=2.2603][A
+epoch 1/40 train/pgd_at:   9%|▉         | 33/352 [01:18<12:35,  2.37s/batch, acc=0.1771, attack=pgd, loss=2.2603][A
+epoch 1/40 train/pgd_at:   9%|▉         | 33/352 [01:20<12:35,  2.37s/batch, acc=0.1778, attack=pgd, loss=2.2584][A
+epoch 1/40 train/pgd_at:  10%|▉         | 34/352 [01:20<12:33,  2.37s/batch, acc=0.1778, attack=pgd, loss=2.2584][A
+epoch 1/40 train/pgd_at:  10%|▉         | 34/352 [01:23<12:33,  2.37s/batch, acc=0.1781, attack=pgd, loss=2.2575][A
+epoch 1/40 train/pgd_at:  10%|▉         | 35/352 [01:23<12:31,  2.37s/batch, acc=0.1781, attack=pgd, loss=2.2575][A
+epoch 1/40 train/pgd_at:  10%|▉         | 35/352 [01:25<12:31,  2.37s/batch, acc=0.1782, attack=pgd, loss=2.2593][A
+epoch 1/40 train/pgd_at:  10%|█         | 36/352 [01:25<12:28,  2.37s/batch, acc=0.1782, attack=pgd, loss=2.2593][A
+epoch 1/40 train/pgd_at:  10%|█         | 36/352 [01:27<12:28,  2.37s/batch, acc=0.1797, attack=pgd, loss=2.2566][A
+epoch 1/40 train/pgd_at:  11%|█         | 37/352 [01:27<12:26,  2.37s/batch, acc=0.1797, attack=pgd, loss=2.2566][A
+epoch 1/40 train/pgd_at:  11%|█         | 37/352 [01:30<12:26,  2.37s/batch, acc=0.1801, attack=pgd, loss=2.2565][A
+epoch 1/40 train/pgd_at:  11%|█         | 38/352 [01:30<12:24,  2.37s/batch, acc=0.1801, attack=pgd, loss=2.2565][A
+epoch 1/40 train/pgd_at:  11%|█         | 38/352 [01:32<12:24,  2.37s/batch, acc=0.1807, attack=pgd, loss=2.2547][A
+epoch 1/40 train/pgd_at:  11%|█         | 39/352 [01:32<12:21,  2.37s/batch, acc=0.1807, attack=pgd, loss=2.2547][A
+epoch 1/40 train/pgd_at:  11%|█         | 39/352 [01:35<12:21,  2.37s/batch, acc=0.1811, attack=pgd, loss=2.2559][A
+epoch 1/40 train/pgd_at:  11%|█▏        | 40/352 [01:35<12:19,  2.37s/batch, acc=0.1811, attack=pgd, loss=2.2559][A
+epoch 1/40 train/pgd_at:  11%|█▏        | 40/352 [01:37<12:19,  2.37s/batch, acc=0.1814, attack=pgd, loss=2.2551][A
+epoch 1/40 train/pgd_at:  12%|█▏        | 41/352 [01:37<12:16,  2.37s/batch, acc=0.1814, attack=pgd, loss=2.2551][A
+epoch 1/40 train/pgd_at:  12%|█▏        | 41/352 [01:39<12:16,  2.37s/batch, acc=0.1825, attack=pgd, loss=2.2542][A
+epoch 1/40 train/pgd_at:  12%|█▏        | 42/352 [01:39<12:14,  2.37s/batch, acc=0.1825, attack=pgd, loss=2.2542][A
+epoch 1/40 train/pgd_at:  12%|█▏        | 42/352 [01:42<12:14,  2.37s/batch, acc=0.1813, attack=pgd, loss=2.2545][A
+epoch 1/40 train/pgd_at:  12%|█▏        | 43/352 [01:42<12:12,  2.37s/batch, acc=0.1813, attack=pgd, loss=2.2545][A
+epoch 1/40 train/pgd_at:  12%|█▏        | 43/352 [01:44<12:12,  2.37s/batch, acc=0.1806, attack=pgd, loss=2.2526][A
+epoch 1/40 train/pgd_at:  12%|█▎        | 44/352 [01:44<12:09,  2.37s/batch, acc=0.1806, attack=pgd, loss=2.2526][A
+epoch 1/40 train/pgd_at:  12%|█▎        | 44/352 [01:46<12:09,  2.37s/batch, acc=0.1799, attack=pgd, loss=2.2519][A
+epoch 1/40 train/pgd_at:  13%|█▎        | 45/352 [01:46<12:07,  2.37s/batch, acc=0.1799, attack=pgd, loss=2.2519][A
+epoch 1/40 train/pgd_at:  13%|█▎        | 45/352 [01:49<12:07,  2.37s/batch, acc=0.1790, attack=pgd, loss=2.2508][A
+epoch 1/40 train/pgd_at:  13%|█▎        | 46/352 [01:49<12:05,  2.37s/batch, acc=0.1790, attack=pgd, loss=2.2508][A
+epoch 1/40 train/pgd_at:  13%|█▎        | 46/352 [01:51<12:05,  2.37s/batch, acc=0.1784, attack=pgd, loss=2.2503][A
+epoch 1/40 train/pgd_at:  13%|█▎        | 47/352 [01:51<12:02,  2.37s/batch, acc=0.1784, attack=pgd, loss=2.2503][A
+epoch 1/40 train/pgd_at:  13%|█▎        | 47/352 [01:53<12:02,  2.37s/batch, acc=0.1797, attack=pgd, loss=2.2483][A
+epoch 1/40 train/pgd_at:  14%|█▎        | 48/352 [01:53<12:00,  2.37s/batch, acc=0.1797, attack=pgd, loss=2.2483][A
+epoch 1/40 train/pgd_at:  14%|█▎        | 48/352 [01:56<12:00,  2.37s/batch, acc=0.1795, attack=pgd, loss=2.2480][A
+epoch 1/40 train/pgd_at:  14%|█▍        | 49/352 [01:56<11:57,  2.37s/batch, acc=0.1795, attack=pgd, loss=2.2480][A
+epoch 1/40 train/pgd_at:  14%|█▍        | 49/352 [01:58<11:57,  2.37s/batch, acc=0.1787, attack=pgd, loss=2.2476][A
+epoch 1/40 train/pgd_at:  14%|█▍        | 50/352 [01:58<11:55,  2.37s/batch, acc=0.1787, attack=pgd, loss=2.2476][A
+epoch 1/40 train/pgd_at:  14%|█▍        | 50/352 [02:01<11:55,  2.37s/batch, acc=0.1778, attack=pgd, loss=2.2475][A
+epoch 1/40 train/pgd_at:  14%|█▍        | 51/352 [02:01<11:53,  2.37s/batch, acc=0.1778, attack=pgd, loss=2.2475][A
+epoch 1/40 train/pgd_at:  14%|█▍        | 51/352 [02:03<11:53,  2.37s/batch, acc=0.1783, attack=pgd, loss=2.2465][A
+epoch 1/40 train/pgd_at:  15%|█▍        | 52/352 [02:03<11:50,  2.37s/batch, acc=0.1783, attack=pgd, loss=2.2465][A
+epoch 1/40 train/pgd_at:  15%|█▍        | 52/352 [02:05<11:50,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2455][A
+epoch 1/40 train/pgd_at:  15%|█▌        | 53/352 [02:05<11:48,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2455][A
+epoch 1/40 train/pgd_at:  15%|█▌        | 53/352 [02:08<11:48,  2.37s/batch, acc=0.1781, attack=pgd, loss=2.2429][A
+epoch 1/40 train/pgd_at:  15%|█▌        | 54/352 [02:08<11:46,  2.37s/batch, acc=0.1781, attack=pgd, loss=2.2429][A
+epoch 1/40 train/pgd_at:  15%|█▌        | 54/352 [02:10<11:46,  2.37s/batch, acc=0.1780, attack=pgd, loss=2.2413][A
+epoch 1/40 train/pgd_at:  16%|█▌        | 55/352 [02:10<11:43,  2.37s/batch, acc=0.1780, attack=pgd, loss=2.2413][A
+epoch 1/40 train/pgd_at:  16%|█▌        | 55/352 [02:12<11:43,  2.37s/batch, acc=0.1779, attack=pgd, loss=2.2392][A
+epoch 1/40 train/pgd_at:  16%|█▌        | 56/352 [02:12<11:41,  2.37s/batch, acc=0.1779, attack=pgd, loss=2.2392][A
+epoch 1/40 train/pgd_at:  16%|█▌        | 56/352 [02:15<11:41,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2384][A
+epoch 1/40 train/pgd_at:  16%|█▌        | 57/352 [02:15<11:39,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2384][A
+epoch 1/40 train/pgd_at:  16%|█▌        | 57/352 [02:17<11:39,  2.37s/batch, acc=0.1777, attack=pgd, loss=2.2383][A
+epoch 1/40 train/pgd_at:  16%|█▋        | 58/352 [02:17<11:36,  2.37s/batch, acc=0.1777, attack=pgd, loss=2.2383][A
+epoch 1/40 train/pgd_at:  16%|█▋        | 58/352 [02:20<11:36,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2383][A
+epoch 1/40 train/pgd_at:  17%|█▋        | 59/352 [02:20<11:34,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2383][A
+epoch 1/40 train/pgd_at:  17%|█▋        | 59/352 [02:22<11:34,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2387][A
+epoch 1/40 train/pgd_at:  17%|█▋        | 60/352 [02:22<11:31,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2387][A
+epoch 1/40 train/pgd_at:  17%|█▋        | 60/352 [02:24<11:31,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2364][A
+epoch 1/40 train/pgd_at:  17%|█▋        | 61/352 [02:24<11:29,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2364][A
+epoch 1/40 train/pgd_at:  17%|█▋        | 61/352 [02:27<11:29,  2.37s/batch, acc=0.1769, attack=pgd, loss=2.2359][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 62/352 [02:27<11:27,  2.37s/batch, acc=0.1769, attack=pgd, loss=2.2359][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 62/352 [02:29<11:27,  2.37s/batch, acc=0.1763, attack=pgd, loss=2.2358][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 63/352 [02:29<11:24,  2.37s/batch, acc=0.1763, attack=pgd, loss=2.2358][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 63/352 [02:31<11:24,  2.37s/batch, acc=0.1763, attack=pgd, loss=2.2351][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 64/352 [02:31<11:22,  2.37s/batch, acc=0.1763, attack=pgd, loss=2.2351][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 64/352 [02:34<11:22,  2.37s/batch, acc=0.1764, attack=pgd, loss=2.2343][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 65/352 [02:34<11:19,  2.37s/batch, acc=0.1764, attack=pgd, loss=2.2343][A
+epoch 1/40 train/pgd_at:  18%|█▊        | 65/352 [02:36<11:19,  2.37s/batch, acc=0.1771, attack=pgd, loss=2.2319][A
+epoch 1/40 train/pgd_at:  19%|█▉        | 66/352 [02:36<11:17,  2.37s/batch, acc=0.1771, attack=pgd, loss=2.2319][A
+epoch 1/40 train/pgd_at:  19%|█▉        | 66/352 [02:38<11:17,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2329][A
+epoch 1/40 train/pgd_at:  19%|█▉        | 67/352 [02:38<11:15,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2329][A
+epoch 1/40 train/pgd_at:  19%|█▉        | 67/352 [02:41<11:15,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2322][A
+epoch 1/40 train/pgd_at:  19%|█▉        | 68/352 [02:41<11:12,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2322][A
+epoch 1/40 train/pgd_at:  19%|█▉        | 68/352 [02:43<11:12,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2315][A
+epoch 1/40 train/pgd_at:  20%|█▉        | 69/352 [02:43<11:10,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2315][A
+epoch 1/40 train/pgd_at:  20%|█▉        | 69/352 [02:46<11:10,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2311][A
+epoch 1/40 train/pgd_at:  20%|█▉        | 70/352 [02:46<11:08,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2311][A
+epoch 1/40 train/pgd_at:  20%|█▉        | 70/352 [02:48<11:08,  2.37s/batch, acc=0.1769, attack=pgd, loss=2.2319][A
+epoch 1/40 train/pgd_at:  20%|██        | 71/352 [02:48<11:05,  2.37s/batch, acc=0.1769, attack=pgd, loss=2.2319][A
+epoch 1/40 train/pgd_at:  20%|██        | 71/352 [02:50<11:05,  2.37s/batch, acc=0.1773, attack=pgd, loss=2.2307][A
+epoch 1/40 train/pgd_at:  20%|██        | 72/352 [02:50<11:03,  2.37s/batch, acc=0.1773, attack=pgd, loss=2.2307][A
+epoch 1/40 train/pgd_at:  20%|██        | 72/352 [02:53<11:03,  2.37s/batch, acc=0.1768, attack=pgd, loss=2.2303][A
+epoch 1/40 train/pgd_at:  21%|██        | 73/352 [02:53<11:00,  2.37s/batch, acc=0.1768, attack=pgd, loss=2.2303][A
+epoch 1/40 train/pgd_at:  21%|██        | 73/352 [02:55<11:00,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2283][A
+epoch 1/40 train/pgd_at:  21%|██        | 74/352 [02:55<10:58,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2283][A
+epoch 1/40 train/pgd_at:  21%|██        | 74/352 [02:57<10:58,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2275][A
+epoch 1/40 train/pgd_at:  21%|██▏       | 75/352 [02:57<10:56,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2275][A
+epoch 1/40 train/pgd_at:  21%|██▏       | 75/352 [03:00<10:56,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2269][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 76/352 [03:00<10:53,  2.37s/batch, acc=0.1770, attack=pgd, loss=2.2269][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 76/352 [03:02<10:53,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2259][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 77/352 [03:02<10:51,  2.37s/batch, acc=0.1776, attack=pgd, loss=2.2259][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 77/352 [03:05<10:51,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2255][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 78/352 [03:05<10:49,  2.37s/batch, acc=0.1774, attack=pgd, loss=2.2255][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 78/352 [03:07<10:49,  2.37s/batch, acc=0.1777, attack=pgd, loss=2.2242][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 79/352 [03:07<10:46,  2.37s/batch, acc=0.1777, attack=pgd, loss=2.2242][A
+epoch 1/40 train/pgd_at:  22%|██▏       | 79/352 [03:09<10:46,  2.37s/batch, acc=0.1782, attack=pgd, loss=2.2220][A
+epoch 1/40 train/pgd_at:  23%|██▎       | 80/352 [03:09<10:44,  2.37s/batch, acc=0.1782, attack=pgd, loss=2.2220][A
+epoch 1/40 train/pgd_at:  23%|██▎       | 80/352 [03:12<10:44,  2.37s/batch, acc=0.1788, attack=pgd, loss=2.2219][A
+epoch 1/40 train/pgd_at:  23%|██▎       | 81/352 [03:12<10:42,  2.37s/batch, acc=0.1788, attack=pgd, loss=2.2219][A
+epoch 1/40 train/pgd_at:  23%|██▎       | 81/352 [03:14<10:42,  2.37s/batch, acc=0.1792, attack=pgd, loss=2.2209][A
+epoch 1/40 train/pgd_at:  23%|██▎       | 82/352 [03:14<10:39,  2.37s/batch, acc=0.1792, attack=pgd, loss=2.2209][A
+epoch 1/40 train/pgd_at:  23%|██▎       | 82/352 [03:16<10:39,  2.37s/batch, acc=0.1786, attack=pgd, loss=2.2208][A
+epoch 1/40 train/pgd_at:  24%|██▎       | 83/352 [03:16<10:37,  2.37s/batch, acc=0.1786, attack=pgd, loss=2.2208][A
+epoch 1/40 train/pgd_at:  24%|██▎       | 83/352 [03:19<10:37,  2.37s/batch, acc=0.1788, attack=pgd, loss=2.2201][A
+epoch 1/40 train/pgd_at:  24%|██▍       | 84/352 [03:19<10:34,  2.37s/batch, acc=0.1788, attack=pgd, loss=2.2201][A
+epoch 1/40 train/pgd_at:  24%|██▍       | 84/352 [03:21<10:34,  2.37s/batch, acc=0.1796, attack=pgd, loss=2.2182][A
+epoch 1/40 train/pgd_at:  24%|██▍       | 85/352 [03:21<10:32,  2.37s/batch, acc=0.1796, attack=pgd, loss=2.2182][A
+epoch 1/40 train/pgd_at:  24%|██▍       | 85/352 [03:24<10:32,  2.37s/batch, acc=0.1797, attack=pgd, loss=2.2170][A
+epoch 1/40 train/pgd_at:  24%|██▍       | 86/352 [03:24<10:30,  2.37s/batch, acc=0.1797, attack=pgd, loss=2.2170][A
+epoch 1/40 train/pgd_at:  24%|██▍       | 86/352 [03:26<10:30,  2.37s/batch, acc=0.1794, attack=pgd, loss=2.2163][A
+epoch 1/40 train/pgd_at:  25%|██▍       | 87/352 [03:26<10:27,  2.37s/batch, acc=0.1794, attack=pgd, loss=2.2163][A
+epoch 1/40 train/pgd_at:  25%|██▍       | 87/352 [03:28<10:27,  2.37s/batch, acc=0.1793, attack=pgd, loss=2.2157][A
+epoch 1/40 train/pgd_at:  25%|██▌       | 88/352 [03:28<10:25,  2.37s/batch, acc=0.1793, attack=pgd, loss=2.2157][A
+epoch 1/40 train/pgd_at:  25%|██▌       | 88/352 [03:31<10:25,  2.37s/batch, acc=0.1794, attack=pgd, loss=2.2147][A
+epoch 1/40 train/pgd_at:  25%|██▌       | 89/352 [03:31<10:23,  2.37s/batch, acc=0.1794, attack=pgd, loss=2.2147][A
+epoch 1/40 train/pgd_at:  25%|██▌       | 89/352 [03:33<10:23,  2.37s/batch, acc=0.1801, attack=pgd, loss=2.2137][A
+epoch 1/40 train/pgd_at:  26%|██▌       | 90/352 [03:33<10:20,  2.37s/batch, acc=0.1801, attack=pgd, loss=2.2137][A
+epoch 1/40 train/pgd_at:  26%|██▌       | 90/352 [03:35<10:20,  2.37s/batch, acc=0.1806, attack=pgd, loss=2.2132][A
+epoch 1/40 train/pgd_at:  26%|██▌       | 91/352 [03:35<10:18,  2.37s/batch, acc=0.1806, attack=pgd, loss=2.2132][A
+epoch 1/40 train/pgd_at:  26%|██▌       | 91/352 [03:38<10:18,  2.37s/batch, acc=0.1810, attack=pgd, loss=2.2126][A
+epoch 1/40 train/pgd_at:  26%|██▌       | 92/352 [03:38<10:16,  2.37s/batch, acc=0.1810, attack=pgd, loss=2.2126][A
+epoch 1/40 train/pgd_at:  26%|██▌       | 92/352 [03:40<10:16,  2.37s/batch, acc=0.1811, attack=pgd, loss=2.2119][A
+epoch 1/40 train/pgd_at:  26%|██▋       | 93/352 [03:40<10:13,  2.37s/batch, acc=0.1811, attack=pgd, loss=2.2119][A
+epoch 1/40 train/pgd_at:  26%|██▋       | 93/352 [03:42<10:13,  2.37s/batch, acc=0.1810, attack=pgd, loss=2.2116][A
+epoch 1/40 train/pgd_at:  27%|██▋       | 94/352 [03:42<10:11,  2.37s/batch, acc=0.1810, attack=pgd, loss=2.2116][A
+epoch 1/40 train/pgd_at:  27%|██▋       | 94/352 [03:45<10:11,  2.37s/batch, acc=0.1814, attack=pgd, loss=2.2105][A
+epoch 1/40 train/pgd_at:  27%|██▋       | 95/352 [03:45<10:08,  2.37s/batch, acc=0.1814, attack=pgd, loss=2.2105][A
+epoch 1/40 train/pgd_at:  27%|██▋       | 95/352 [03:47<10:08,  2.37s/batch, acc=0.1821, attack=pgd, loss=2.2082][A
+epoch 1/40 train/pgd_at:  27%|██▋       | 96/352 [03:47<10:06,  2.37s/batch, acc=0.1821, attack=pgd, loss=2.2082][A
+epoch 1/40 train/pgd_at:  27%|██▋       | 96/352 [03:50<10:06,  2.37s/batch, acc=0.1824, attack=pgd, loss=2.2083][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 97/352 [03:50<10:04,  2.37s/batch, acc=0.1824, attack=pgd, loss=2.2083][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 97/352 [03:52<10:04,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2069][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 98/352 [03:52<10:01,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2069][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 98/352 [03:54<10:01,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2069][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 99/352 [03:54<09:59,  2.37s/batch, acc=0.1834, attack=pgd, loss=2.2069][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 99/352 [03:57<09:59,  2.37s/batch, acc=0.1831, attack=pgd, loss=2.2059][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 100/352 [03:57<09:57,  2.37s/batch, acc=0.1831, attack=pgd, loss=2.2059][A
+epoch 1/40 train/pgd_at:  28%|██▊       | 100/352 [03:59<09:57,  2.37s/batch, acc=0.1836, attack=pgd, loss=2.2050][A
+epoch 1/40 train/pgd_at:  29%|██▊       | 101/352 [03:59<09:54,  2.37s/batch, acc=0.1836, attack=pgd, loss=2.2050][A
+epoch 1/40 train/pgd_at:  29%|██▊       | 101/352 [04:01<09:54,  2.37s/batch, acc=0.1837, attack=pgd, loss=2.2049][A
+epoch 1/40 train/pgd_at:  29%|██▉       | 102/352 [04:01<09:52,  2.37s/batch, acc=0.1837, attack=pgd, loss=2.2049][A
+epoch 1/40 train/pgd_at:  29%|██▉       | 102/352 [04:04<09:52,  2.37s/batch, acc=0.1839, attack=pgd, loss=2.2038][A
+epoch 1/40 train/pgd_at:  29%|██▉       | 103/352 [04:04<09:50,  2.37s/batch, acc=0.1839, attack=pgd, loss=2.2038][A
+epoch 1/40 train/pgd_at:  29%|██▉       | 103/352 [04:06<09:50,  2.37s/batch, acc=0.1843, attack=pgd, loss=2.2022][A
+epoch 1/40 train/pgd_at:  30%|██▉       | 104/352 [04:06<09:47,  2.37s/batch, acc=0.1843, attack=pgd, loss=2.2022][A
+epoch 1/40 train/pgd_at:  30%|██▉       | 104/352 [04:09<09:47,  2.37s/batch, acc=0.1847, attack=pgd, loss=2.2020][A
+epoch 1/40 train/pgd_at:  30%|██▉       | 105/352 [04:09<09:45,  2.37s/batch, acc=0.1847, attack=pgd, loss=2.2020][A
+epoch 1/40 train/pgd_at:  30%|██▉       | 105/352 [04:11<09:45,  2.37s/batch, acc=0.1851, attack=pgd, loss=2.2004][A
+epoch 1/40 train/pgd_at:  30%|███       | 106/352 [04:11<09:42,  2.37s/batch, acc=0.1851, attack=pgd, loss=2.2004][A
+epoch 1/40 train/pgd_at:  30%|███       | 106/352 [04:13<09:42,  2.37s/batch, acc=0.1847, attack=pgd, loss=2.2002][A
+epoch 1/40 train/pgd_at:  30%|███       | 107/352 [04:13<09:40,  2.37s/batch, acc=0.1847, attack=pgd, loss=2.2002][A
+epoch 1/40 train/pgd_at:  30%|███       | 107/352 [04:16<09:40,  2.37s/batch, acc=0.1849, attack=pgd, loss=2.1987][A
+epoch 1/40 train/pgd_at:  31%|███       | 108/352 [04:16<09:38,  2.37s/batch, acc=0.1849, attack=pgd, loss=2.1987][A
+epoch 1/40 train/pgd_at:  31%|███       | 108/352 [04:18<09:38,  2.37s/batch, acc=0.1846, attack=pgd, loss=2.1980][A
+epoch 1/40 train/pgd_at:  31%|███       | 109/352 [04:18<09:35,  2.37s/batch, acc=0.1846, attack=pgd, loss=2.1980][A
+epoch 1/40 train/pgd_at:  31%|███       | 109/352 [04:20<09:35,  2.37s/batch, acc=0.1848, attack=pgd, loss=2.1968][A
+epoch 1/40 train/pgd_at:  31%|███▏      | 110/352 [04:20<09:33,  2.37s/batch, acc=0.1848, attack=pgd, loss=2.1968][A
+epoch 1/40 train/pgd_at:  31%|███▏      | 110/352 [04:23<09:33,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1958][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 111/352 [04:23<09:31,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1958][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 111/352 [04:25<09:31,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1959][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 112/352 [04:25<09:28,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1959][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 112/352 [04:27<09:28,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1947][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 113/352 [04:27<09:26,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1947][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 113/352 [04:30<09:26,  2.37s/batch, acc=0.1856, attack=pgd, loss=2.1937][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 114/352 [04:30<09:23,  2.37s/batch, acc=0.1856, attack=pgd, loss=2.1937][A
+epoch 1/40 train/pgd_at:  32%|███▏      | 114/352 [04:32<09:23,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1933][A
+epoch 1/40 train/pgd_at:  33%|███▎      | 115/352 [04:32<09:21,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1933][A
+epoch 1/40 train/pgd_at:  33%|███▎      | 115/352 [04:35<09:21,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1926][A
+epoch 1/40 train/pgd_at:  33%|███▎      | 116/352 [04:35<09:19,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1926][A
+epoch 1/40 train/pgd_at:  33%|███▎      | 116/352 [04:37<09:19,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1922][A
+epoch 1/40 train/pgd_at:  33%|███▎      | 117/352 [04:37<09:16,  2.37s/batch, acc=0.1853, attack=pgd, loss=2.1922][A
+epoch 1/40 train/pgd_at:  33%|███▎      | 117/352 [04:39<09:16,  2.37s/batch, acc=0.1854, attack=pgd, loss=2.1922][A
+epoch 1/40 train/pgd_at:  34%|███▎      | 118/352 [04:39<09:14,  2.37s/batch, acc=0.1854, attack=pgd, loss=2.1922][A
+epoch 1/40 train/pgd_at:  34%|███▎      | 118/352 [04:42<09:14,  2.37s/batch, acc=0.1858, attack=pgd, loss=2.1910][A
+epoch 1/40 train/pgd_at:  34%|███▍      | 119/352 [04:42<09:12,  2.37s/batch, acc=0.1858, attack=pgd, loss=2.1910][A
+epoch 1/40 train/pgd_at:  34%|███▍      | 119/352 [04:44<09:12,  2.37s/batch, acc=0.1861, attack=pgd, loss=2.1904][A
+epoch 1/40 train/pgd_at:  34%|███▍      | 120/352 [04:44<09:09,  2.37s/batch, acc=0.1861, attack=pgd, loss=2.1904][A
+epoch 1/40 train/pgd_at:  34%|███▍      | 120/352 [04:46<09:09,  2.37s/batch, acc=0.1858, attack=pgd, loss=2.1912][A
+epoch 1/40 train/pgd_at:  34%|███▍      | 121/352 [04:46<09:07,  2.37s/batch, acc=0.1858, attack=pgd, loss=2.1912][A
+epoch 1/40 train/pgd_at:  34%|███▍      | 121/352 [04:49<09:07,  2.37s/batch, acc=0.1859, attack=pgd, loss=2.1906][A
+epoch 1/40 train/pgd_at:  35%|███▍      | 122/352 [04:49<09:04,  2.37s/batch, acc=0.1859, attack=pgd, loss=2.1906][A
+epoch 1/40 train/pgd_at:  35%|███▍      | 122/352 [04:51<09:04,  2.37s/batch, acc=0.1859, attack=pgd, loss=2.1904][A
+epoch 1/40 train/pgd_at:  35%|███▍      | 123/352 [04:51<09:02,  2.37s/batch, acc=0.1859, attack=pgd, loss=2.1904][A
+epoch 1/40 train/pgd_at:  35%|███▍      | 123/352 [04:54<09:02,  2.37s/batch, acc=0.1862, attack=pgd, loss=2.1892][A
+epoch 1/40 train/pgd_at:  35%|███▌      | 124/352 [04:54<09:00,  2.37s/batch, acc=0.1862, attack=pgd, loss=2.1892][A
+epoch 1/40 train/pgd_at:  35%|███▌      | 124/352 [04:56<09:00,  2.37s/batch, acc=0.1863, attack=pgd, loss=2.1882][A
+epoch 1/40 train/pgd_at:  36%|███▌      | 125/352 [04:56<08:57,  2.37s/batch, acc=0.1863, attack=pgd, loss=2.1882][A
+epoch 1/40 train/pgd_at:  36%|███▌      | 125/352 [04:58<08:57,  2.37s/batch, acc=0.1867, attack=pgd, loss=2.1877][A
+epoch 1/40 train/pgd_at:  36%|███▌      | 126/352 [04:58<08:55,  2.37s/batch, acc=0.1867, attack=pgd, loss=2.1877][A
+epoch 1/40 train/pgd_at:  36%|███▌      | 126/352 [05:01<08:55,  2.37s/batch, acc=0.1868, attack=pgd, loss=2.1877][A
+epoch 1/40 train/pgd_at:  36%|███▌      | 127/352 [05:01<08:53,  2.37s/batch, acc=0.1868, attack=pgd, loss=2.1877][A
+epoch 1/40 train/pgd_at:  36%|███▌      | 127/352 [05:03<08:53,  2.37s/batch, acc=0.1871, attack=pgd, loss=2.1871][A
+epoch 1/40 train/pgd_at:  36%|███▋      | 128/352 [05:03<08:50,  2.37s/batch, acc=0.1871, attack=pgd, loss=2.1871][A
+epoch 1/40 train/pgd_at:  36%|███▋      | 128/352 [05:05<08:50,  2.37s/batch, acc=0.1874, attack=pgd, loss=2.1870][A
+epoch 1/40 train/pgd_at:  37%|███▋      | 129/352 [05:05<08:48,  2.37s/batch, acc=0.1874, attack=pgd, loss=2.1870][A
+epoch 1/40 train/pgd_at:  37%|███▋      | 129/352 [05:08<08:48,  2.37s/batch, acc=0.1879, attack=pgd, loss=2.1866][A
+epoch 1/40 train/pgd_at:  37%|███▋      | 130/352 [05:08<08:45,  2.37s/batch, acc=0.1879, attack=pgd, loss=2.1866][A
+epoch 1/40 train/pgd_at:  37%|███▋      | 130/352 [05:10<08:45,  2.37s/batch, acc=0.1885, attack=pgd, loss=2.1861][A
+epoch 1/40 train/pgd_at:  37%|███▋      | 131/352 [05:10<08:43,  2.37s/batch, acc=0.1885, attack=pgd, loss=2.1861][A
+epoch 1/40 train/pgd_at:  37%|███▋      | 131/352 [05:12<08:43,  2.37s/batch, acc=0.1885, attack=pgd, loss=2.1855][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 132/352 [05:12<08:41,  2.37s/batch, acc=0.1885, attack=pgd, loss=2.1855][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 132/352 [05:15<08:41,  2.37s/batch, acc=0.1887, attack=pgd, loss=2.1848][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 133/352 [05:15<08:38,  2.37s/batch, acc=0.1887, attack=pgd, loss=2.1848][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 133/352 [05:17<08:38,  2.37s/batch, acc=0.1885, attack=pgd, loss=2.1842][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 134/352 [05:17<08:36,  2.37s/batch, acc=0.1885, attack=pgd, loss=2.1842][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 134/352 [05:20<08:36,  2.37s/batch, acc=0.1891, attack=pgd, loss=2.1834][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 135/352 [05:20<08:34,  2.37s/batch, acc=0.1891, attack=pgd, loss=2.1834][A
+epoch 1/40 train/pgd_at:  38%|███▊      | 135/352 [05:22<08:34,  2.37s/batch, acc=0.1890, attack=pgd, loss=2.1827][A
+epoch 1/40 train/pgd_at:  39%|███▊      | 136/352 [05:22<08:31,  2.37s/batch, acc=0.1890, attack=pgd, loss=2.1827][A
+epoch 1/40 train/pgd_at:  39%|███▊      | 136/352 [05:24<08:31,  2.37s/batch, acc=0.1891, attack=pgd, loss=2.1818][A
+epoch 1/40 train/pgd_at:  39%|███▉      | 137/352 [05:24<08:29,  2.37s/batch, acc=0.1891, attack=pgd, loss=2.1818][A
+epoch 1/40 train/pgd_at:  39%|███▉      | 137/352 [05:27<08:29,  2.37s/batch, acc=0.1890, attack=pgd, loss=2.1807][A
+epoch 1/40 train/pgd_at:  39%|███▉      | 138/352 [05:27<08:27,  2.37s/batch, acc=0.1890, attack=pgd, loss=2.1807][A
+epoch 1/40 train/pgd_at:  39%|███▉      | 138/352 [05:29<08:27,  2.37s/batch, acc=0.1897, attack=pgd, loss=2.1797][A
+epoch 1/40 train/pgd_at:  39%|███▉      | 139/352 [05:29<08:24,  2.37s/batch, acc=0.1897, attack=pgd, loss=2.1797][A
+epoch 1/40 train/pgd_at:  39%|███▉      | 139/352 [05:31<08:24,  2.37s/batch, acc=0.1900, attack=pgd, loss=2.1787][A
+epoch 1/40 train/pgd_at:  40%|███▉      | 140/352 [05:31<08:22,  2.37s/batch, acc=0.1900, attack=pgd, loss=2.1787][A
+epoch 1/40 train/pgd_at:  40%|███▉      | 140/352 [05:34<08:22,  2.37s/batch, acc=0.1906, attack=pgd, loss=2.1777][A
+epoch 1/40 train/pgd_at:  40%|████      | 141/352 [05:34<08:19,  2.37s/batch, acc=0.1906, attack=pgd, loss=2.1777][A
+epoch 1/40 train/pgd_at:  40%|████      | 141/352 [05:36<08:19,  2.37s/batch, acc=0.1907, attack=pgd, loss=2.1771][A
+epoch 1/40 train/pgd_at:  40%|████      | 142/352 [05:36<08:17,  2.37s/batch, acc=0.1907, attack=pgd, loss=2.1771][A
+epoch 1/40 train/pgd_at:  40%|████      | 142/352 [05:39<08:17,  2.37s/batch, acc=0.1914, attack=pgd, loss=2.1755][A
+epoch 1/40 train/pgd_at:  41%|████      | 143/352 [05:39<08:15,  2.37s/batch, acc=0.1914, attack=pgd, loss=2.1755][A
+epoch 1/40 train/pgd_at:  41%|████      | 143/352 [05:41<08:15,  2.37s/batch, acc=0.1917, attack=pgd, loss=2.1746][A
+epoch 1/40 train/pgd_at:  41%|████      | 144/352 [05:41<08:12,  2.37s/batch, acc=0.1917, attack=pgd, loss=2.1746][A
+epoch 1/40 train/pgd_at:  41%|████      | 144/352 [05:43<08:12,  2.37s/batch, acc=0.1920, attack=pgd, loss=2.1738][A
+epoch 1/40 train/pgd_at:  41%|████      | 145/352 [05:43<08:10,  2.37s/batch, acc=0.1920, attack=pgd, loss=2.1738][A
+epoch 1/40 train/pgd_at:  41%|████      | 145/352 [05:46<08:10,  2.37s/batch, acc=0.1922, attack=pgd, loss=2.1730][A
+epoch 1/40 train/pgd_at:  41%|████▏     | 146/352 [05:46<08:08,  2.37s/batch, acc=0.1922, attack=pgd, loss=2.1730][A
+epoch 1/40 train/pgd_at:  41%|████▏     | 146/352 [05:48<08:08,  2.37s/batch, acc=0.1924, attack=pgd, loss=2.1726][A
+epoch 1/40 train/pgd_at:  42%|████▏     | 147/352 [05:48<08:05,  2.37s/batch, acc=0.1924, attack=pgd, loss=2.1726][A
+epoch 1/40 train/pgd_at:  42%|████▏     | 147/352 [05:50<08:05,  2.37s/batch, acc=0.1925, attack=pgd, loss=2.1724][A
+epoch 1/40 train/pgd_at:  42%|████▏     | 148/352 [05:50<08:03,  2.37s/batch, acc=0.1925, attack=pgd, loss=2.1724][A
+epoch 1/40 train/pgd_at:  42%|████▏     | 148/352 [05:53<08:03,  2.37s/batch, acc=0.1922, attack=pgd, loss=2.1718][A
+epoch 1/40 train/pgd_at:  42%|████▏     | 149/352 [05:53<08:01,  2.37s/batch, acc=0.1922, attack=pgd, loss=2.1718][A
+epoch 1/40 train/pgd_at:  42%|████▏     | 149/352 [05:55<08:01,  2.37s/batch, acc=0.1923, attack=pgd, loss=2.1715][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 150/352 [05:55<07:58,  2.37s/batch, acc=0.1923, attack=pgd, loss=2.1715][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 150/352 [05:58<07:58,  2.37s/batch, acc=0.1923, attack=pgd, loss=2.1710][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 151/352 [05:58<07:56,  2.37s/batch, acc=0.1923, attack=pgd, loss=2.1710][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 151/352 [06:00<07:56,  2.37s/batch, acc=0.1922, attack=pgd, loss=2.1705][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 152/352 [06:00<07:53,  2.37s/batch, acc=0.1922, attack=pgd, loss=2.1705][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 152/352 [06:02<07:53,  2.37s/batch, acc=0.1925, attack=pgd, loss=2.1700][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 153/352 [06:02<07:51,  2.37s/batch, acc=0.1925, attack=pgd, loss=2.1700][A
+epoch 1/40 train/pgd_at:  43%|████▎     | 153/352 [06:05<07:51,  2.37s/batch, acc=0.1926, attack=pgd, loss=2.1697][A
+epoch 1/40 train/pgd_at:  44%|████▍     | 154/352 [06:05<07:49,  2.37s/batch, acc=0.1926, attack=pgd, loss=2.1697][A
+epoch 1/40 train/pgd_at:  44%|████▍     | 154/352 [06:07<07:49,  2.37s/batch, acc=0.1928, attack=pgd, loss=2.1689][A
+epoch 1/40 train/pgd_at:  44%|████▍     | 155/352 [06:07<07:46,  2.37s/batch, acc=0.1928, attack=pgd, loss=2.1689][A
+epoch 1/40 train/pgd_at:  44%|████▍     | 155/352 [06:09<07:46,  2.37s/batch, acc=0.1928, attack=pgd, loss=2.1684][A
+epoch 1/40 train/pgd_at:  44%|████▍     | 156/352 [06:09<07:44,  2.37s/batch, acc=0.1928, attack=pgd, loss=2.1684][A
+epoch 1/40 train/pgd_at:  44%|████▍     | 156/352 [06:12<07:44,  2.37s/batch, acc=0.1930, attack=pgd, loss=2.1682][A
+epoch 1/40 train/pgd_at:  45%|████▍     | 157/352 [06:12<07:42,  2.37s/batch, acc=0.1930, attack=pgd, loss=2.1682][A
+epoch 1/40 train/pgd_at:  45%|████▍     | 157/352 [06:14<07:42,  2.37s/batch, acc=0.1932, attack=pgd, loss=2.1676][A
+epoch 1/40 train/pgd_at:  45%|████▍     | 158/352 [06:14<07:39,  2.37s/batch, acc=0.1932, attack=pgd, loss=2.1676][A
+epoch 1/40 train/pgd_at:  45%|████▍     | 158/352 [06:16<07:39,  2.37s/batch, acc=0.1934, attack=pgd, loss=2.1670][A
+epoch 1/40 train/pgd_at:  45%|████▌     | 159/352 [06:16<07:37,  2.37s/batch, acc=0.1934, attack=pgd, loss=2.1670][A
+epoch 1/40 train/pgd_at:  45%|████▌     | 159/352 [06:19<07:37,  2.37s/batch, acc=0.1936, attack=pgd, loss=2.1668][A
+epoch 1/40 train/pgd_at:  45%|████▌     | 160/352 [06:19<07:34,  2.37s/batch, acc=0.1936, attack=pgd, loss=2.1668][A
+epoch 1/40 train/pgd_at:  45%|████▌     | 160/352 [06:21<07:34,  2.37s/batch, acc=0.1938, attack=pgd, loss=2.1661][A
+epoch 1/40 train/pgd_at:  46%|████▌     | 161/352 [06:21<07:32,  2.37s/batch, acc=0.1938, attack=pgd, loss=2.1661][A
+epoch 1/40 train/pgd_at:  46%|████▌     | 161/352 [06:24<07:32,  2.37s/batch, acc=0.1939, attack=pgd, loss=2.1661][A
+epoch 1/40 train/pgd_at:  46%|████▌     | 162/352 [06:24<07:30,  2.37s/batch, acc=0.1939, attack=pgd, loss=2.1661][A
+epoch 1/40 train/pgd_at:  46%|████▌     | 162/352 [06:26<07:30,  2.37s/batch, acc=0.1941, attack=pgd, loss=2.1655][A
+epoch 1/40 train/pgd_at:  46%|████▋     | 163/352 [06:26<07:27,  2.37s/batch, acc=0.1941, attack=pgd, loss=2.1655][A
+epoch 1/40 train/pgd_at:  46%|████▋     | 163/352 [06:28<07:27,  2.37s/batch, acc=0.1946, attack=pgd, loss=2.1650][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 164/352 [06:28<07:25,  2.37s/batch, acc=0.1946, attack=pgd, loss=2.1650][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 164/352 [06:31<07:25,  2.37s/batch, acc=0.1946, attack=pgd, loss=2.1643][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 165/352 [06:31<07:23,  2.37s/batch, acc=0.1946, attack=pgd, loss=2.1643][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 165/352 [06:33<07:23,  2.37s/batch, acc=0.1945, attack=pgd, loss=2.1637][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 166/352 [06:33<07:20,  2.37s/batch, acc=0.1945, attack=pgd, loss=2.1637][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 166/352 [06:35<07:20,  2.37s/batch, acc=0.1950, attack=pgd, loss=2.1630][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 167/352 [06:35<07:18,  2.37s/batch, acc=0.1950, attack=pgd, loss=2.1630][A
+epoch 1/40 train/pgd_at:  47%|████▋     | 167/352 [06:38<07:18,  2.37s/batch, acc=0.1951, attack=pgd, loss=2.1622][A
+epoch 1/40 train/pgd_at:  48%|████▊     | 168/352 [06:38<07:16,  2.37s/batch, acc=0.1951, attack=pgd, loss=2.1622][A
+epoch 1/40 train/pgd_at:  48%|████▊     | 168/352 [06:40<07:16,  2.37s/batch, acc=0.1956, attack=pgd, loss=2.1613][A
+epoch 1/40 train/pgd_at:  48%|████▊     | 169/352 [06:40<07:13,  2.37s/batch, acc=0.1956, attack=pgd, loss=2.1613][A
+epoch 1/40 train/pgd_at:  48%|████▊     | 169/352 [06:43<07:13,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1607][A
+epoch 1/40 train/pgd_at:  48%|████▊     | 170/352 [06:43<07:11,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1607][A
+epoch 1/40 train/pgd_at:  48%|████▊     | 170/352 [06:45<07:11,  2.37s/batch, acc=0.1954, attack=pgd, loss=2.1605][A
+epoch 1/40 train/pgd_at:  49%|████▊     | 171/352 [06:45<07:08,  2.37s/batch, acc=0.1954, attack=pgd, loss=2.1605][A
+epoch 1/40 train/pgd_at:  49%|████▊     | 171/352 [06:47<07:08,  2.37s/batch, acc=0.1959, attack=pgd, loss=2.1594][A
+epoch 1/40 train/pgd_at:  49%|████▉     | 172/352 [06:47<07:06,  2.37s/batch, acc=0.1959, attack=pgd, loss=2.1594][A
+epoch 1/40 train/pgd_at:  49%|████▉     | 172/352 [06:50<07:06,  2.37s/batch, acc=0.1959, attack=pgd, loss=2.1590][A
+epoch 1/40 train/pgd_at:  49%|████▉     | 173/352 [06:50<07:04,  2.37s/batch, acc=0.1959, attack=pgd, loss=2.1590][A
+epoch 1/40 train/pgd_at:  49%|████▉     | 173/352 [06:52<07:04,  2.37s/batch, acc=0.1959, attack=pgd, loss=2.1588][A
+epoch 1/40 train/pgd_at:  49%|████▉     | 174/352 [06:52<07:01,  2.37s/batch, acc=0.1959, attack=pgd, loss=2.1588][A
+epoch 1/40 train/pgd_at:  49%|████▉     | 174/352 [06:54<07:01,  2.37s/batch, acc=0.1956, attack=pgd, loss=2.1584][A
+epoch 1/40 train/pgd_at:  50%|████▉     | 175/352 [06:54<06:59,  2.37s/batch, acc=0.1956, attack=pgd, loss=2.1584][A
+epoch 1/40 train/pgd_at:  50%|████▉     | 175/352 [06:57<06:59,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1584][A
+epoch 1/40 train/pgd_at:  50%|█████     | 176/352 [06:57<06:56,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1584][A
+epoch 1/40 train/pgd_at:  50%|█████     | 176/352 [06:59<06:56,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1580][A
+epoch 1/40 train/pgd_at:  50%|█████     | 177/352 [06:59<06:54,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1580][A
+epoch 1/40 train/pgd_at:  50%|█████     | 177/352 [07:01<06:54,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1579][A
+epoch 1/40 train/pgd_at:  51%|█████     | 178/352 [07:01<06:52,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1579][A
+epoch 1/40 train/pgd_at:  51%|█████     | 178/352 [07:04<06:52,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1574][A
+epoch 1/40 train/pgd_at:  51%|█████     | 179/352 [07:04<06:49,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1574][A
+epoch 1/40 train/pgd_at:  51%|█████     | 179/352 [07:06<06:49,  2.37s/batch, acc=0.1957, attack=pgd, loss=2.1570][A
+epoch 1/40 train/pgd_at:  51%|█████     | 180/352 [07:06<06:47,  2.37s/batch, acc=0.1957, attack=pgd, loss=2.1570][A
+epoch 1/40 train/pgd_at:  51%|█████     | 180/352 [07:09<06:47,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1564][A
+epoch 1/40 train/pgd_at:  51%|█████▏    | 181/352 [07:09<06:45,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1564][A
+epoch 1/40 train/pgd_at:  51%|█████▏    | 181/352 [07:11<06:45,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1565][A
+epoch 1/40 train/pgd_at:  52%|█████▏    | 182/352 [07:11<06:42,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1565][A
+epoch 1/40 train/pgd_at:  52%|█████▏    | 182/352 [07:13<06:42,  2.37s/batch, acc=0.1951, attack=pgd, loss=2.1562][A
+epoch 1/40 train/pgd_at:  52%|█████▏    | 183/352 [07:13<06:40,  2.37s/batch, acc=0.1951, attack=pgd, loss=2.1562][A
+epoch 1/40 train/pgd_at:  52%|█████▏    | 183/352 [07:16<06:40,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1557][A
+epoch 1/40 train/pgd_at:  52%|█████▏    | 184/352 [07:16<06:38,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1557][A
+epoch 1/40 train/pgd_at:  52%|█████▏    | 184/352 [07:18<06:38,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1556][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 185/352 [07:18<06:35,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1556][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 185/352 [07:20<06:35,  2.37s/batch, acc=0.1956, attack=pgd, loss=2.1552][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 186/352 [07:20<06:33,  2.37s/batch, acc=0.1956, attack=pgd, loss=2.1552][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 186/352 [07:23<06:33,  2.37s/batch, acc=0.1953, attack=pgd, loss=2.1550][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 187/352 [07:23<06:30,  2.37s/batch, acc=0.1953, attack=pgd, loss=2.1550][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 187/352 [07:25<06:30,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1542][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 188/352 [07:25<06:28,  2.37s/batch, acc=0.1955, attack=pgd, loss=2.1542][A
+epoch 1/40 train/pgd_at:  53%|█████▎    | 188/352 [07:28<06:28,  2.37s/batch, acc=0.1954, attack=pgd, loss=2.1544][A
+epoch 1/40 train/pgd_at:  54%|█████▎    | 189/352 [07:28<06:26,  2.37s/batch, acc=0.1954, attack=pgd, loss=2.1544][A
+epoch 1/40 train/pgd_at:  54%|█████▎    | 189/352 [07:30<06:26,  2.37s/batch, acc=0.1954, attack=pgd, loss=2.1536][A
+epoch 1/40 train/pgd_at:  54%|█████▍    | 190/352 [07:30<06:23,  2.37s/batch, acc=0.1954, attack=pgd, loss=2.1536][A
+epoch 1/40 train/pgd_at:  54%|█████▍    | 190/352 [07:32<06:23,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1529][A
+epoch 1/40 train/pgd_at:  54%|█████▍    | 191/352 [07:32<06:21,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1529][A
+epoch 1/40 train/pgd_at:  54%|█████▍    | 191/352 [07:35<06:21,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1527][A
+epoch 1/40 train/pgd_at:  55%|█████▍    | 192/352 [07:35<06:19,  2.37s/batch, acc=0.1958, attack=pgd, loss=2.1527][A
+epoch 1/40 train/pgd_at:  55%|█████▍    | 192/352 [07:37<06:19,  2.37s/batch, acc=0.1960, attack=pgd, loss=2.1518][A
+epoch 1/40 train/pgd_at:  55%|█████▍    | 193/352 [07:37<06:16,  2.37s/batch, acc=0.1960, attack=pgd, loss=2.1518][A
+epoch 1/40 train/pgd_at:  55%|█████▍    | 193/352 [07:39<06:16,  2.37s/batch, acc=0.1960, attack=pgd, loss=2.1517][A
+epoch 1/40 train/pgd_at:  55%|█████▌    | 194/352 [07:39<06:14,  2.37s/batch, acc=0.1960, attack=pgd, loss=2.1517][A
+epoch 1/40 train/pgd_at:  55%|█████▌    | 194/352 [07:42<06:14,  2.37s/batch, acc=0.1963, attack=pgd, loss=2.1509][A
+epoch 1/40 train/pgd_at:  55%|█████▌    | 195/352 [07:42<06:12,  2.37s/batch, acc=0.1963, attack=pgd, loss=2.1509][A
+epoch 1/40 train/pgd_at:  55%|█████▌    | 195/352 [07:44<06:12,  2.37s/batch, acc=0.1964, attack=pgd, loss=2.1510][A
+epoch 1/40 train/pgd_at:  56%|█████▌    | 196/352 [07:44<06:09,  2.37s/batch, acc=0.1964, attack=pgd, loss=2.1510][A
+epoch 1/40 train/pgd_at:  56%|█████▌    | 196/352 [07:47<06:09,  2.37s/batch, acc=0.1964, attack=pgd, loss=2.1509][A
+epoch 1/40 train/pgd_at:  56%|█████▌    | 197/352 [07:47<06:07,  2.37s/batch, acc=0.1964, attack=pgd, loss=2.1509][A
+epoch 1/40 train/pgd_at:  56%|█████▌    | 197/352 [07:49<06:07,  2.37s/batch, acc=0.1963, attack=pgd, loss=2.1502][A
+epoch 1/40 train/pgd_at:  56%|█████▋    | 198/352 [07:49<06:04,  2.37s/batch, acc=0.1963, attack=pgd, loss=2.1502][A
+epoch 1/40 train/pgd_at:  56%|█████▋    | 198/352 [07:51<06:04,  2.37s/batch, acc=0.1966, attack=pgd, loss=2.1500][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 199/352 [07:51<06:02,  2.37s/batch, acc=0.1966, attack=pgd, loss=2.1500][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 199/352 [07:54<06:02,  2.37s/batch, acc=0.1967, attack=pgd, loss=2.1495][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 200/352 [07:54<06:00,  2.37s/batch, acc=0.1967, attack=pgd, loss=2.1495][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 200/352 [07:56<06:00,  2.37s/batch, acc=0.1969, attack=pgd, loss=2.1489][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 201/352 [07:56<05:57,  2.37s/batch, acc=0.1969, attack=pgd, loss=2.1489][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 201/352 [07:58<05:57,  2.37s/batch, acc=0.1971, attack=pgd, loss=2.1482][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 202/352 [07:58<05:55,  2.37s/batch, acc=0.1971, attack=pgd, loss=2.1482][A
+epoch 1/40 train/pgd_at:  57%|█████▋    | 202/352 [08:01<05:55,  2.37s/batch, acc=0.1972, attack=pgd, loss=2.1480][A
+epoch 1/40 train/pgd_at:  58%|█████▊    | 203/352 [08:01<05:53,  2.37s/batch, acc=0.1972, attack=pgd, loss=2.1480][A
+epoch 1/40 train/pgd_at:  58%|█████▊    | 203/352 [08:03<05:53,  2.37s/batch, acc=0.1976, attack=pgd, loss=2.1472][A
+epoch 1/40 train/pgd_at:  58%|█████▊    | 204/352 [08:03<05:50,  2.37s/batch, acc=0.1976, attack=pgd, loss=2.1472][A
+epoch 1/40 train/pgd_at:  58%|█████▊    | 204/352 [08:05<05:50,  2.37s/batch, acc=0.1977, attack=pgd, loss=2.1470][A
+epoch 1/40 train/pgd_at:  58%|█████▊    | 205/352 [08:05<05:48,  2.37s/batch, acc=0.1977, attack=pgd, loss=2.1470][A
+epoch 1/40 train/pgd_at:  58%|█████▊    | 205/352 [08:08<05:48,  2.37s/batch, acc=0.1979, attack=pgd, loss=2.1468][A
+epoch 1/40 train/pgd_at:  59%|█████▊    | 206/352 [08:08<05:45,  2.37s/batch, acc=0.1979, attack=pgd, loss=2.1468][A
+epoch 1/40 train/pgd_at:  59%|█████▊    | 206/352 [08:10<05:45,  2.37s/batch, acc=0.1982, attack=pgd, loss=2.1469][A
+epoch 1/40 train/pgd_at:  59%|█████▉    | 207/352 [08:10<05:43,  2.37s/batch, acc=0.1982, attack=pgd, loss=2.1469][A
+epoch 1/40 train/pgd_at:  59%|█████▉    | 207/352 [08:13<05:43,  2.37s/batch, acc=0.1981, attack=pgd, loss=2.1470][A
+epoch 1/40 train/pgd_at:  59%|█████▉    | 208/352 [08:13<05:41,  2.37s/batch, acc=0.1981, attack=pgd, loss=2.1470][A
+epoch 1/40 train/pgd_at:  59%|█████▉    | 208/352 [08:15<05:41,  2.37s/batch, acc=0.1985, attack=pgd, loss=2.1465][A
+epoch 1/40 train/pgd_at:  59%|█████▉    | 209/352 [08:15<05:38,  2.37s/batch, acc=0.1985, attack=pgd, loss=2.1465][A
+epoch 1/40 train/pgd_at:  59%|█████▉    | 209/352 [08:17<05:38,  2.37s/batch, acc=0.1987, attack=pgd, loss=2.1462][A
+epoch 1/40 train/pgd_at:  60%|█████▉    | 210/352 [08:17<05:36,  2.37s/batch, acc=0.1987, attack=pgd, loss=2.1462][A
+epoch 1/40 train/pgd_at:  60%|█████▉    | 210/352 [08:20<05:36,  2.37s/batch, acc=0.1990, attack=pgd, loss=2.1457][A
+epoch 1/40 train/pgd_at:  60%|█████▉    | 211/352 [08:20<05:34,  2.37s/batch, acc=0.1990, attack=pgd, loss=2.1457][A
+epoch 1/40 train/pgd_at:  60%|█████▉    | 211/352 [08:22<05:34,  2.37s/batch, acc=0.1991, attack=pgd, loss=2.1451][A
+epoch 1/40 train/pgd_at:  60%|██████    | 212/352 [08:22<05:31,  2.37s/batch, acc=0.1991, attack=pgd, loss=2.1451][A
+epoch 1/40 train/pgd_at:  60%|██████    | 212/352 [08:24<05:31,  2.37s/batch, acc=0.1994, attack=pgd, loss=2.1442][A
+epoch 1/40 train/pgd_at:  61%|██████    | 213/352 [08:24<05:29,  2.37s/batch, acc=0.1994, attack=pgd, loss=2.1442][A
+epoch 1/40 train/pgd_at:  61%|██████    | 213/352 [08:27<05:29,  2.37s/batch, acc=0.1995, attack=pgd, loss=2.1436][A
+epoch 1/40 train/pgd_at:  61%|██████    | 214/352 [08:27<05:26,  2.37s/batch, acc=0.1995, attack=pgd, loss=2.1436][A
+epoch 1/40 train/pgd_at:  61%|██████    | 214/352 [08:29<05:26,  2.37s/batch, acc=0.2000, attack=pgd, loss=2.1424][A
+epoch 1/40 train/pgd_at:  61%|██████    | 215/352 [08:29<05:24,  2.37s/batch, acc=0.2000, attack=pgd, loss=2.1424][A
+epoch 1/40 train/pgd_at:  61%|██████    | 215/352 [08:32<05:24,  2.37s/batch, acc=0.2002, attack=pgd, loss=2.1418][A
+epoch 1/40 train/pgd_at:  61%|██████▏   | 216/352 [08:32<05:22,  2.37s/batch, acc=0.2002, attack=pgd, loss=2.1418][A
+epoch 1/40 train/pgd_at:  61%|██████▏   | 216/352 [08:34<05:22,  2.37s/batch, acc=0.2003, attack=pgd, loss=2.1414][A
+epoch 1/40 train/pgd_at:  62%|██████▏   | 217/352 [08:34<05:19,  2.37s/batch, acc=0.2003, attack=pgd, loss=2.1414][A
+epoch 1/40 train/pgd_at:  62%|██████▏   | 217/352 [08:36<05:19,  2.37s/batch, acc=0.2008, attack=pgd, loss=2.1407][A
+epoch 1/40 train/pgd_at:  62%|██████▏   | 218/352 [08:36<05:17,  2.37s/batch, acc=0.2008, attack=pgd, loss=2.1407][A
+epoch 1/40 train/pgd_at:  62%|██████▏   | 218/352 [08:39<05:17,  2.37s/batch, acc=0.2007, attack=pgd, loss=2.1409][A
+epoch 1/40 train/pgd_at:  62%|██████▏   | 219/352 [08:39<05:15,  2.37s/batch, acc=0.2007, attack=pgd, loss=2.1409][A
+epoch 1/40 train/pgd_at:  62%|██████▏   | 219/352 [08:41<05:15,  2.37s/batch, acc=0.2009, attack=pgd, loss=2.1406][A
+epoch 1/40 train/pgd_at:  62%|██████▎   | 220/352 [08:41<05:12,  2.37s/batch, acc=0.2009, attack=pgd, loss=2.1406][A
+epoch 1/40 train/pgd_at:  62%|██████▎   | 220/352 [08:43<05:12,  2.37s/batch, acc=0.2011, attack=pgd, loss=2.1403][A
+epoch 1/40 train/pgd_at:  63%|██████▎   | 221/352 [08:43<05:10,  2.37s/batch, acc=0.2011, attack=pgd, loss=2.1403][A
+epoch 1/40 train/pgd_at:  63%|██████▎   | 221/352 [08:46<05:10,  2.37s/batch, acc=0.2011, attack=pgd, loss=2.1400][A
+epoch 1/40 train/pgd_at:  63%|██████▎   | 222/352 [08:46<05:08,  2.37s/batch, acc=0.2011, attack=pgd, loss=2.1400][A
+epoch 1/40 train/pgd_at:  63%|██████▎   | 222/352 [08:48<05:08,  2.37s/batch, acc=0.2009, attack=pgd, loss=2.1398][A
+epoch 1/40 train/pgd_at:  63%|██████▎   | 223/352 [08:48<05:05,  2.37s/batch, acc=0.2009, attack=pgd, loss=2.1398][A
+epoch 1/40 train/pgd_at:  63%|██████▎   | 223/352 [08:50<05:05,  2.37s/batch, acc=0.2010, attack=pgd, loss=2.1397][A
+epoch 1/40 train/pgd_at:  64%|██████▎   | 224/352 [08:50<05:03,  2.37s/batch, acc=0.2010, attack=pgd, loss=2.1397][A
+epoch 1/40 train/pgd_at:  64%|██████▎   | 224/352 [08:53<05:03,  2.37s/batch, acc=0.2010, attack=pgd, loss=2.1394][A
+epoch 1/40 train/pgd_at:  64%|██████▍   | 225/352 [08:53<05:00,  2.37s/batch, acc=0.2010, attack=pgd, loss=2.1394][A
+epoch 1/40 train/pgd_at:  64%|██████▍   | 225/352 [08:55<05:00,  2.37s/batch, acc=0.2013, attack=pgd, loss=2.1388][A
+epoch 1/40 train/pgd_at:  64%|██████▍   | 226/352 [08:55<04:58,  2.37s/batch, acc=0.2013, attack=pgd, loss=2.1388][A
+epoch 1/40 train/pgd_at:  64%|██████▍   | 226/352 [08:58<04:58,  2.37s/batch, acc=0.2014, attack=pgd, loss=2.1380][A
+epoch 1/40 train/pgd_at:  64%|██████▍   | 227/352 [08:58<04:56,  2.37s/batch, acc=0.2014, attack=pgd, loss=2.1380][A
+epoch 1/40 train/pgd_at:  64%|██████▍   | 227/352 [09:00<04:56,  2.37s/batch, acc=0.2014, attack=pgd, loss=2.1377][A
+epoch 1/40 train/pgd_at:  65%|██████▍   | 228/352 [09:00<04:53,  2.37s/batch, acc=0.2014, attack=pgd, loss=2.1377][A
+epoch 1/40 train/pgd_at:  65%|██████▍   | 228/352 [09:02<04:53,  2.37s/batch, acc=0.2018, attack=pgd, loss=2.1371][A
+epoch 1/40 train/pgd_at:  65%|██████▌   | 229/352 [09:02<04:51,  2.37s/batch, acc=0.2018, attack=pgd, loss=2.1371][A
+epoch 1/40 train/pgd_at:  65%|██████▌   | 229/352 [09:05<04:51,  2.37s/batch, acc=0.2021, attack=pgd, loss=2.1365][A
+epoch 1/40 train/pgd_at:  65%|██████▌   | 230/352 [09:05<04:49,  2.37s/batch, acc=0.2021, attack=pgd, loss=2.1365][A
+epoch 1/40 train/pgd_at:  65%|██████▌   | 230/352 [09:07<04:49,  2.37s/batch, acc=0.2023, attack=pgd, loss=2.1363][A
+epoch 1/40 train/pgd_at:  66%|██████▌   | 231/352 [09:07<04:46,  2.37s/batch, acc=0.2023, attack=pgd, loss=2.1363][A
+epoch 1/40 train/pgd_at:  66%|██████▌   | 231/352 [09:09<04:46,  2.37s/batch, acc=0.2024, attack=pgd, loss=2.1363][A
+epoch 1/40 train/pgd_at:  66%|██████▌   | 232/352 [09:09<04:44,  2.37s/batch, acc=0.2024, attack=pgd, loss=2.1363][A
+epoch 1/40 train/pgd_at:  66%|██████▌   | 232/352 [09:12<04:44,  2.37s/batch, acc=0.2027, attack=pgd, loss=2.1360][A
+epoch 1/40 train/pgd_at:  66%|██████▌   | 233/352 [09:12<04:41,  2.37s/batch, acc=0.2027, attack=pgd, loss=2.1360][A
+epoch 1/40 train/pgd_at:  66%|██████▌   | 233/352 [09:14<04:41,  2.37s/batch, acc=0.2030, attack=pgd, loss=2.1355][A
+epoch 1/40 train/pgd_at:  66%|██████▋   | 234/352 [09:14<04:39,  2.37s/batch, acc=0.2030, attack=pgd, loss=2.1355][A
+epoch 1/40 train/pgd_at:  66%|██████▋   | 234/352 [09:17<04:39,  2.37s/batch, acc=0.2032, attack=pgd, loss=2.1349][A
+epoch 1/40 train/pgd_at:  67%|██████▋   | 235/352 [09:17<04:37,  2.37s/batch, acc=0.2032, attack=pgd, loss=2.1349][A
+epoch 1/40 train/pgd_at:  67%|██████▋   | 235/352 [09:19<04:37,  2.37s/batch, acc=0.2032, attack=pgd, loss=2.1346][A
+epoch 1/40 train/pgd_at:  67%|██████▋   | 236/352 [09:19<04:34,  2.37s/batch, acc=0.2032, attack=pgd, loss=2.1346][A
+epoch 1/40 train/pgd_at:  67%|██████▋   | 236/352 [09:21<04:34,  2.37s/batch, acc=0.2035, attack=pgd, loss=2.1340][A
+epoch 1/40 train/pgd_at:  67%|██████▋   | 237/352 [09:21<04:32,  2.37s/batch, acc=0.2035, attack=pgd, loss=2.1340][A
+epoch 1/40 train/pgd_at:  67%|██████▋   | 237/352 [09:24<04:32,  2.37s/batch, acc=0.2037, attack=pgd, loss=2.1335][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 238/352 [09:24<04:30,  2.37s/batch, acc=0.2037, attack=pgd, loss=2.1335][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 238/352 [09:26<04:30,  2.37s/batch, acc=0.2038, attack=pgd, loss=2.1331][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 239/352 [09:26<04:27,  2.37s/batch, acc=0.2038, attack=pgd, loss=2.1331][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 239/352 [09:28<04:27,  2.37s/batch, acc=0.2038, attack=pgd, loss=2.1327][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 240/352 [09:28<04:25,  2.37s/batch, acc=0.2038, attack=pgd, loss=2.1327][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 240/352 [09:31<04:25,  2.37s/batch, acc=0.2041, attack=pgd, loss=2.1321][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 241/352 [09:31<04:23,  2.37s/batch, acc=0.2041, attack=pgd, loss=2.1321][A
+epoch 1/40 train/pgd_at:  68%|██████▊   | 241/352 [09:33<04:23,  2.37s/batch, acc=0.2043, attack=pgd, loss=2.1316][A
+epoch 1/40 train/pgd_at:  69%|██████▉   | 242/352 [09:33<04:20,  2.37s/batch, acc=0.2043, attack=pgd, loss=2.1316][A
+epoch 1/40 train/pgd_at:  69%|██████▉   | 242/352 [09:36<04:20,  2.37s/batch, acc=0.2042, attack=pgd, loss=2.1313][A
+epoch 1/40 train/pgd_at:  69%|██████▉   | 243/352 [09:36<04:18,  2.37s/batch, acc=0.2042, attack=pgd, loss=2.1313][A
+epoch 1/40 train/pgd_at:  69%|██████▉   | 243/352 [09:38<04:18,  2.37s/batch, acc=0.2044, attack=pgd, loss=2.1308][A
+epoch 1/40 train/pgd_at:  69%|██████▉   | 244/352 [09:38<04:15,  2.37s/batch, acc=0.2044, attack=pgd, loss=2.1308][A
+epoch 1/40 train/pgd_at:  69%|██████▉   | 244/352 [09:40<04:15,  2.37s/batch, acc=0.2046, attack=pgd, loss=2.1301][A
+epoch 1/40 train/pgd_at:  70%|██████▉   | 245/352 [09:40<04:13,  2.37s/batch, acc=0.2046, attack=pgd, loss=2.1301][A
+epoch 1/40 train/pgd_at:  70%|██████▉   | 245/352 [09:43<04:13,  2.37s/batch, acc=0.2045, attack=pgd, loss=2.1300][A
+epoch 1/40 train/pgd_at:  70%|██████▉   | 246/352 [09:43<04:11,  2.37s/batch, acc=0.2045, attack=pgd, loss=2.1300][A
+epoch 1/40 train/pgd_at:  70%|██████▉   | 246/352 [09:45<04:11,  2.37s/batch, acc=0.2048, attack=pgd, loss=2.1298][A
+epoch 1/40 train/pgd_at:  70%|███████   | 247/352 [09:45<04:08,  2.37s/batch, acc=0.2048, attack=pgd, loss=2.1298][A
+epoch 1/40 train/pgd_at:  70%|███████   | 247/352 [09:47<04:08,  2.37s/batch, acc=0.2048, attack=pgd, loss=2.1296][A
+epoch 1/40 train/pgd_at:  70%|███████   | 248/352 [09:47<04:06,  2.37s/batch, acc=0.2048, attack=pgd, loss=2.1296][A
+epoch 1/40 train/pgd_at:  70%|███████   | 248/352 [09:50<04:06,  2.37s/batch, acc=0.2049, attack=pgd, loss=2.1289][A
+epoch 1/40 train/pgd_at:  71%|███████   | 249/352 [09:50<04:04,  2.37s/batch, acc=0.2049, attack=pgd, loss=2.1289][A
+epoch 1/40 train/pgd_at:  71%|███████   | 249/352 [09:52<04:04,  2.37s/batch, acc=0.2049, attack=pgd, loss=2.1289][A
+epoch 1/40 train/pgd_at:  71%|███████   | 250/352 [09:52<04:01,  2.37s/batch, acc=0.2049, attack=pgd, loss=2.1289][A
+epoch 1/40 train/pgd_at:  71%|███████   | 250/352 [09:54<04:01,  2.37s/batch, acc=0.2050, attack=pgd, loss=2.1283][A
+epoch 1/40 train/pgd_at:  71%|███████▏  | 251/352 [09:54<03:59,  2.37s/batch, acc=0.2050, attack=pgd, loss=2.1283][A
+epoch 1/40 train/pgd_at:  71%|███████▏  | 251/352 [09:57<03:59,  2.37s/batch, acc=0.2053, attack=pgd, loss=2.1279][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 252/352 [09:57<03:56,  2.37s/batch, acc=0.2053, attack=pgd, loss=2.1279][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 252/352 [09:59<03:56,  2.37s/batch, acc=0.2054, attack=pgd, loss=2.1276][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 253/352 [09:59<03:54,  2.37s/batch, acc=0.2054, attack=pgd, loss=2.1276][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 253/352 [10:02<03:54,  2.37s/batch, acc=0.2058, attack=pgd, loss=2.1269][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 254/352 [10:02<03:52,  2.37s/batch, acc=0.2058, attack=pgd, loss=2.1269][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 254/352 [10:04<03:52,  2.37s/batch, acc=0.2062, attack=pgd, loss=2.1261][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 255/352 [10:04<03:49,  2.37s/batch, acc=0.2062, attack=pgd, loss=2.1261][A
+epoch 1/40 train/pgd_at:  72%|███████▏  | 255/352 [10:06<03:49,  2.37s/batch, acc=0.2064, attack=pgd, loss=2.1258][A
+epoch 1/40 train/pgd_at:  73%|███████▎  | 256/352 [10:06<03:47,  2.37s/batch, acc=0.2064, attack=pgd, loss=2.1258][A
+epoch 1/40 train/pgd_at:  73%|███████▎  | 256/352 [10:09<03:47,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1256][A
+epoch 1/40 train/pgd_at:  73%|███████▎  | 257/352 [10:09<03:45,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1256][A
+epoch 1/40 train/pgd_at:  73%|███████▎  | 257/352 [10:11<03:45,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1252][A
+epoch 1/40 train/pgd_at:  73%|███████▎  | 258/352 [10:11<03:42,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1252][A
+epoch 1/40 train/pgd_at:  73%|███████▎  | 258/352 [10:13<03:42,  2.37s/batch, acc=0.2064, attack=pgd, loss=2.1252][A
+epoch 1/40 train/pgd_at:  74%|███████▎  | 259/352 [10:13<03:40,  2.37s/batch, acc=0.2064, attack=pgd, loss=2.1252][A
+epoch 1/40 train/pgd_at:  74%|███████▎  | 259/352 [10:16<03:40,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1251][A
+epoch 1/40 train/pgd_at:  74%|███████▍  | 260/352 [10:16<03:38,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1251][A
+epoch 1/40 train/pgd_at:  74%|███████▍  | 260/352 [10:18<03:38,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1247][A
+epoch 1/40 train/pgd_at:  74%|███████▍  | 261/352 [10:18<03:35,  2.37s/batch, acc=0.2065, attack=pgd, loss=2.1247][A
+epoch 1/40 train/pgd_at:  74%|███████▍  | 261/352 [10:21<03:35,  2.37s/batch, acc=0.2068, attack=pgd, loss=2.1243][A
+epoch 1/40 train/pgd_at:  74%|███████▍  | 262/352 [10:21<03:33,  2.37s/batch, acc=0.2068, attack=pgd, loss=2.1243][A
+epoch 1/40 train/pgd_at:  74%|███████▍  | 262/352 [10:23<03:33,  2.37s/batch, acc=0.2071, attack=pgd, loss=2.1236][A
+epoch 1/40 train/pgd_at:  75%|███████▍  | 263/352 [10:23<03:30,  2.37s/batch, acc=0.2071, attack=pgd, loss=2.1236][A
+epoch 1/40 train/pgd_at:  75%|███████▍  | 263/352 [10:25<03:30,  2.37s/batch, acc=0.2072, attack=pgd, loss=2.1232][A
+epoch 1/40 train/pgd_at:  75%|███████▌  | 264/352 [10:25<03:28,  2.37s/batch, acc=0.2072, attack=pgd, loss=2.1232][A
+epoch 1/40 train/pgd_at:  75%|███████▌  | 264/352 [10:28<03:28,  2.37s/batch, acc=0.2076, attack=pgd, loss=2.1223][A
+epoch 1/40 train/pgd_at:  75%|███████▌  | 265/352 [10:28<03:26,  2.37s/batch, acc=0.2076, attack=pgd, loss=2.1223][A
+epoch 1/40 train/pgd_at:  75%|███████▌  | 265/352 [10:30<03:26,  2.37s/batch, acc=0.2080, attack=pgd, loss=2.1216][A
+epoch 1/40 train/pgd_at:  76%|███████▌  | 266/352 [10:30<03:23,  2.37s/batch, acc=0.2080, attack=pgd, loss=2.1216][A
+epoch 1/40 train/pgd_at:  76%|███████▌  | 266/352 [10:32<03:23,  2.37s/batch, acc=0.2084, attack=pgd, loss=2.1208][A
+epoch 1/40 train/pgd_at:  76%|███████▌  | 267/352 [10:32<03:21,  2.37s/batch, acc=0.2084, attack=pgd, loss=2.1208][A
+epoch 1/40 train/pgd_at:  76%|███████▌  | 267/352 [10:35<03:21,  2.37s/batch, acc=0.2084, attack=pgd, loss=2.1206][A
+epoch 1/40 train/pgd_at:  76%|███████▌  | 268/352 [10:35<03:19,  2.37s/batch, acc=0.2084, attack=pgd, loss=2.1206][A
+epoch 1/40 train/pgd_at:  76%|███████▌  | 268/352 [10:37<03:19,  2.37s/batch, acc=0.2086, attack=pgd, loss=2.1198][A
+epoch 1/40 train/pgd_at:  76%|███████▋  | 269/352 [10:37<03:16,  2.37s/batch, acc=0.2086, attack=pgd, loss=2.1198][A
+epoch 1/40 train/pgd_at:  76%|███████▋  | 269/352 [10:39<03:16,  2.37s/batch, acc=0.2087, attack=pgd, loss=2.1195][A
+epoch 1/40 train/pgd_at:  77%|███████▋  | 270/352 [10:39<03:14,  2.37s/batch, acc=0.2087, attack=pgd, loss=2.1195][A
+epoch 1/40 train/pgd_at:  77%|███████▋  | 270/352 [10:42<03:14,  2.37s/batch, acc=0.2088, attack=pgd, loss=2.1192][A
+epoch 1/40 train/pgd_at:  77%|███████▋  | 271/352 [10:42<03:11,  2.37s/batch, acc=0.2088, attack=pgd, loss=2.1192][A
+epoch 1/40 train/pgd_at:  77%|███████▋  | 271/352 [10:44<03:11,  2.37s/batch, acc=0.2088, attack=pgd, loss=2.1187][A
+epoch 1/40 train/pgd_at:  77%|███████▋  | 272/352 [10:44<03:09,  2.37s/batch, acc=0.2088, attack=pgd, loss=2.1187][A
+epoch 1/40 train/pgd_at:  77%|███████▋  | 272/352 [10:47<03:09,  2.37s/batch, acc=0.2088, attack=pgd, loss=2.1182][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 273/352 [10:47<03:07,  2.37s/batch, acc=0.2088, attack=pgd, loss=2.1182][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 273/352 [10:49<03:07,  2.37s/batch, acc=0.2090, attack=pgd, loss=2.1179][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 274/352 [10:49<03:04,  2.37s/batch, acc=0.2090, attack=pgd, loss=2.1179][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 274/352 [10:51<03:04,  2.37s/batch, acc=0.2091, attack=pgd, loss=2.1177][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 275/352 [10:51<03:02,  2.37s/batch, acc=0.2091, attack=pgd, loss=2.1177][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 275/352 [10:54<03:02,  2.37s/batch, acc=0.2090, attack=pgd, loss=2.1175][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 276/352 [10:54<03:00,  2.37s/batch, acc=0.2090, attack=pgd, loss=2.1175][A
+epoch 1/40 train/pgd_at:  78%|███████▊  | 276/352 [10:56<03:00,  2.37s/batch, acc=0.2091, attack=pgd, loss=2.1174][A
+epoch 1/40 train/pgd_at:  79%|███████▊  | 277/352 [10:56<02:57,  2.37s/batch, acc=0.2091, attack=pgd, loss=2.1174][A
+epoch 1/40 train/pgd_at:  79%|███████▊  | 277/352 [10:58<02:57,  2.37s/batch, acc=0.2090, attack=pgd, loss=2.1170][A
+epoch 1/40 train/pgd_at:  79%|███████▉  | 278/352 [10:58<02:55,  2.37s/batch, acc=0.2090, attack=pgd, loss=2.1170][A
+epoch 1/40 train/pgd_at:  79%|███████▉  | 278/352 [11:01<02:55,  2.37s/batch, acc=0.2092, attack=pgd, loss=2.1166][A
+epoch 1/40 train/pgd_at:  79%|███████▉  | 279/352 [11:01<02:52,  2.37s/batch, acc=0.2092, attack=pgd, loss=2.1166][A
+epoch 1/40 train/pgd_at:  79%|███████▉  | 279/352 [11:03<02:52,  2.37s/batch, acc=0.2093, attack=pgd, loss=2.1164][A
+epoch 1/40 train/pgd_at:  80%|███████▉  | 280/352 [11:03<02:50,  2.37s/batch, acc=0.2093, attack=pgd, loss=2.1164][A
+epoch 1/40 train/pgd_at:  80%|███████▉  | 280/352 [11:06<02:50,  2.37s/batch, acc=0.2092, attack=pgd, loss=2.1165][A
+epoch 1/40 train/pgd_at:  80%|███████▉  | 281/352 [11:06<02:48,  2.37s/batch, acc=0.2092, attack=pgd, loss=2.1165][A
+epoch 1/40 train/pgd_at:  80%|███████▉  | 281/352 [11:08<02:48,  2.37s/batch, acc=0.2092, attack=pgd, loss=2.1160][A
+epoch 1/40 train/pgd_at:  80%|████████  | 282/352 [11:08<02:45,  2.37s/batch, acc=0.2092, attack=pgd, loss=2.1160][A
+epoch 1/40 train/pgd_at:  80%|████████  | 282/352 [11:10<02:45,  2.37s/batch, acc=0.2094, attack=pgd, loss=2.1157][A
+epoch 1/40 train/pgd_at:  80%|████████  | 283/352 [11:10<02:43,  2.37s/batch, acc=0.2094, attack=pgd, loss=2.1157][A
+epoch 1/40 train/pgd_at:  80%|████████  | 283/352 [11:13<02:43,  2.37s/batch, acc=0.2095, attack=pgd, loss=2.1153][A
+epoch 1/40 train/pgd_at:  81%|████████  | 284/352 [11:13<02:41,  2.37s/batch, acc=0.2095, attack=pgd, loss=2.1153][A
+epoch 1/40 train/pgd_at:  81%|████████  | 284/352 [11:15<02:41,  2.37s/batch, acc=0.2097, attack=pgd, loss=2.1148][A
+epoch 1/40 train/pgd_at:  81%|████████  | 285/352 [11:15<02:38,  2.37s/batch, acc=0.2097, attack=pgd, loss=2.1148][A
+epoch 1/40 train/pgd_at:  81%|████████  | 285/352 [11:17<02:38,  2.37s/batch, acc=0.2099, attack=pgd, loss=2.1143][A
+epoch 1/40 train/pgd_at:  81%|████████▏ | 286/352 [11:17<02:36,  2.37s/batch, acc=0.2099, attack=pgd, loss=2.1143][A
+epoch 1/40 train/pgd_at:  81%|████████▏ | 286/352 [11:20<02:36,  2.37s/batch, acc=0.2099, attack=pgd, loss=2.1143][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 287/352 [11:20<02:34,  2.37s/batch, acc=0.2099, attack=pgd, loss=2.1143][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 287/352 [11:22<02:34,  2.37s/batch, acc=0.2102, attack=pgd, loss=2.1138][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 288/352 [11:22<02:31,  2.37s/batch, acc=0.2102, attack=pgd, loss=2.1138][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 288/352 [11:25<02:31,  2.37s/batch, acc=0.2102, attack=pgd, loss=2.1137][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 289/352 [11:25<02:29,  2.37s/batch, acc=0.2102, attack=pgd, loss=2.1137][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 289/352 [11:27<02:29,  2.37s/batch, acc=0.2102, attack=pgd, loss=2.1133][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 290/352 [11:27<02:26,  2.37s/batch, acc=0.2102, attack=pgd, loss=2.1133][A
+epoch 1/40 train/pgd_at:  82%|████████▏ | 290/352 [11:29<02:26,  2.37s/batch, acc=0.2104, attack=pgd, loss=2.1128][A
+epoch 1/40 train/pgd_at:  83%|████████▎ | 291/352 [11:29<02:24,  2.37s/batch, acc=0.2104, attack=pgd, loss=2.1128][A
+epoch 1/40 train/pgd_at:  83%|████████▎ | 291/352 [11:32<02:24,  2.37s/batch, acc=0.2106, attack=pgd, loss=2.1124][A
+epoch 1/40 train/pgd_at:  83%|████████▎ | 292/352 [11:32<02:22,  2.37s/batch, acc=0.2106, attack=pgd, loss=2.1124][A
+epoch 1/40 train/pgd_at:  83%|████████▎ | 292/352 [11:34<02:22,  2.37s/batch, acc=0.2108, attack=pgd, loss=2.1120][A
+epoch 1/40 train/pgd_at:  83%|████████▎ | 293/352 [11:34<02:19,  2.37s/batch, acc=0.2108, attack=pgd, loss=2.1120][A
+epoch 1/40 train/pgd_at:  83%|████████▎ | 293/352 [11:36<02:19,  2.37s/batch, acc=0.2108, attack=pgd, loss=2.1115][A
+epoch 1/40 train/pgd_at:  84%|████████▎ | 294/352 [11:36<02:17,  2.37s/batch, acc=0.2108, attack=pgd, loss=2.1115][A
+epoch 1/40 train/pgd_at:  84%|████████▎ | 294/352 [11:39<02:17,  2.37s/batch, acc=0.2109, attack=pgd, loss=2.1116][A
+epoch 1/40 train/pgd_at:  84%|████████▍ | 295/352 [11:39<02:15,  2.37s/batch, acc=0.2109, attack=pgd, loss=2.1116][A
+epoch 1/40 train/pgd_at:  84%|████████▍ | 295/352 [11:41<02:15,  2.37s/batch, acc=0.2111, attack=pgd, loss=2.1112][A
+epoch 1/40 train/pgd_at:  84%|████████▍ | 296/352 [11:41<02:12,  2.37s/batch, acc=0.2111, attack=pgd, loss=2.1112][A
+epoch 1/40 train/pgd_at:  84%|████████▍ | 296/352 [11:43<02:12,  2.37s/batch, acc=0.2111, attack=pgd, loss=2.1112][A
+epoch 1/40 train/pgd_at:  84%|████████▍ | 297/352 [11:43<02:10,  2.37s/batch, acc=0.2111, attack=pgd, loss=2.1112][A
+epoch 1/40 train/pgd_at:  84%|████████▍ | 297/352 [11:46<02:10,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1104][A
+epoch 1/40 train/pgd_at:  85%|████████▍ | 298/352 [11:46<02:07,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1104][A
+epoch 1/40 train/pgd_at:  85%|████████▍ | 298/352 [11:48<02:07,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1104][A
+epoch 1/40 train/pgd_at:  85%|████████▍ | 299/352 [11:48<02:05,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1104][A
+epoch 1/40 train/pgd_at:  85%|████████▍ | 299/352 [11:51<02:05,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1103][A
+epoch 1/40 train/pgd_at:  85%|████████▌ | 300/352 [11:51<02:03,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1103][A
+epoch 1/40 train/pgd_at:  85%|████████▌ | 300/352 [11:53<02:03,  2.37s/batch, acc=0.2114, attack=pgd, loss=2.1101][A
+epoch 1/40 train/pgd_at:  86%|████████▌ | 301/352 [11:53<02:00,  2.37s/batch, acc=0.2114, attack=pgd, loss=2.1101][A
+epoch 1/40 train/pgd_at:  86%|████████▌ | 301/352 [11:55<02:00,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1098][A
+epoch 1/40 train/pgd_at:  86%|████████▌ | 302/352 [11:55<01:58,  2.37s/batch, acc=0.2115, attack=pgd, loss=2.1098][A
+epoch 1/40 train/pgd_at:  86%|████████▌ | 302/352 [11:58<01:58,  2.37s/batch, acc=0.2117, attack=pgd, loss=2.1095][A
+epoch 1/40 train/pgd_at:  86%|████████▌ | 303/352 [11:58<01:56,  2.37s/batch, acc=0.2117, attack=pgd, loss=2.1095][A
+epoch 1/40 train/pgd_at:  86%|████████▌ | 303/352 [12:00<01:56,  2.37s/batch, acc=0.2118, attack=pgd, loss=2.1095][A
+epoch 1/40 train/pgd_at:  86%|████████▋ | 304/352 [12:00<01:53,  2.37s/batch, acc=0.2118, attack=pgd, loss=2.1095][A
+epoch 1/40 train/pgd_at:  86%|████████▋ | 304/352 [12:02<01:53,  2.37s/batch, acc=0.2117, attack=pgd, loss=2.1093][A
+epoch 1/40 train/pgd_at:  87%|████████▋ | 305/352 [12:02<01:51,  2.37s/batch, acc=0.2117, attack=pgd, loss=2.1093][A
+epoch 1/40 train/pgd_at:  87%|████████▋ | 305/352 [12:05<01:51,  2.37s/batch, acc=0.2118, attack=pgd, loss=2.1091][A
+epoch 1/40 train/pgd_at:  87%|████████▋ | 306/352 [12:05<01:48,  2.37s/batch, acc=0.2118, attack=pgd, loss=2.1091][A
+epoch 1/40 train/pgd_at:  87%|████████▋ | 306/352 [12:07<01:48,  2.37s/batch, acc=0.2119, attack=pgd, loss=2.1091][A
+epoch 1/40 train/pgd_at:  87%|████████▋ | 307/352 [12:07<01:46,  2.37s/batch, acc=0.2119, attack=pgd, loss=2.1091][A
+epoch 1/40 train/pgd_at:  87%|████████▋ | 307/352 [12:10<01:46,  2.37s/batch, acc=0.2120, attack=pgd, loss=2.1087][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 308/352 [12:10<01:44,  2.37s/batch, acc=0.2120, attack=pgd, loss=2.1087][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 308/352 [12:12<01:44,  2.37s/batch, acc=0.2122, attack=pgd, loss=2.1083][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 309/352 [12:12<01:41,  2.37s/batch, acc=0.2122, attack=pgd, loss=2.1083][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 309/352 [12:14<01:41,  2.37s/batch, acc=0.2122, attack=pgd, loss=2.1082][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 310/352 [12:14<01:39,  2.37s/batch, acc=0.2122, attack=pgd, loss=2.1082][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 310/352 [12:17<01:39,  2.37s/batch, acc=0.2121, attack=pgd, loss=2.1084][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 311/352 [12:17<01:37,  2.37s/batch, acc=0.2121, attack=pgd, loss=2.1084][A
+epoch 1/40 train/pgd_at:  88%|████████▊ | 311/352 [12:19<01:37,  2.37s/batch, acc=0.2123, attack=pgd, loss=2.1083][A
+epoch 1/40 train/pgd_at:  89%|████████▊ | 312/352 [12:19<01:34,  2.37s/batch, acc=0.2123, attack=pgd, loss=2.1083][A
+epoch 1/40 train/pgd_at:  89%|████████▊ | 312/352 [12:21<01:34,  2.37s/batch, acc=0.2123, attack=pgd, loss=2.1081][A
+epoch 1/40 train/pgd_at:  89%|████████▉ | 313/352 [12:21<01:32,  2.37s/batch, acc=0.2123, attack=pgd, loss=2.1081][A
+epoch 1/40 train/pgd_at:  89%|████████▉ | 313/352 [12:24<01:32,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1078][A
+epoch 1/40 train/pgd_at:  89%|████████▉ | 314/352 [12:24<01:30,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1078][A
+epoch 1/40 train/pgd_at:  89%|████████▉ | 314/352 [12:26<01:30,  2.37s/batch, acc=0.2125, attack=pgd, loss=2.1078][A
+epoch 1/40 train/pgd_at:  89%|████████▉ | 315/352 [12:26<01:27,  2.37s/batch, acc=0.2125, attack=pgd, loss=2.1078][A
+epoch 1/40 train/pgd_at:  89%|████████▉ | 315/352 [12:28<01:27,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1076][A
+epoch 1/40 train/pgd_at:  90%|████████▉ | 316/352 [12:28<01:25,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1076][A
+epoch 1/40 train/pgd_at:  90%|████████▉ | 316/352 [12:31<01:25,  2.37s/batch, acc=0.2127, attack=pgd, loss=2.1073][A
+epoch 1/40 train/pgd_at:  90%|█████████ | 317/352 [12:31<01:22,  2.37s/batch, acc=0.2127, attack=pgd, loss=2.1073][A
+epoch 1/40 train/pgd_at:  90%|█████████ | 317/352 [12:33<01:22,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1071][A
+epoch 1/40 train/pgd_at:  90%|█████████ | 318/352 [12:33<01:20,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1071][A
+epoch 1/40 train/pgd_at:  90%|█████████ | 318/352 [12:36<01:20,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1068][A
+epoch 1/40 train/pgd_at:  91%|█████████ | 319/352 [12:36<01:18,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1068][A
+epoch 1/40 train/pgd_at:  91%|█████████ | 319/352 [12:38<01:18,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1064][A
+epoch 1/40 train/pgd_at:  91%|█████████ | 320/352 [12:38<01:15,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1064][A
+epoch 1/40 train/pgd_at:  91%|█████████ | 320/352 [12:40<01:15,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1063][A
+epoch 1/40 train/pgd_at:  91%|█████████ | 321/352 [12:40<01:13,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1063][A
+epoch 1/40 train/pgd_at:  91%|█████████ | 321/352 [12:43<01:13,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1060][A
+epoch 1/40 train/pgd_at:  91%|█████████▏| 322/352 [12:43<01:11,  2.37s/batch, acc=0.2126, attack=pgd, loss=2.1060][A
+epoch 1/40 train/pgd_at:  91%|█████████▏| 322/352 [12:45<01:11,  2.37s/batch, acc=0.2128, attack=pgd, loss=2.1057][A
+epoch 1/40 train/pgd_at:  92%|█████████▏| 323/352 [12:45<01:08,  2.37s/batch, acc=0.2128, attack=pgd, loss=2.1057][A
+epoch 1/40 train/pgd_at:  92%|█████████▏| 323/352 [12:47<01:08,  2.37s/batch, acc=0.2127, attack=pgd, loss=2.1054][A
+epoch 1/40 train/pgd_at:  92%|█████████▏| 324/352 [12:47<01:06,  2.37s/batch, acc=0.2127, attack=pgd, loss=2.1054][A
+epoch 1/40 train/pgd_at:  92%|█████████▏| 324/352 [12:50<01:06,  2.37s/batch, acc=0.2128, attack=pgd, loss=2.1055][A
+epoch 1/40 train/pgd_at:  92%|█████████▏| 325/352 [12:50<01:03,  2.37s/batch, acc=0.2128, attack=pgd, loss=2.1055][A
+epoch 1/40 train/pgd_at:  92%|█████████▏| 325/352 [12:52<01:03,  2.37s/batch, acc=0.2130, attack=pgd, loss=2.1051][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 326/352 [12:52<01:01,  2.37s/batch, acc=0.2130, attack=pgd, loss=2.1051][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 326/352 [12:55<01:01,  2.37s/batch, acc=0.2131, attack=pgd, loss=2.1045][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 327/352 [12:55<00:59,  2.37s/batch, acc=0.2131, attack=pgd, loss=2.1045][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 327/352 [12:57<00:59,  2.37s/batch, acc=0.2131, attack=pgd, loss=2.1043][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 328/352 [12:57<00:56,  2.37s/batch, acc=0.2131, attack=pgd, loss=2.1043][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 328/352 [12:59<00:56,  2.37s/batch, acc=0.2132, attack=pgd, loss=2.1041][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 329/352 [12:59<00:54,  2.37s/batch, acc=0.2132, attack=pgd, loss=2.1041][A
+epoch 1/40 train/pgd_at:  93%|█████████▎| 329/352 [13:02<00:54,  2.37s/batch, acc=0.2131, attack=pgd, loss=2.1040][A
+epoch 1/40 train/pgd_at:  94%|█████████▍| 330/352 [13:02<00:52,  2.37s/batch, acc=0.2131, attack=pgd, loss=2.1040][A
+epoch 1/40 train/pgd_at:  94%|█████████▍| 330/352 [13:04<00:52,  2.37s/batch, acc=0.2132, attack=pgd, loss=2.1039][A
+epoch 1/40 train/pgd_at:  94%|█████████▍| 331/352 [13:04<00:49,  2.37s/batch, acc=0.2132, attack=pgd, loss=2.1039][A
+epoch 1/40 train/pgd_at:  94%|█████████▍| 331/352 [13:06<00:49,  2.37s/batch, acc=0.2133, attack=pgd, loss=2.1033][A
+epoch 1/40 train/pgd_at:  94%|█████████▍| 332/352 [13:06<00:47,  2.37s/batch, acc=0.2133, attack=pgd, loss=2.1033][A
+epoch 1/40 train/pgd_at:  94%|█████████▍| 332/352 [13:09<00:47,  2.37s/batch, acc=0.2134, attack=pgd, loss=2.1033][A
+epoch 1/40 train/pgd_at:  95%|█████████▍| 333/352 [13:09<00:45,  2.37s/batch, acc=0.2134, attack=pgd, loss=2.1033][A
+epoch 1/40 train/pgd_at:  95%|█████████▍| 333/352 [13:11<00:45,  2.37s/batch, acc=0.2136, attack=pgd, loss=2.1028][A
+epoch 1/40 train/pgd_at:  95%|█████████▍| 334/352 [13:11<00:42,  2.37s/batch, acc=0.2136, attack=pgd, loss=2.1028][A
+epoch 1/40 train/pgd_at:  95%|█████████▍| 334/352 [13:14<00:42,  2.37s/batch, acc=0.2138, attack=pgd, loss=2.1025][A
+epoch 1/40 train/pgd_at:  95%|█████████▌| 335/352 [13:14<00:40,  2.37s/batch, acc=0.2138, attack=pgd, loss=2.1025][A
+epoch 1/40 train/pgd_at:  95%|█████████▌| 335/352 [13:16<00:40,  2.37s/batch, acc=0.2138, attack=pgd, loss=2.1023][A
+epoch 1/40 train/pgd_at:  95%|█████████▌| 336/352 [13:16<00:37,  2.37s/batch, acc=0.2138, attack=pgd, loss=2.1023][A
+epoch 1/40 train/pgd_at:  95%|█████████▌| 336/352 [13:18<00:37,  2.37s/batch, acc=0.2139, attack=pgd, loss=2.1022][A
+epoch 1/40 train/pgd_at:  96%|█████████▌| 337/352 [13:18<00:35,  2.37s/batch, acc=0.2139, attack=pgd, loss=2.1022][A
+epoch 1/40 train/pgd_at:  96%|█████████▌| 337/352 [13:21<00:35,  2.37s/batch, acc=0.2141, attack=pgd, loss=2.1018][A
+epoch 1/40 train/pgd_at:  96%|█████████▌| 338/352 [13:21<00:33,  2.37s/batch, acc=0.2141, attack=pgd, loss=2.1018][A
+epoch 1/40 train/pgd_at:  96%|█████████▌| 338/352 [13:23<00:33,  2.37s/batch, acc=0.2141, attack=pgd, loss=2.1018][A
+epoch 1/40 train/pgd_at:  96%|█████████▋| 339/352 [13:23<00:30,  2.37s/batch, acc=0.2141, attack=pgd, loss=2.1018][A
+epoch 1/40 train/pgd_at:  96%|█████████▋| 339/352 [13:25<00:30,  2.37s/batch, acc=0.2142, attack=pgd, loss=2.1015][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 340/352 [13:25<00:28,  2.37s/batch, acc=0.2142, attack=pgd, loss=2.1015][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 340/352 [13:28<00:28,  2.37s/batch, acc=0.2143, attack=pgd, loss=2.1011][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 341/352 [13:28<00:26,  2.37s/batch, acc=0.2143, attack=pgd, loss=2.1011][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 341/352 [13:30<00:26,  2.37s/batch, acc=0.2146, attack=pgd, loss=2.1005][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 342/352 [13:30<00:23,  2.37s/batch, acc=0.2146, attack=pgd, loss=2.1005][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 342/352 [13:32<00:23,  2.37s/batch, acc=0.2149, attack=pgd, loss=2.1000][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 343/352 [13:32<00:21,  2.37s/batch, acc=0.2149, attack=pgd, loss=2.1000][A
+epoch 1/40 train/pgd_at:  97%|█████████▋| 343/352 [13:35<00:21,  2.37s/batch, acc=0.2151, attack=pgd, loss=2.0996][A
+epoch 1/40 train/pgd_at:  98%|█████████▊| 344/352 [13:35<00:18,  2.37s/batch, acc=0.2151, attack=pgd, loss=2.0996][A
+epoch 1/40 train/pgd_at:  98%|█████████▊| 344/352 [13:37<00:18,  2.37s/batch, acc=0.2153, attack=pgd, loss=2.0992][A
+epoch 1/40 train/pgd_at:  98%|█████████▊| 345/352 [13:37<00:16,  2.37s/batch, acc=0.2153, attack=pgd, loss=2.0992][A
+epoch 1/40 train/pgd_at:  98%|█████████▊| 345/352 [13:40<00:16,  2.37s/batch, acc=0.2155, attack=pgd, loss=2.0988][A
+epoch 1/40 train/pgd_at:  98%|█████████▊| 346/352 [13:40<00:14,  2.37s/batch, acc=0.2155, attack=pgd, loss=2.0988][A
+epoch 1/40 train/pgd_at:  98%|█████████▊| 346/352 [13:42<00:14,  2.37s/batch, acc=0.2156, attack=pgd, loss=2.0989][A
+epoch 1/40 train/pgd_at:  99%|█████████▊| 347/352 [13:42<00:11,  2.37s/batch, acc=0.2156, attack=pgd, loss=2.0989][A
+epoch 1/40 train/pgd_at:  99%|█████████▊| 347/352 [13:44<00:11,  2.37s/batch, acc=0.2157, attack=pgd, loss=2.0986][A
+epoch 1/40 train/pgd_at:  99%|█████████▉| 348/352 [13:44<00:09,  2.37s/batch, acc=0.2157, attack=pgd, loss=2.0986][A
+epoch 1/40 train/pgd_at:  99%|█████████▉| 348/352 [13:47<00:09,  2.37s/batch, acc=0.2158, attack=pgd, loss=2.0983][A
+epoch 1/40 train/pgd_at:  99%|█████████▉| 349/352 [13:47<00:07,  2.37s/batch, acc=0.2158, attack=pgd, loss=2.0983][A
+epoch 1/40 train/pgd_at:  99%|█████████▉| 349/352 [13:49<00:07,  2.37s/batch, acc=0.2158, attack=pgd, loss=2.0979][A
+epoch 1/40 train/pgd_at:  99%|█████████▉| 350/352 [13:49<00:04,  2.37s/batch, acc=0.2158, attack=pgd, loss=2.0979][A
+epoch 1/40 train/pgd_at:  99%|█████████▉| 350/352 [13:51<00:04,  2.37s/batch, acc=0.2161, attack=pgd, loss=2.0974][A
+epoch 1/40 train/pgd_at: 100%|█████████▉| 351/352 [13:51<00:02,  2.37s/batch, acc=0.2161, attack=pgd, loss=2.0974][A
+epoch 1/40 train/pgd_at: 100%|█████████▉| 351/352 [13:53<00:02,  2.37s/batch, acc=0.2160, attack=pgd, loss=2.0973][A
+epoch 1/40 train/pgd_at: 100%|██████████| 352/352 [13:53<00:00,  2.06s/batch, acc=0.2160, attack=pgd, loss=2.0973][A
+                                                                                                                  [A
+epoch 1/40 val/clean:   0%|          | 0/40 [00:00<?, ?batch/s][A
+epoch 1/40 val/clean:   0%|          | 0/40 [00:00<?, ?batch/s, acc=0.3125, loss=1.8084][A
+epoch 1/40 val/clean:   2%|▎         | 1/40 [00:00<00:06,  6.32batch/s, acc=0.3125, loss=1.8084][A
+epoch 1/40 val/clean:   2%|▎         | 1/40 [00:00<00:06,  6.32batch/s, acc=0.3555, loss=1.7857][A
+epoch 1/40 val/clean:   5%|▌         | 2/40 [00:00<00:05,  7.47batch/s, acc=0.3555, loss=1.7857][A
+epoch 1/40 val/clean:   5%|▌         | 2/40 [00:00<00:05,  7.47batch/s, acc=0.3620, loss=1.7569][A
+epoch 1/40 val/clean:   8%|▊         | 3/40 [00:00<00:04,  7.94batch/s, acc=0.3620, loss=1.7569][A
+epoch 1/40 val/clean:   8%|▊         | 3/40 [00:00<00:04,  7.94batch/s, acc=0.3613, loss=1.7414][A
+epoch 1/40 val/clean:  10%|█         | 4/40 [00:00<00:04,  8.15batch/s, acc=0.3613, loss=1.7414][A
+epoch 1/40 val/clean:  10%|█         | 4/40 [00:00<00:04,  8.15batch/s, acc=0.3750, loss=1.7267][A
+epoch 1/40 val/clean:  12%|█▎        | 5/40 [00:00<00:04,  8.27batch/s, acc=0.3750, loss=1.7267][A
+epoch 1/40 val/clean:  12%|█▎        | 5/40 [00:00<00:04,  8.27batch/s, acc=0.3698, loss=1.7320][A
+epoch 1/40 val/clean:  15%|█▌        | 6/40 [00:00<00:04,  8.37batch/s, acc=0.3698, loss=1.7320][A
+epoch 1/40 val/clean:  15%|█▌        | 6/40 [00:00<00:04,  8.37batch/s, acc=0.3717, loss=1.7345][A
+epoch 1/40 val/clean:  18%|█▊        | 7/40 [00:00<00:03,  8.42batch/s, acc=0.3717, loss=1.7345][A
+epoch 1/40 val/clean:  18%|█▊        | 7/40 [00:00<00:03,  8.42batch/s, acc=0.3711, loss=1.7470][A
+epoch 1/40 val/clean:  20%|██        | 8/40 [00:00<00:03,  8.45batch/s, acc=0.3711, loss=1.7470][A
+epoch 1/40 val/clean:  20%|██        | 8/40 [00:01<00:03,  8.45batch/s, acc=0.3759, loss=1.7438][A
+epoch 1/40 val/clean:  22%|██▎       | 9/40 [00:01<00:03,  8.48batch/s, acc=0.3759, loss=1.7438][A
+epoch 1/40 val/clean:  22%|██▎       | 9/40 [00:01<00:03,  8.48batch/s, acc=0.3766, loss=1.7390][A
+epoch 1/40 val/clean:  25%|██▌       | 10/40 [00:01<00:03,  8.49batch/s, acc=0.3766, loss=1.7390][A
+epoch 1/40 val/clean:  25%|██▌       | 10/40 [00:01<00:03,  8.49batch/s, acc=0.3736, loss=1.7400][A
+epoch 1/40 val/clean:  28%|██▊       | 11/40 [00:01<00:03,  8.50batch/s, acc=0.3736, loss=1.7400][A
+epoch 1/40 val/clean:  28%|██▊       | 11/40 [00:01<00:03,  8.50batch/s, acc=0.3763, loss=1.7356][A
+epoch 1/40 val/clean:  30%|███       | 12/40 [00:01<00:03,  8.51batch/s, acc=0.3763, loss=1.7356][A
+epoch 1/40 val/clean:  30%|███       | 12/40 [00:01<00:03,  8.51batch/s, acc=0.3762, loss=1.7360][A
+epoch 1/40 val/clean:  32%|███▎      | 13/40 [00:01<00:03,  8.52batch/s, acc=0.3762, loss=1.7360][A
+epoch 1/40 val/clean:  32%|███▎      | 13/40 [00:01<00:03,  8.52batch/s, acc=0.3728, loss=1.7354][A
+epoch 1/40 val/clean:  35%|███▌      | 14/40 [00:01<00:03,  8.52batch/s, acc=0.3728, loss=1.7354][A
+epoch 1/40 val/clean:  35%|███▌      | 14/40 [00:01<00:03,  8.52batch/s, acc=0.3750, loss=1.7376][A
+epoch 1/40 val/clean:  38%|███▊      | 15/40 [00:01<00:02,  8.53batch/s, acc=0.3750, loss=1.7376][A
+epoch 1/40 val/clean:  38%|███▊      | 15/40 [00:01<00:02,  8.53batch/s, acc=0.3765, loss=1.7315][A
+epoch 1/40 val/clean:  40%|████      | 16/40 [00:01<00:02,  8.53batch/s, acc=0.3765, loss=1.7315][A
+epoch 1/40 val/clean:  40%|████      | 16/40 [00:02<00:02,  8.53batch/s, acc=0.3718, loss=1.7345][A
+epoch 1/40 val/clean:  42%|████▎     | 17/40 [00:02<00:02,  8.54batch/s, acc=0.3718, loss=1.7345][A
+epoch 1/40 val/clean:  42%|████▎     | 17/40 [00:02<00:02,  8.54batch/s, acc=0.3668, loss=1.7366][A
+epoch 1/40 val/clean:  45%|████▌     | 18/40 [00:02<00:02,  8.54batch/s, acc=0.3668, loss=1.7366][A
+epoch 1/40 val/clean:  45%|████▌     | 18/40 [00:02<00:02,  8.54batch/s, acc=0.3676, loss=1.7365][A
+epoch 1/40 val/clean:  48%|████▊     | 19/40 [00:02<00:02,  8.55batch/s, acc=0.3676, loss=1.7365][A
+epoch 1/40 val/clean:  48%|████▊     | 19/40 [00:02<00:02,  8.55batch/s, acc=0.3672, loss=1.7371][A
+epoch 1/40 val/clean:  50%|█████     | 20/40 [00:02<00:02,  8.54batch/s, acc=0.3672, loss=1.7371][A
+epoch 1/40 val/clean:  50%|█████     | 20/40 [00:02<00:02,  8.54batch/s, acc=0.3646, loss=1.7412][A
+epoch 1/40 val/clean:  52%|█████▎    | 21/40 [00:02<00:02,  8.53batch/s, acc=0.3646, loss=1.7412][A
+epoch 1/40 val/clean:  52%|█████▎    | 21/40 [00:02<00:02,  8.53batch/s, acc=0.3629, loss=1.7411][A
+epoch 1/40 val/clean:  55%|█████▌    | 22/40 [00:02<00:02,  8.53batch/s, acc=0.3629, loss=1.7411][A
+epoch 1/40 val/clean:  55%|█████▌    | 22/40 [00:02<00:02,  8.53batch/s, acc=0.3662, loss=1.7412][A
+epoch 1/40 val/clean:  57%|█████▊    | 23/40 [00:02<00:01,  8.54batch/s, acc=0.3662, loss=1.7412][A
+epoch 1/40 val/clean:  57%|█████▊    | 23/40 [00:02<00:01,  8.54batch/s, acc=0.3646, loss=1.7422][A
+epoch 1/40 val/clean:  60%|██████    | 24/40 [00:02<00:01,  8.53batch/s, acc=0.3646, loss=1.7422][A
+epoch 1/40 val/clean:  60%|██████    | 24/40 [00:02<00:01,  8.53batch/s, acc=0.3638, loss=1.7456][A
+epoch 1/40 val/clean:  62%|██████▎   | 25/40 [00:02<00:01,  8.54batch/s, acc=0.3638, loss=1.7456][A
+epoch 1/40 val/clean:  62%|██████▎   | 25/40 [00:03<00:01,  8.54batch/s, acc=0.3618, loss=1.7464][A
+epoch 1/40 val/clean:  65%|██████▌   | 26/40 [00:03<00:01,  8.54batch/s, acc=0.3618, loss=1.7464][A
+epoch 1/40 val/clean:  65%|██████▌   | 26/40 [00:03<00:01,  8.54batch/s, acc=0.3649, loss=1.7453][A
+epoch 1/40 val/clean:  68%|██████▊   | 27/40 [00:03<00:01,  8.54batch/s, acc=0.3649, loss=1.7453][A
+epoch 1/40 val/clean:  68%|██████▊   | 27/40 [00:03<00:01,  8.54batch/s, acc=0.3633, loss=1.7485][A
+epoch 1/40 val/clean:  70%|███████   | 28/40 [00:03<00:01,  8.54batch/s, acc=0.3633, loss=1.7485][A
+epoch 1/40 val/clean:  70%|███████   | 28/40 [00:03<00:01,  8.54batch/s, acc=0.3631, loss=1.7483][A
+epoch 1/40 val/clean:  72%|███████▎  | 29/40 [00:03<00:01,  8.54batch/s, acc=0.3631, loss=1.7483][A
+epoch 1/40 val/clean:  72%|███████▎  | 29/40 [00:03<00:01,  8.54batch/s, acc=0.3635, loss=1.7488][A
+epoch 1/40 val/clean:  75%|███████▌  | 30/40 [00:03<00:01,  8.54batch/s, acc=0.3635, loss=1.7488][A
+epoch 1/40 val/clean:  75%|███████▌  | 30/40 [00:03<00:01,  8.54batch/s, acc=0.3654, loss=1.7476][A
+epoch 1/40 val/clean:  78%|███████▊  | 31/40 [00:03<00:01,  8.54batch/s, acc=0.3654, loss=1.7476][A
+epoch 1/40 val/clean:  78%|███████▊  | 31/40 [00:03<00:01,  8.54batch/s, acc=0.3655, loss=1.7479][A
+epoch 1/40 val/clean:  80%|████████  | 32/40 [00:03<00:00,  8.54batch/s, acc=0.3655, loss=1.7479][A
+epoch 1/40 val/clean:  80%|████████  | 32/40 [00:03<00:00,  8.54batch/s, acc=0.3648, loss=1.7480][A
+epoch 1/40 val/clean:  82%|████████▎ | 33/40 [00:03<00:00,  8.54batch/s, acc=0.3648, loss=1.7480][A
+epoch 1/40 val/clean:  82%|████████▎ | 33/40 [00:04<00:00,  8.54batch/s, acc=0.3633, loss=1.7470][A
+epoch 1/40 val/clean:  85%|████████▌ | 34/40 [00:04<00:00,  8.55batch/s, acc=0.3633, loss=1.7470][A
+epoch 1/40 val/clean:  85%|████████▌ | 34/40 [00:04<00:00,  8.55batch/s, acc=0.3623, loss=1.7481][A
+epoch 1/40 val/clean:  88%|████████▊ | 35/40 [00:04<00:00,  8.55batch/s, acc=0.3623, loss=1.7481][A
+epoch 1/40 val/clean:  88%|████████▊ | 35/40 [00:04<00:00,  8.55batch/s, acc=0.3626, loss=1.7482][A
+epoch 1/40 val/clean:  90%|█████████ | 36/40 [00:04<00:00,  8.55batch/s, acc=0.3626, loss=1.7482][A
+epoch 1/40 val/clean:  90%|█████████ | 36/40 [00:04<00:00,  8.55batch/s, acc=0.3613, loss=1.7532][A
+epoch 1/40 val/clean:  92%|█████████▎| 37/40 [00:04<00:00,  8.54batch/s, acc=0.3613, loss=1.7532][A
+epoch 1/40 val/clean:  92%|█████████▎| 37/40 [00:04<00:00,  8.54batch/s, acc=0.3620, loss=1.7526][A
+epoch 1/40 val/clean:  95%|█████████▌| 38/40 [00:04<00:00,  8.54batch/s, acc=0.3620, loss=1.7526][A
+epoch 1/40 val/clean:  95%|█████████▌| 38/40 [00:04<00:00,  8.54batch/s, acc=0.3606, loss=1.7525][A
+epoch 1/40 val/clean:  98%|█████████▊| 39/40 [00:04<00:00,  8.55batch/s, acc=0.3606, loss=1.7525][A
+epoch 1/40 val/clean:  98%|█████████▊| 39/40 [00:04<00:00,  8.55batch/s, acc=0.3604, loss=1.7541][A
+                                                                                                 [A
+epoch 1/40 val/pgd7:   0%|          | 0/40 [00:00<?, ?batch/s][A
+epoch 1/40 val/pgd7:   0%|          | 0/40 [00:02<?, ?batch/s, acc=0.2812, steps=7][A
+epoch 1/40 val/pgd7:   2%|▎         | 1/40 [00:02<01:29,  2.30s/batch, acc=0.2812, steps=7][A
+epoch 1/40 val/pgd7:   2%|▎         | 1/40 [00:04<01:29,  2.30s/batch, acc=0.2852, steps=7][A
+epoch 1/40 val/pgd7:   5%|▌         | 2/40 [00:04<01:26,  2.28s/batch, acc=0.2852, steps=7][A
+epoch 1/40 val/pgd7:   5%|▌         | 2/40 [00:06<01:26,  2.28s/batch, acc=0.2786, steps=7][A
+epoch 1/40 val/pgd7:   8%|▊         | 3/40 [00:06<01:23,  2.27s/batch, acc=0.2786, steps=7][A
+epoch 1/40 val/pgd7:   8%|▊         | 3/40 [00:09<01:23,  2.27s/batch, acc=0.2715, steps=7][A
+epoch 1/40 val/pgd7:  10%|█         | 4/40 [00:09<01:21,  2.27s/batch, acc=0.2715, steps=7][A
+                                                                                           [Aepochs/preact_resnet18_pgd_at_seed0:   0%|          | 0/40 [14:07<?, ?epoch/s, best=0.2715, train_acc=0.2160, val_acc=0.3604]                                                                                                                             epochs/preact_resnet18_pgd_at_seed0:   0%|          | 0/40 [14:07<?, ?epoch/s, best=0.2715, train_acc=0.2160, val_acc=0.3604]epochs/preact_resnet18_pgd_at_seed0:   2%|▎         | 1/40 [14:07<9:10:43, 847.26s/epoch, best=0.2715, train_acc=0.2160, val_acc=0.3604][epoch 001/040] train_loss=2.0973 train_acc=0.2160 val_loss=1.7541 val_acc=0.3604 pgd7_val_acc=0.2715 best_pgd7_val_acc=0.2715 best_epoch=1 best_updated=True elapsed=14m07s
+
+epoch 2/40 train/pgd_at:   0%|          | 0/352 [00:00<?, ?batch/s][A
+epoch 2/40 train/pgd_at:   0%|          | 0/352 [00:02<?, ?batch/s, acc=0.1875, attack=pgd, loss=2.0641][A
+epoch 2/40 train/pgd_at:   0%|          | 1/352 [00:02<14:09,  2.42s/batch, acc=0.1875, attack=pgd, loss=2.0641][A
+epoch 2/40 train/pgd_at:   0%|          | 1/352 [00:04<14:09,  2.42s/batch, acc=0.2383, attack=pgd, loss=1.9714][A
+epoch 2/40 train/pgd_at:   1%|          | 2/352 [00:04<13:56,  2.39s/batch, acc=0.2383, attack=pgd, loss=1.9714][A
+epoch 2/40 train/pgd_at:   1%|          | 2/352 [00:07<13:56,  2.39s/batch, acc=0.2422, attack=pgd, loss=1.9872][A
+epoch 2/40 train/pgd_at:   1%|          | 3/352 [00:07<13:50,  2.38s/batch, acc=0.2422, attack=pgd, loss=1.9872][A
+epoch 2/40 train/pgd_at:   1%|          | 3/352 [00:09<13:50,  2.38s/batch, acc=0.2324, attack=pgd, loss=2.0115][A
+epoch 2/40 train/pgd_at:   1%|          | 4/352 [00:09<13:46,  2.38s/batch, acc=0.2324, attack=pgd, loss=2.0115][A
+epoch 2/40 train/pgd_at:   1%|          | 4/352 [00:11<13:46,  2.38s/batch, acc=0.2359, attack=pgd, loss=2.0096][A
+epoch 2/40 train/pgd_at:   1%|▏         | 5/352 [00:11<13:43,  2.37s/batch, acc=0.2359, attack=pgd, loss=2.0096][A
+epoch 2/40 train/pgd_at:   1%|▏         | 5/352 [00:14<13:43,  2.37s/batch, acc=0.2370, attack=pgd, loss=2.0239][A
+epoch 2/40 train/pgd_at:   2%|▏         | 6/352 [00:14<13:40,  2.37s/batch, acc=0.2370, attack=pgd, loss=2.0239][A
+epoch 2/40 train/pgd_at:   2%|▏         | 6/352 [00:16<13:40,  2.37s/batch, acc=0.2400, attack=pgd, loss=2.0116][A
+epoch 2/40 train/pgd_at:   2%|▏         | 7/352 [00:16<13:38,  2.37s/batch, acc=0.2400, attack=pgd, loss=2.0116][A
+epoch 2/40 train/pgd_at:   2%|▏         | 7/352 [00:19<13:38,  2.37s/batch, acc=0.2432, attack=pgd, loss=2.0094][A
+epoch 2/40 train/pgd_at:   2%|▏         | 8/352 [00:19<13:35,  2.37s/batch, acc=0.2432, attack=pgd, loss=2.0094][A
+epoch 2/40 train/pgd_at:   2%|▏         | 8/352 [00:21<13:35,  2.37s/batch, acc=0.2509, attack=pgd, loss=2.0013][A
+epoch 2/40 train/pgd_at:   3%|▎         | 9/352 [00:21<13:32,  2.37s/batch, acc=0.2509, attack=pgd, loss=2.0013][A
+epoch 2/40 train/pgd_at:   3%|▎         | 9/352 [00:23<13:32,  2.37s/batch, acc=0.2562, attack=pgd, loss=1.9948][A
+epoch 2/40 train/pgd_at:   3%|▎         | 10/352 [00:23<13:30,  2.37s/batch, acc=0.2562, attack=pgd, loss=1.9948][A
+epoch 2/40 train/pgd_at:   3%|▎         | 10/352 [00:26<13:30,  2.37s/batch, acc=0.2578, attack=pgd, loss=1.9965][A
+epoch 2/40 train/pgd_at:   3%|▎         | 11/352 [00:26<13:28,  2.37s/batch, acc=0.2578, attack=pgd, loss=1.9965][A
+epoch 2/40 train/pgd_at:   3%|▎         | 11/352 [00:28<13:28,  2.37s/batch, acc=0.2487, attack=pgd, loss=2.0059][A
+epoch 2/40 train/pgd_at:   3%|▎         | 12/352 [00:28<13:25,  2.37s/batch, acc=0.2487, attack=pgd, loss=2.0059][A
+epoch 2/40 train/pgd_at:   3%|▎         | 12/352 [00:30<13:25,  2.37s/batch, acc=0.2476, attack=pgd, loss=2.0034][A
+epoch 2/40 train/pgd_at:   4%|▎         | 13/352 [00:30<13:23,  2.37s/batch, acc=0.2476, attack=pgd, loss=2.0034][A
+epoch 2/40 train/pgd_at:   4%|▎         | 13/352 [00:33<13:23,  2.37s/batch, acc=0.2483, attack=pgd, loss=2.0021][A
+epoch 2/40 train/pgd_at:   4%|▍         | 14/352 [00:33<13:20,  2.37s/batch, acc=0.2483, attack=pgd, loss=2.0021][A
+epoch 2/40 train/pgd_at:   4%|▍         | 14/352 [00:35<13:20,  2.37s/batch, acc=0.2500, attack=pgd, loss=2.0017][A
+epoch 2/40 train/pgd_at:   4%|▍         | 15/352 [00:35<13:18,  2.37s/batch, acc=0.2500, attack=pgd, loss=2.0017][A
+epoch 2/40 train/pgd_at:   4%|▍         | 15/352 [00:37<13:18,  2.37s/batch, acc=0.2505, attack=pgd, loss=1.9968][A
+epoch 2/40 train/pgd_at:   5%|▍         | 16/352 [00:37<13:15,  2.37s/batch, acc=0.2505, attack=pgd, loss=1.9968][A
+epoch 2/40 train/pgd_at:   5%|▍         | 16/352 [00:40<13:15,  2.37s/batch, acc=0.2495, attack=pgd, loss=1.9954][A
+epoch 2/40 train/pgd_at:   5%|▍         | 17/352 [00:40<13:13,  2.37s/batch, acc=0.2495, attack=pgd, loss=1.9954][A
+epoch 2/40 train/pgd_at:   5%|▍         | 17/352 [00:42<13:13,  2.37s/batch, acc=0.2470, attack=pgd, loss=1.9964][A
+epoch 2/40 train/pgd_at:   5%|▌         | 18/352 [00:42<13:11,  2.37s/batch, acc=0.2470, attack=pgd, loss=1.9964][A
+epoch 2/40 train/pgd_at:   5%|▌         | 18/352 [00:45<13:11,  2.37s/batch, acc=0.2479, attack=pgd, loss=2.0000][A
+epoch 2/40 train/pgd_at:   5%|▌         | 19/352 [00:45<13:08,  2.37s/batch, acc=0.2479, attack=pgd, loss=2.0000][A
+epoch 2/40 train/pgd_at:   5%|▌         | 19/352 [00:47<13:08,  2.37s/batch, acc=0.2496, attack=pgd, loss=2.0001][A
+epoch 2/40 train/pgd_at:   6%|▌         | 20/352 [00:47<13:06,  2.37s/batch, acc=0.2496, attack=pgd, loss=2.0001][A
+epoch 2/40 train/pgd_at:   6%|▌         | 20/352 [00:49<13:06,  2.37s/batch, acc=0.2504, attack=pgd, loss=2.0020][A
+epoch 2/40 train/pgd_at:   6%|▌         | 21/352 [00:49<13:04,  2.37s/batch, acc=0.2504, attack=pgd, loss=2.0020][A
+epoch 2/40 train/pgd_at:   6%|▌         | 21/352 [00:52<13:04,  2.37s/batch, acc=0.2504, attack=pgd, loss=1.9988][A
+epoch 2/40 train/pgd_at:   6%|▋         | 22/352 [00:52<13:01,  2.37s/batch, acc=0.2504, attack=pgd, loss=1.9988][A
+epoch 2/40 train/pgd_at:   6%|▋         | 22/352 [00:54<13:01,  2.37s/batch, acc=0.2473, attack=pgd, loss=2.0049][A
+epoch 2/40 train/pgd_at:   7%|▋         | 23/352 [00:54<12:59,  2.37s/batch, acc=0.2473, attack=pgd, loss=2.0049][A
+epoch 2/40 train/pgd_at:   7%|▋         | 23/352 [00:56<12:59,  2.37s/batch, acc=0.2480, attack=pgd, loss=2.0021][A
+epoch 2/40 train/pgd_at:   7%|▋         | 24/352 [00:56<12:57,  2.37s/batch, acc=0.2480, attack=pgd, loss=2.0021][A
+epoch 2/40 train/pgd_at:   7%|▋         | 24/352 [00:59<12:57,  2.37s/batch, acc=0.2472, attack=pgd, loss=2.0041][A
+epoch 2/40 train/pgd_at:   7%|▋         | 25/352 [00:59<12:54,  2.37s/batch, acc=0.2472, attack=pgd, loss=2.0041][A
+epoch 2/40 train/pgd_at:   7%|▋         | 25/352 [01:01<12:54,  2.37s/batch, acc=0.2491, attack=pgd, loss=2.0036][A
+epoch 2/40 train/pgd_at:   7%|▋         | 26/352 [01:01<12:52,  2.37s/batch, acc=0.2491, attack=pgd, loss=2.0036][A
+epoch 2/40 train/pgd_at:   7%|▋         | 26/352 [01:04<12:52,  2.37s/batch, acc=0.2517, attack=pgd, loss=2.0000][A
+epoch 2/40 train/pgd_at:   8%|▊         | 27/352 [01:04<12:49,  2.37s/batch, acc=0.2517, attack=pgd, loss=2.0000][A
+epoch 2/40 train/pgd_at:   8%|▊         | 27/352 [01:06<12:49,  2.37s/batch, acc=0.2531, attack=pgd, loss=1.9974][A
+epoch 2/40 train/pgd_at:   8%|▊         | 28/352 [01:06<12:47,  2.37s/batch, acc=0.2531, attack=pgd, loss=1.9974][A
+epoch 2/40 train/pgd_at:   8%|▊         | 28/352 [01:08<12:47,  2.37s/batch, acc=0.2527, attack=pgd, loss=1.9966][A
+epoch 2/40 train/pgd_at:   8%|▊         | 29/352 [01:08<12:45,  2.37s/batch, acc=0.2527, attack=pgd, loss=1.9966][A
+epoch 2/40 train/pgd_at:   8%|▊         | 29/352 [01:11<12:45,  2.37s/batch, acc=0.2513, attack=pgd, loss=1.9956][A
+epoch 2/40 train/pgd_at:   9%|▊         | 30/352 [01:11<12:42,  2.37s/batch, acc=0.2513, attack=pgd, loss=1.9956][A
+epoch 2/40 train/pgd_at:   9%|▊         | 30/352 [01:13<12:42,  2.37s/batch, acc=0.2525, attack=pgd, loss=1.9941][A
+epoch 2/40 train/pgd_at:   9%|▉         | 31/352 [01:13<12:40,  2.37s/batch, acc=0.2525, attack=pgd, loss=1.9941][A
+epoch 2/40 train/pgd_at:   9%|▉         | 31/352 [01:15<12:40,  2.37s/batch, acc=0.2546, attack=pgd, loss=1.9914][A
+epoch 2/40 train/pgd_at:   9%|▉         | 32/352 [01:15<12:38,  2.37s/batch, acc=0.2546, attack=pgd, loss=1.9914][A
+epoch 2/40 train/pgd_at:   9%|▉         | 32/352 [01:18<12:38,  2.37s/batch, acc=0.2554, attack=pgd, loss=1.9887][A
+epoch 2/40 train/pgd_at:   9%|▉         | 33/352 [01:18<12:35,  2.37s/batch, acc=0.2554, attack=pgd, loss=1.9887][A
+epoch 2/40 train/pgd_at:   9%|▉         | 33/352 [01:20<12:35,  2.37s/batch, acc=0.2553, attack=pgd, loss=1.9867][A
+epoch 2/40 train/pgd_at:  10%|▉         | 34/352 [01:20<12:33,  2.37s/batch, acc=0.2553, attack=pgd, loss=1.9867][A
+epoch 2/40 train/pgd_at:  10%|▉         | 34/352 [01:22<12:33,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9885][A
+epoch 2/40 train/pgd_at:  10%|▉         | 35/352 [01:22<12:31,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9885][A
+epoch 2/40 train/pgd_at:  10%|▉         | 35/352 [01:25<12:31,  2.37s/batch, acc=0.2537, attack=pgd, loss=1.9882][A
+epoch 2/40 train/pgd_at:  10%|█         | 36/352 [01:25<12:28,  2.37s/batch, acc=0.2537, attack=pgd, loss=1.9882][A
+epoch 2/40 train/pgd_at:  10%|█         | 36/352 [01:27<12:28,  2.37s/batch, acc=0.2542, attack=pgd, loss=1.9906][A
+epoch 2/40 train/pgd_at:  11%|█         | 37/352 [01:27<12:26,  2.37s/batch, acc=0.2542, attack=pgd, loss=1.9906][A
+epoch 2/40 train/pgd_at:  11%|█         | 37/352 [01:30<12:26,  2.37s/batch, acc=0.2539, attack=pgd, loss=1.9933][A
+epoch 2/40 train/pgd_at:  11%|█         | 38/352 [01:30<12:24,  2.37s/batch, acc=0.2539, attack=pgd, loss=1.9933][A
+epoch 2/40 train/pgd_at:  11%|█         | 38/352 [01:32<12:24,  2.37s/batch, acc=0.2534, attack=pgd, loss=1.9949][A
+epoch 2/40 train/pgd_at:  11%|█         | 39/352 [01:32<12:21,  2.37s/batch, acc=0.2534, attack=pgd, loss=1.9949][A
+epoch 2/40 train/pgd_at:  11%|█         | 39/352 [01:34<12:21,  2.37s/batch, acc=0.2521, attack=pgd, loss=1.9992][A
+epoch 2/40 train/pgd_at:  11%|█▏        | 40/352 [01:34<12:19,  2.37s/batch, acc=0.2521, attack=pgd, loss=1.9992][A
+epoch 2/40 train/pgd_at:  11%|█▏        | 40/352 [01:37<12:19,  2.37s/batch, acc=0.2510, attack=pgd, loss=2.0009][A
+epoch 2/40 train/pgd_at:  12%|█▏        | 41/352 [01:37<12:16,  2.37s/batch, acc=0.2510, attack=pgd, loss=2.0009][A
+epoch 2/40 train/pgd_at:  12%|█▏        | 41/352 [01:39<12:16,  2.37s/batch, acc=0.2507, attack=pgd, loss=2.0024][A
+epoch 2/40 train/pgd_at:  12%|█▏        | 42/352 [01:39<12:14,  2.37s/batch, acc=0.2507, attack=pgd, loss=2.0024][A
+epoch 2/40 train/pgd_at:  12%|█▏        | 42/352 [01:41<12:14,  2.37s/batch, acc=0.2518, attack=pgd, loss=2.0009][A
+epoch 2/40 train/pgd_at:  12%|█▏        | 43/352 [01:41<12:12,  2.37s/batch, acc=0.2518, attack=pgd, loss=2.0009][A
+epoch 2/40 train/pgd_at:  12%|█▏        | 43/352 [01:44<12:12,  2.37s/batch, acc=0.2525, attack=pgd, loss=2.0014][A
+epoch 2/40 train/pgd_at:  12%|█▎        | 44/352 [01:44<12:09,  2.37s/batch, acc=0.2525, attack=pgd, loss=2.0014][A
+epoch 2/40 train/pgd_at:  12%|█▎        | 44/352 [01:46<12:09,  2.37s/batch, acc=0.2516, attack=pgd, loss=2.0012][A
+epoch 2/40 train/pgd_at:  13%|█▎        | 45/352 [01:46<12:07,  2.37s/batch, acc=0.2516, attack=pgd, loss=2.0012][A
+epoch 2/40 train/pgd_at:  13%|█▎        | 45/352 [01:49<12:07,  2.37s/batch, acc=0.2520, attack=pgd, loss=2.0017][A
+epoch 2/40 train/pgd_at:  13%|█▎        | 46/352 [01:49<12:05,  2.37s/batch, acc=0.2520, attack=pgd, loss=2.0017][A
+epoch 2/40 train/pgd_at:  13%|█▎        | 46/352 [01:51<12:05,  2.37s/batch, acc=0.2533, attack=pgd, loss=2.0007][A
+epoch 2/40 train/pgd_at:  13%|█▎        | 47/352 [01:51<12:02,  2.37s/batch, acc=0.2533, attack=pgd, loss=2.0007][A
+epoch 2/40 train/pgd_at:  13%|█▎        | 47/352 [01:53<12:02,  2.37s/batch, acc=0.2536, attack=pgd, loss=2.0005][A
+epoch 2/40 train/pgd_at:  14%|█▎        | 48/352 [01:53<12:00,  2.37s/batch, acc=0.2536, attack=pgd, loss=2.0005][A
+epoch 2/40 train/pgd_at:  14%|█▎        | 48/352 [01:56<12:00,  2.37s/batch, acc=0.2538, attack=pgd, loss=2.0007][A
+epoch 2/40 train/pgd_at:  14%|█▍        | 49/352 [01:56<11:57,  2.37s/batch, acc=0.2538, attack=pgd, loss=2.0007][A
+epoch 2/40 train/pgd_at:  14%|█▍        | 49/352 [01:58<11:57,  2.37s/batch, acc=0.2534, attack=pgd, loss=1.9998][A
+epoch 2/40 train/pgd_at:  14%|█▍        | 50/352 [01:58<11:55,  2.37s/batch, acc=0.2534, attack=pgd, loss=1.9998][A
+epoch 2/40 train/pgd_at:  14%|█▍        | 50/352 [02:00<11:55,  2.37s/batch, acc=0.2529, attack=pgd, loss=1.9994][A
+epoch 2/40 train/pgd_at:  14%|█▍        | 51/352 [02:00<11:53,  2.37s/batch, acc=0.2529, attack=pgd, loss=1.9994][A
+epoch 2/40 train/pgd_at:  14%|█▍        | 51/352 [02:03<11:53,  2.37s/batch, acc=0.2523, attack=pgd, loss=2.0027][A
+epoch 2/40 train/pgd_at:  15%|█▍        | 52/352 [02:03<11:50,  2.37s/batch, acc=0.2523, attack=pgd, loss=2.0027][A
+epoch 2/40 train/pgd_at:  15%|█▍        | 52/352 [02:05<11:50,  2.37s/batch, acc=0.2524, attack=pgd, loss=2.0030][A
+epoch 2/40 train/pgd_at:  15%|█▌        | 53/352 [02:05<11:48,  2.37s/batch, acc=0.2524, attack=pgd, loss=2.0030][A
+epoch 2/40 train/pgd_at:  15%|█▌        | 53/352 [02:07<11:48,  2.37s/batch, acc=0.2513, attack=pgd, loss=2.0036][A
+epoch 2/40 train/pgd_at:  15%|█▌        | 54/352 [02:07<11:46,  2.37s/batch, acc=0.2513, attack=pgd, loss=2.0036][A
+epoch 2/40 train/pgd_at:  15%|█▌        | 54/352 [02:10<11:46,  2.37s/batch, acc=0.2518, attack=pgd, loss=2.0028][A
+epoch 2/40 train/pgd_at:  16%|█▌        | 55/352 [02:10<11:43,  2.37s/batch, acc=0.2518, attack=pgd, loss=2.0028][A
+epoch 2/40 train/pgd_at:  16%|█▌        | 55/352 [02:12<11:43,  2.37s/batch, acc=0.2511, attack=pgd, loss=2.0034][A
+epoch 2/40 train/pgd_at:  16%|█▌        | 56/352 [02:12<11:41,  2.37s/batch, acc=0.2511, attack=pgd, loss=2.0034][A
+epoch 2/40 train/pgd_at:  16%|█▌        | 56/352 [02:15<11:41,  2.37s/batch, acc=0.2515, attack=pgd, loss=2.0018][A
+epoch 2/40 train/pgd_at:  16%|█▌        | 57/352 [02:15<11:39,  2.37s/batch, acc=0.2515, attack=pgd, loss=2.0018][A
+epoch 2/40 train/pgd_at:  16%|█▌        | 57/352 [02:17<11:39,  2.37s/batch, acc=0.2511, attack=pgd, loss=2.0017][A
+epoch 2/40 train/pgd_at:  16%|█▋        | 58/352 [02:17<11:36,  2.37s/batch, acc=0.2511, attack=pgd, loss=2.0017][A
+epoch 2/40 train/pgd_at:  16%|█▋        | 58/352 [02:19<11:36,  2.37s/batch, acc=0.2513, attack=pgd, loss=2.0004][A
+epoch 2/40 train/pgd_at:  17%|█▋        | 59/352 [02:19<11:34,  2.37s/batch, acc=0.2513, attack=pgd, loss=2.0004][A
+epoch 2/40 train/pgd_at:  17%|█▋        | 59/352 [02:22<11:34,  2.37s/batch, acc=0.2522, attack=pgd, loss=1.9984][A
+epoch 2/40 train/pgd_at:  17%|█▋        | 60/352 [02:22<11:31,  2.37s/batch, acc=0.2522, attack=pgd, loss=1.9984][A
+epoch 2/40 train/pgd_at:  17%|█▋        | 60/352 [02:24<11:31,  2.37s/batch, acc=0.2522, attack=pgd, loss=1.9981][A
+epoch 2/40 train/pgd_at:  17%|█▋        | 61/352 [02:24<11:29,  2.37s/batch, acc=0.2522, attack=pgd, loss=1.9981][A
+epoch 2/40 train/pgd_at:  17%|█▋        | 61/352 [02:26<11:29,  2.37s/batch, acc=0.2532, attack=pgd, loss=1.9969][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 62/352 [02:26<11:27,  2.37s/batch, acc=0.2532, attack=pgd, loss=1.9969][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 62/352 [02:29<11:27,  2.37s/batch, acc=0.2535, attack=pgd, loss=1.9959][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 63/352 [02:29<11:24,  2.37s/batch, acc=0.2535, attack=pgd, loss=1.9959][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 63/352 [02:31<11:24,  2.37s/batch, acc=0.2548, attack=pgd, loss=1.9938][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 64/352 [02:31<11:22,  2.37s/batch, acc=0.2548, attack=pgd, loss=1.9938][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 64/352 [02:34<11:22,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9939][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 65/352 [02:34<11:20,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9939][A
+epoch 2/40 train/pgd_at:  18%|█▊        | 65/352 [02:36<11:20,  2.37s/batch, acc=0.2546, attack=pgd, loss=1.9925][A
+epoch 2/40 train/pgd_at:  19%|█▉        | 66/352 [02:36<11:17,  2.37s/batch, acc=0.2546, attack=pgd, loss=1.9925][A
+epoch 2/40 train/pgd_at:  19%|█▉        | 66/352 [02:38<11:17,  2.37s/batch, acc=0.2544, attack=pgd, loss=1.9922][A
+epoch 2/40 train/pgd_at:  19%|█▉        | 67/352 [02:38<11:15,  2.37s/batch, acc=0.2544, attack=pgd, loss=1.9922][A
+epoch 2/40 train/pgd_at:  19%|█▉        | 67/352 [02:41<11:15,  2.37s/batch, acc=0.2541, attack=pgd, loss=1.9936][A
+epoch 2/40 train/pgd_at:  19%|█▉        | 68/352 [02:41<11:12,  2.37s/batch, acc=0.2541, attack=pgd, loss=1.9936][A
+epoch 2/40 train/pgd_at:  19%|█▉        | 68/352 [02:43<11:12,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9958][A
+epoch 2/40 train/pgd_at:  20%|█▉        | 69/352 [02:43<11:10,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9958][A
+epoch 2/40 train/pgd_at:  20%|█▉        | 69/352 [02:45<11:10,  2.37s/batch, acc=0.2542, attack=pgd, loss=1.9957][A
+epoch 2/40 train/pgd_at:  20%|█▉        | 70/352 [02:45<11:08,  2.37s/batch, acc=0.2542, attack=pgd, loss=1.9957][A
+epoch 2/40 train/pgd_at:  20%|█▉        | 70/352 [02:48<11:08,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9966][A
+epoch 2/40 train/pgd_at:  20%|██        | 71/352 [02:48<11:05,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9966][A
+epoch 2/40 train/pgd_at:  20%|██        | 71/352 [02:50<11:05,  2.37s/batch, acc=0.2550, attack=pgd, loss=1.9961][A
+epoch 2/40 train/pgd_at:  20%|██        | 72/352 [02:50<11:03,  2.37s/batch, acc=0.2550, attack=pgd, loss=1.9961][A
+epoch 2/40 train/pgd_at:  20%|██        | 72/352 [02:53<11:03,  2.37s/batch, acc=0.2546, attack=pgd, loss=1.9968][A
+epoch 2/40 train/pgd_at:  21%|██        | 73/352 [02:53<11:00,  2.37s/batch, acc=0.2546, attack=pgd, loss=1.9968][A
+epoch 2/40 train/pgd_at:  21%|██        | 73/352 [02:55<11:00,  2.37s/batch, acc=0.2542, attack=pgd, loss=1.9970][A
+epoch 2/40 train/pgd_at:  21%|██        | 74/352 [02:55<10:58,  2.37s/batch, acc=0.2542, attack=pgd, loss=1.9970][A
+epoch 2/40 train/pgd_at:  21%|██        | 74/352 [02:57<10:58,  2.37s/batch, acc=0.2536, attack=pgd, loss=1.9979][A
+epoch 2/40 train/pgd_at:  21%|██▏       | 75/352 [02:57<10:56,  2.37s/batch, acc=0.2536, attack=pgd, loss=1.9979][A
+epoch 2/40 train/pgd_at:  21%|██▏       | 75/352 [03:00<10:56,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9981][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 76/352 [03:00<10:53,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9981][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 76/352 [03:02<10:53,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9982][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 77/352 [03:02<10:51,  2.37s/batch, acc=0.2543, attack=pgd, loss=1.9982][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 77/352 [03:04<10:51,  2.37s/batch, acc=0.2541, attack=pgd, loss=1.9987][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 78/352 [03:04<10:49,  2.37s/batch, acc=0.2541, attack=pgd, loss=1.9987][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 78/352 [03:07<10:49,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9983][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 79/352 [03:07<10:46,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9983][A
+epoch 2/40 train/pgd_at:  22%|██▏       | 79/352 [03:09<10:46,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9983][A
+epoch 2/40 train/pgd_at:  23%|██▎       | 80/352 [03:09<10:44,  2.37s/batch, acc=0.2545, attack=pgd, loss=1.9983][A
+epoch 2/40 train/pgd_at:  23%|██▎       | 80/352 [03:11<10:44,  2.37s/batch, acc=0.2552, attack=pgd, loss=1.9970][A
+epoch 2/40 train/pgd_at:  23%|██▎       | 81/352 [03:11<10:42,  2.37s/batch, acc=0.2552, attack=pgd, loss=1.9970][A
+epoch 2/40 train/pgd_at:  23%|██▎       | 81/352 [03:14<10:42,  2.37s/batch, acc=0.2560, attack=pgd, loss=1.9958][A
+epoch 2/40 train/pgd_at:  23%|██▎       | 82/352 [03:14<10:39,  2.37s/batch, acc=0.2560, attack=pgd, loss=1.9958][A
+epoch 2/40 train/pgd_at:  23%|██▎       | 82/352 [03:16<10:39,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9954][A
+epoch 2/40 train/pgd_at:  24%|██▎       | 83/352 [03:16<10:37,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9954][A
+epoch 2/40 train/pgd_at:  24%|██▎       | 83/352 [03:19<10:37,  2.37s/batch, acc=0.2562, attack=pgd, loss=1.9957][A
+epoch 2/40 train/pgd_at:  24%|██▍       | 84/352 [03:19<10:35,  2.37s/batch, acc=0.2562, attack=pgd, loss=1.9957][A
+epoch 2/40 train/pgd_at:  24%|██▍       | 84/352 [03:21<10:35,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9961][A
+epoch 2/40 train/pgd_at:  24%|██▍       | 85/352 [03:21<10:32,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9961][A
+epoch 2/40 train/pgd_at:  24%|██▍       | 85/352 [03:23<10:32,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9957][A
+epoch 2/40 train/pgd_at:  24%|██▍       | 86/352 [03:23<10:30,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9957][A
+epoch 2/40 train/pgd_at:  24%|██▍       | 86/352 [03:26<10:30,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9956][A
+epoch 2/40 train/pgd_at:  25%|██▍       | 87/352 [03:26<10:27,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9956][A
+epoch 2/40 train/pgd_at:  25%|██▍       | 87/352 [03:28<10:27,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9964][A
+epoch 2/40 train/pgd_at:  25%|██▌       | 88/352 [03:28<10:25,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9964][A
+epoch 2/40 train/pgd_at:  25%|██▌       | 88/352 [03:30<10:25,  2.37s/batch, acc=0.2565, attack=pgd, loss=1.9963][A
+epoch 2/40 train/pgd_at:  25%|██▌       | 89/352 [03:30<10:23,  2.37s/batch, acc=0.2565, attack=pgd, loss=1.9963][A
+epoch 2/40 train/pgd_at:  25%|██▌       | 89/352 [03:33<10:23,  2.37s/batch, acc=0.2562, attack=pgd, loss=1.9952][A
+epoch 2/40 train/pgd_at:  26%|██▌       | 90/352 [03:33<10:20,  2.37s/batch, acc=0.2562, attack=pgd, loss=1.9952][A
+epoch 2/40 train/pgd_at:  26%|██▌       | 90/352 [03:35<10:20,  2.37s/batch, acc=0.2565, attack=pgd, loss=1.9943][A
+epoch 2/40 train/pgd_at:  26%|██▌       | 91/352 [03:35<10:18,  2.37s/batch, acc=0.2565, attack=pgd, loss=1.9943][A
+epoch 2/40 train/pgd_at:  26%|██▌       | 91/352 [03:38<10:18,  2.37s/batch, acc=0.2565, attack=pgd, loss=1.9944][A
+epoch 2/40 train/pgd_at:  26%|██▌       | 92/352 [03:38<10:16,  2.37s/batch, acc=0.2565, attack=pgd, loss=1.9944][A
+epoch 2/40 train/pgd_at:  26%|██▌       | 92/352 [03:40<10:16,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9933][A
+epoch 2/40 train/pgd_at:  26%|██▋       | 93/352 [03:40<10:13,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9933][A
+epoch 2/40 train/pgd_at:  26%|██▋       | 93/352 [03:42<10:13,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9927][A
+epoch 2/40 train/pgd_at:  27%|██▋       | 94/352 [03:42<10:11,  2.37s/batch, acc=0.2564, attack=pgd, loss=1.9927][A
+epoch 2/40 train/pgd_at:  27%|██▋       | 94/352 [03:45<10:11,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9924][A
+epoch 2/40 train/pgd_at:  27%|██▋       | 95/352 [03:45<10:08,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9924][A
+epoch 2/40 train/pgd_at:  27%|██▋       | 95/352 [03:47<10:08,  2.37s/batch, acc=0.2553, attack=pgd, loss=1.9937][A
+epoch 2/40 train/pgd_at:  27%|██▋       | 96/352 [03:47<10:06,  2.37s/batch, acc=0.2553, attack=pgd, loss=1.9937][A
+epoch 2/40 train/pgd_at:  27%|██▋       | 96/352 [03:49<10:06,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9941][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 97/352 [03:49<10:04,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9941][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 97/352 [03:52<10:04,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9942][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 98/352 [03:52<10:01,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9942][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 98/352 [03:54<10:01,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9939][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 99/352 [03:54<09:59,  2.37s/batch, acc=0.2561, attack=pgd, loss=1.9939][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 99/352 [03:56<09:59,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9935][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 100/352 [03:56<09:57,  2.37s/batch, acc=0.2559, attack=pgd, loss=1.9935][A
+epoch 2/40 train/pgd_at:  28%|██▊       | 100/352 [03:59<09:57,  2.37s/batch, acc=0.2563, attack=pgd, loss=1.9927][A
+epoch 2/40 train/pgd_at:  29%|██▊       | 101/352 [03:59<09:54,  2.37s/batch, acc=0.2563, attack=pgd, loss=1.9927][A
+epoch 2/40 train/pgd_at:  29%|██▊       | 101/352 [04:01<09:54,  2.37s/batch, acc=0.2563, attack=pgd, loss=1.9927][A
+epoch 2/40 train/pgd_at:  29%|██▉       | 102/352 [04:01<09:52,  2.37s/batch, acc=0.2563, attack=pgd, loss=1.9927][A
+epoch 2/40 train/pgd_at:  29%|██▉       | 102/352 [04:04<09:52,  2.37s/batch, acc=0.2563, attack=pgd, loss=1.9929][A
+epoch 2/40 train/pgd_at:  29%|██▉       | 103/352 [04:04<09:49,  2.37s/batch, acc=0.2563, attack=pgd, loss=1.9929][A
+epoch 2/40 train/pgd_at:  29%|██▉       | 103/352 [04:06<09:49,  2.37s/batch, acc=0.2566, attack=pgd, loss=1.9923][A
+epoch 2/40 train/pgd_at:  30%|██▉       | 104/352 [04:06<09:47,  2.37s/batch, acc=0.2566, attack=pgd, loss=1.9923][A
+epoch 2/40 train/pgd_at:  30%|██▉       | 104/352 [04:08<09:47,  2.37s/batch, acc=0.2569, attack=pgd, loss=1.9920][A
+epoch 2/40 train/pgd_at:  30%|██▉       | 105/352 [04:08<09:45,  2.37s/batch, acc=0.2569, attack=pgd, loss=1.9920][A

@@ -1,0 +1,67 @@
+
+[2026-06-18 08:46:59] ===== START g2_train_standard =====
+[2026-06-18 08:46:59] ===== LOG logs/real_run_20260618_084657/stage_03_g2_train_standard.log =====
+
+[2026-06-18 08:46:59] [g2_train_standard] --- COMMAND START ---
+[2026-06-18 08:46:59] [g2_train_standard] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 08:46:59] [g2_train_standard] CMD: python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense standard --epochs 50 --batch-size 128 --num-workers 4 --seed 0 --device cuda --amp --experiment-group g2_defense
+[2026-06-18 08:46:59] [g2_train_standard] --- OUTPUT BEGIN ---
+/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/training/trainer.py:73: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  self.scaler = GradScaler(enabled=config.amp and self.device.type == "cuda")
+[setup] model=preact_resnet18 defense=standard dataset=cifar10 mode=real epochs=50 batch_size=128 device=cuda amp=True
+[setup] train_subset_size=full val_subset_size=full max_train_batches=all max_eval_batches=all
+[train] run=preact_resnet18_standard_seed0 model=preact_resnet18 defense=standard dataset=cifar10 mode=real device=cuda epochs=50 batch_size=128 amp=True output=/home/admin2/skq/Lesson/DLS/adv-robust-lite/checkpoints/preact_resnet18_standard_seed0
+epochs/preact_resnet18_standard_seed0:   0%|          | 0/50 [00:00<?, ?epoch/s]
+epoch 1/50 train/standard:   0%|          | 0/352 [00:00<?, ?batch/s][A/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/training/trainer.py:199: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.config.amp and self.device.type == "cuda"):
+
+                                                                     [Aepochs/preact_resnet18_standard_seed0:   0%|          | 0/50 [00:00<?, ?epoch/s]
+Traceback (most recent call last):
+  File "/home/admin2/skq/Lesson/DLS/adv-robust-lite/scripts/train.py", line 122, in <module>
+    main()
+  File "/home/admin2/skq/Lesson/DLS/adv-robust-lite/scripts/train.py", line 117, in main
+    metrics = Trainer(model, train_loader, val_loader, device, config).train()
+  File "/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/training/trainer.py", line 336, in train
+    train_stats = self.train_one_epoch(epoch)
+  File "/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/training/trainer.py", line 200, in train_one_epoch
+    logits = self.model(train_images)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/models/normalize_wrapper.py", line 22, in forward
+    return self.backbone(x)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torchvision/models/resnet.py", line 285, in forward
+    return self._forward_impl(x)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torchvision/models/resnet.py", line 274, in _forward_impl
+    x = self.layer2(x)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/container.py", line 240, in forward
+    input = module(input)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/admin2/skq/Lesson/DLS/adv-robust-lite/src/models/preact_resnet.py", line 12, in forward
+    out = self.bn1(x)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/modules/batchnorm.py", line 193, in forward
+    return F.batch_norm(
+  File "/home/admin2/anaconda3/envs/skq_adv_exp/lib/python3.10/site-packages/torch/nn/functional.py", line 2822, in batch_norm
+    return torch.batch_norm(
+RuntimeError: running_mean should contain 64 elements not 128
+[2026-06-18 08:47:02] [g2_train_standard] --- OUTPUT END ---
+[2026-06-18 08:47:02] [g2_train_standard] EXIT: 1
+[2026-06-18 08:47:02] [g2_train_standard] --- COMMAND END ---
+[2026-06-18 08:47:02] ===== FAIL g2_train_standard =====

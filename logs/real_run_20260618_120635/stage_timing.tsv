@@ -1,0 +1,10 @@
+stage	wall_seconds	status
+g2_train_pgd_at	6277	OK
+g2_train_fixed_mixed_at	4429	OK
+g2_eval	2101	OK
+g3_aa_full_subset	3620	OK
+g3_trap_logit	76	OK
+g3_trap_random_eot	475	OK
+g3_trap_random_square	17	OK
+g5_train_fgsm_at	1817	OK
+g5_train_pgd_at	1817	OK

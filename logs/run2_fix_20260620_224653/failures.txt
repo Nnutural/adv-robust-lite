@@ -1,0 +1,2 @@
+06_nature_figures	make_nature_figures	exit=2	logs/run2_fix_20260620_224653/01_06_nature_figures_make_nature_figures.log
+07_final_check	tables_figures_and_sanity	exit=1	logs/run2_fix_20260620_224653/01_07_final_check_tables_figures_and_sanity.log

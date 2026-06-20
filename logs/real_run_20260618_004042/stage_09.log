@@ -1,0 +1,4 @@
+
+[2026-06-18 01:23:50] ===== START g3_trap_logit =====
+[2026-06-18 01:23:50] [g3_trap_logit] [SKIP missing ckpt] checkpoints/preact_resnet18_standard_seed0/best.pt
+[2026-06-18 01:23:50] ===== SKIP g3_trap_logit =====

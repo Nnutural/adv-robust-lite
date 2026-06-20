@@ -1,0 +1,9 @@
+
+[2026-06-18 08:47:08] ===== START g2_train_fixed_mixed_at =====
+[2026-06-18 08:47:08] ===== LOG logs/real_run_20260618_084657/stage_06_g2_train_fixed_mixed_at.log =====
+
+[2026-06-18 08:47:08] [g2_train_fixed_mixed_at] --- COMMAND START ---
+[2026-06-18 08:47:08] [g2_train_fixed_mixed_at] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 08:47:08] [g2_train_fixed_mixed_at] CMD: python scripts/train.py --mode real --dataset cifar10 --download --model preact_resnet18 --defense fixed_mixed_at --epochs 40 --batch-size 128 --num-workers 4 --seed 0 --device cuda --amp --pgd-steps 7 --experiment-group g2_defense
+[2026-06-18 08:47:08] [g2_train_fixed_mixed_at] --- OUTPUT BEGIN ---

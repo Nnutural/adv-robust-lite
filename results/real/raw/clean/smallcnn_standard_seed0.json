@@ -1,0 +1,19 @@
+{
+  "clean_loss": 0.3467396008491516,
+  "clean_acc": 0.8954,
+  "num_samples": 10000,
+  "runtime_sec": 2.900948477908969,
+  "exp_id": "smallcnn_standard_seed0",
+  "model": "smallcnn",
+  "checkpoint": "checkpoints/smallcnn_standard_seed0/best.pt",
+  "checkpoint_path": "checkpoints/smallcnn_standard_seed0/best.pt",
+  "subset_size": 0,
+  "max_eval_batches": 0,
+  "batch_size": 128,
+  "num_workers": 4,
+  "device": "cuda",
+  "dataset": "cifar10",
+  "dataset_name": "cifar10",
+  "mode": "real",
+  "seed": 0
+}

@@ -1,0 +1,14 @@
+
+[2026-06-18 16:49:34] ===== START g3_trap_random_square =====
+[2026-06-18 16:49:34] ===== LOG logs/real_run_20260618_120635/stage_11_g3_trap_random_square.log =====
+
+[2026-06-18 16:49:34] [g3_trap_random_square] --- COMMAND START ---
+[2026-06-18 16:49:34] [g3_trap_random_square] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 16:49:34] [g3_trap_random_square] CMD: python scripts/evaluate_attack.py --mode real --dataset cifar10 --model preact_resnet18 --checkpoint checkpoints/preact_resnet18_standard_seed0/best.pt --model-wrappers configs/defenses/trap_random.yaml --attack square --subset-size 500 --n-queries 1000 --batch-size 128 --num-workers 4 --device cuda --output results/real/raw/attacks/preact_resnet18_standard_seed0_trap_random_square.json
+[2026-06-18 16:49:34] [g3_trap_random_square] --- OUTPUT BEGIN ---
+attack/square:   0%|          | 0/4 [00:00<?, ?it/s]attack/square:   0%|          | 0/4 [00:01<?, ?it/s, robust_acc=0.0938]attack/square:  25%|██▌       | 1/4 [00:01<00:04,  1.48s/it, robust_acc=0.0938]attack/square:  25%|██▌       | 1/4 [00:07<00:04,  1.48s/it, robust_acc=0.0977]attack/square:  50%|█████     | 2/4 [00:07<00:08,  4.22s/it, robust_acc=0.0977]attack/square:  50%|█████     | 2/4 [00:13<00:08,  4.22s/it, robust_acc=0.0938]attack/square:  75%|███████▌  | 3/4 [00:13<00:05,  5.14s/it, robust_acc=0.0938]attack/square:  75%|███████▌  | 3/4 [00:14<00:05,  5.14s/it, robust_acc=0.0920]attack/square: 100%|██████████| 4/4 [00:14<00:00,  3.28s/it, robust_acc=0.0920]                                                                               {'name': 'square', 'eps': 0.03137254901960784, 'alpha': 0.00784313725490196, 'steps': 1, 'restarts': 1, 'random_start': True, 'loss': 'ce', 'eot_samples': 0, 'n_queries': 1000, 'attack': 'square', 'robust_acc': 0.092, 'clean_acc': 0.1, 'attack_success_rate': 0.3, 'num_samples': 500, 'runtime_sec': 14.294589966535568, 'avg_confidence_drop': 1.6214415431022645e-05, 'avg_linf': 0.0008784321546554566, 'status': 'ok', 'error': None, 'max_samples': 500, 'max_eval_batches': 0, 'eot_disabled_for_demo': True, 'exp_id': 'preact_resnet18_standard_seed0', 'model': 'preact_resnet18', 'checkpoint': 'checkpoints/preact_resnet18_standard_seed0/best.pt', 'checkpoint_path': 'checkpoints/preact_resnet18_standard_seed0/best.pt', 'subset_size': 500, 'batch_size': 128, 'num_workers': 4, 'device': 'cuda', 'dataset': 'cifar10', 'dataset_name': 'cifar10', 'mode': 'real', 'seed': 0, 'eot_required': True, 'eval_subset_id': '45789d5e7795'}
+[2026-06-18 16:49:51] [g3_trap_random_square] --- OUTPUT END ---
+[2026-06-18 16:49:51] [g3_trap_random_square] EXIT: 0
+[2026-06-18 16:49:51] [g3_trap_random_square] --- COMMAND END ---
+[2026-06-18 16:49:51] ===== OK g3_trap_random_square =====

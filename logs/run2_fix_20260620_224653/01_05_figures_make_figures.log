@@ -1,0 +1,5 @@
+[2026-06-20 23:22:37] stage=05_figures label=make_figures
+[2026-06-20 23:22:37] pwd=/home/admin2/skq/Lesson/DLS/adv-robust-lite
+[2026-06-20 23:22:37] cmd: python scripts/make_figures.py --tables results/real/tables --output results/real/figures
+{'fig2_structure_heatmap': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/figures/fig2_structure_heatmap.png', 'fig4_gap_over': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/figures/fig4_gap_over.png', 'fig5_cost_robust_tradeoff': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/figures/fig5_cost_robust_tradeoff.png'}
+[2026-06-20 23:22:41] exit=0

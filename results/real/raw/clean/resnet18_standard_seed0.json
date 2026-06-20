@@ -1,0 +1,19 @@
+{
+  "clean_loss": 0.23419812178611754,
+  "clean_acc": 0.9409,
+  "num_samples": 10000,
+  "runtime_sec": 9.523319913074374,
+  "exp_id": "resnet18_standard_seed0",
+  "model": "resnet18",
+  "checkpoint": "checkpoints/resnet18_standard_seed0/best.pt",
+  "checkpoint_path": "checkpoints/resnet18_standard_seed0/best.pt",
+  "subset_size": 0,
+  "max_eval_batches": 0,
+  "batch_size": 128,
+  "num_workers": 4,
+  "device": "cuda",
+  "dataset": "cifar10",
+  "dataset_name": "cifar10",
+  "mode": "real",
+  "seed": 0
+}

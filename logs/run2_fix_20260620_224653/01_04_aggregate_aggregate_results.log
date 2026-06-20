@@ -1,0 +1,7 @@
+[2026-06-20 23:22:37] stage=04_aggregate label=aggregate_results
+[2026-06-20 23:22:37] pwd=/home/admin2/skq/Lesson/DLS/adv-robust-lite
+[2026-06-20 23:22:37] cmd: python scripts/aggregate_results.py --input results/real/raw --output results/real/tables
+/home/admin2/skq/Lesson/DLS/adv-robust-lite/scripts/aggregate_results.py:374: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  values = {str(value) for value in group[column].fillna("") if str(value) != ""}
+{'main_robustness': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/main_robustness.csv', 'aa_subset_check': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/aa_subset_check.csv', 'gradient_masking_diagnostics': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/gradient_masking_diagnostics.csv', 'budget_comparison': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/budget_comparison.csv'}
+[2026-06-20 23:22:37] exit=0

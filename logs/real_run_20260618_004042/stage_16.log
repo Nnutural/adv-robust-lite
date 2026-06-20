@@ -1,0 +1,7 @@
+
+[2026-06-18 01:23:59] ===== START p8_diagnostics =====
+[2026-06-18 01:23:59] [p8_diagnostics] [SKIP missing ckpt] checkpoints/preact_resnet18_standard_seed0/best.pt
+[2026-06-18 01:23:59] [p8_diagnostics] [SKIP missing ckpt] checkpoints/preact_resnet18_fgsm_at_seed0/best.pt
+[2026-06-18 01:23:59] [p8_diagnostics] [SKIP missing ckpt] checkpoints/preact_resnet18_pgd_at_seed0/best.pt
+[2026-06-18 01:23:59] [p8_diagnostics] [SKIP missing ckpt] checkpoints/preact_resnet18_fixed_mixed_at_seed0/best.pt
+[2026-06-18 01:23:59] ===== SKIP p8_diagnostics =====

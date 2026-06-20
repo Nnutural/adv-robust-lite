@@ -1,0 +1,4 @@
+stage	wall_seconds	status
+g2_train_standard	3	FAIL
+g2_train_fgsm_at	3	FAIL
+g2_train_pgd_at	3	FAIL

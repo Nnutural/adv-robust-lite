@@ -1,0 +1,97 @@
+[2026-06-20 23:22:41] stage=07_final_check label=tables_figures_and_sanity
+[2026-06-20 23:22:41] pwd=/home/admin2/skq/Lesson/DLS/adv-robust-lite
+[2026-06-20 23:22:41] shell block:
+python - <<'PY'
+import glob
+import os
+import pandas as pd
+
+main = pd.read_csv("results/real/tables/main_robustness.csv")
+aa = pd.read_csv("results/real/tables/aa_subset_check.csv")
+
+print("\n[G1 rows]")
+g1_ids = ["smallcnn_standard_seed0", "resnet18_standard_seed0", "mobilenetv2_standard_seed0"]
+g1_cols = ["exp_id", "clean_acc", "fgsm_acc", "pgd20_acc", "pgd20_aalite_acc", "r_lite", "gap_over"]
+print(main[main["exp_id"].isin(g1_ids)][g1_cols].to_string(index=False))
+for exp_id in ["smallcnn_standard_seed0", "resnet18_standard_seed0"]:
+    row = main.loc[main["exp_id"] == exp_id]
+    assert not row.empty, f"missing G1 row: {exp_id}"
+    for col in ["clean_acc", "fgsm_acc", "pgd20_acc", "pgd20_aalite_acc", "r_lite", "gap_over"]:
+        assert row[col].notna().all(), f"{exp_id} has empty {col}"
+
+print("\n[Trap rows]")
+trap_cols = ["exp_id", "clean_acc", "pgd20_acc", "r_lite", "gap_over", "square_acc"]
+trap = main[main["exp_id"].str.contains("trap", na=False)]
+print(trap[trap_cols].to_string(index=False))
+for exp_id in [
+    "preact_resnet18_standard_seed0_trap_logit",
+    "preact_resnet18_standard_seed0_trap_random_eot",
+]:
+    row = main.loc[main["exp_id"] == exp_id]
+    assert not row.empty, f"missing Trap row: {exp_id}"
+    clean = float(row["clean_acc"].iloc[0])
+    assert clean > 0.5, f"{exp_id} clean_acc still looks like random guessing: {clean}"
+random_row = main.loc[main["exp_id"] == "preact_resnet18_standard_seed0_trap_random_eot"]
+assert random_row["square_acc"].notna().all(), "Trap-B square_acc missing"
+
+print("\n[AA subset]")
+aa_cols = ["exp_id", "r_lite_subset", "aa_subset_acc", "bias_aa", "dev_aa", "subset_size"]
+print(aa[aa_cols].to_string(index=False))
+for exp_id in ["preact_resnet18_pgd_at_seed0", "preact_resnet18_fixed_mixed_at_seed0"]:
+    row = aa.loc[aa["exp_id"] == exp_id]
+    assert not row.empty, f"missing AA subset row: {exp_id}"
+    for col in ["r_lite_subset", "aa_subset_acc", "bias_aa", "dev_aa"]:
+        assert row[col].notna().all(), f"{exp_id} has empty {col}"
+    assert int(row["subset_size"].iloc[0]) == 500, f"{exp_id} subset_size is not 500"
+
+print("\n[Standalone merge]")
+for exp_id in [
+    "preact_resnet18_fgsm_at_seed0",
+    "preact_resnet18_pgd_at_seed0",
+    "preact_resnet18_fixed_mixed_at_seed0",
+]:
+    row = main.loc[main["exp_id"] == exp_id]
+    assert not row.empty, f"missing main row: {exp_id}"
+    assert row["pgd20_source"].iloc[0] == "standalone_attack", f"{exp_id} pgd20_source mismatch"
+    assert int(row["pgd20_subset_size"].iloc[0]) == 5000, f"{exp_id} PGD-20 subset mismatch"
+
+print("\n[Figures]")
+figure_files = [p for p in glob.glob("results/real/figures/*") + glob.glob("results/real/figures_nature/*") if os.path.isfile(p)]
+for path in sorted(figure_files):
+    size = os.path.getsize(path)
+    print(path, size)
+    assert size > 0, f"empty figure output: {path}"
+assert any(path.endswith("figure_manifest.md") for path in figure_files), "missing Nature figure manifest"
+
+print("\nFinal run-2 fix checks passed.")
+PY
+
+[G1 rows]
+                    exp_id  clean_acc  fgsm_acc  pgd20_acc  pgd20_aalite_acc  r_lite  gap_over
+mobilenetv2_standard_seed0      0.908    0.0732        0.0               0.0     0.0       0.0
+   smallcnn_standard_seed0      0.901    0.0269        0.0               0.0     0.0       0.0
+   resnet18_standard_seed0      0.952    0.3254        0.0               0.0     0.0       0.0
+
+[Trap rows]
+                                        exp_id  clean_acc  pgd20_acc  r_lite  gap_over  square_acc
+preact_resnet18_standard_seed0_trap_random_eot      0.955      0.000     0.0     0.000       0.878
+     preact_resnet18_standard_seed0_trap_logit      0.956      0.892     0.0     0.892         NaN
+
+[AA subset]
+                              exp_id  r_lite_subset  aa_subset_acc  bias_aa  dev_aa  subset_size
+        preact_resnet18_pgd_at_seed0          0.360          0.336    0.024   0.024          500
+preact_resnet18_fixed_mixed_at_seed0          0.374          0.340    0.034   0.034          500
+
+[Standalone merge]
+
+[Figures]
+results/real/figures/fig2_structure_heatmap.pdf 17693
+results/real/figures/fig2_structure_heatmap.png 186814
+results/real/figures/fig4_gap_over.pdf 15038
+results/real/figures/fig4_gap_over.png 190607
+results/real/figures/fig5_cost_robust_tradeoff.pdf 20230
+results/real/figures/fig5_cost_robust_tradeoff.png 84830
+Traceback (most recent call last):
+  File "<stdin>", line 60, in <module>
+AssertionError: missing Nature figure manifest
+[2026-06-20 23:22:41] exit=1

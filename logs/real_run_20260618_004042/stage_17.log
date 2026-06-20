@@ -1,0 +1,7 @@
+
+[2026-06-18 01:23:59] ===== START aggregate =====
+
+[2026-06-18 01:23:59] [aggregate] CMD: python scripts/aggregate_results.py --input results/real/raw --output results/real/tables
+{'main_robustness': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/main_robustness.csv', 'aa_subset_check': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/aa_subset_check.csv', 'gradient_masking_diagnostics': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/gradient_masking_diagnostics.csv', 'budget_comparison': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/tables/budget_comparison.csv'}
+[2026-06-18 01:24:00] [aggregate] EXIT: 0
+[2026-06-18 01:24:00] ===== OK aggregate =====

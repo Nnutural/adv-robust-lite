@@ -1,0 +1,14 @@
+
+[2026-06-18 21:41:21] ===== START figures =====
+[2026-06-18 21:41:21] ===== LOG logs/real_run_20260618_175958/stage_18_figures.log =====
+
+[2026-06-18 21:41:21] [figures] --- COMMAND START ---
+[2026-06-18 21:41:21] [figures] PWD: /home/admin2/skq/Lesson/DLS/adv-robust-lite
+
+[2026-06-18 21:41:21] [figures] CMD: python scripts/make_figures.py --tables results/real/tables --output results/real/figures
+[2026-06-18 21:41:21] [figures] --- OUTPUT BEGIN ---
+{'fig2_structure_heatmap': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/figures/fig2_structure_heatmap.png', 'fig4_gap_over': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/figures/fig4_gap_over.png', 'fig5_cost_robust_tradeoff': '/home/admin2/skq/Lesson/DLS/adv-robust-lite/results/real/figures/fig5_cost_robust_tradeoff.png'}
+[2026-06-18 21:41:24] [figures] --- OUTPUT END ---
+[2026-06-18 21:41:24] [figures] EXIT: 0
+[2026-06-18 21:41:24] [figures] --- COMMAND END ---
+[2026-06-18 21:41:24] ===== OK figures =====

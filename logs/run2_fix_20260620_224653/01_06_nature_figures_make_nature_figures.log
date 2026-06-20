@@ -1,0 +1,5 @@
+[2026-06-20 23:22:41] stage=06_nature_figures label=make_nature_figures
+[2026-06-20 23:22:41] pwd=/home/admin2/skq/Lesson/DLS/adv-robust-lite
+[2026-06-20 23:22:41] cmd: python scripts/make_nature_figures.py
+python: can't open file '/home/admin2/skq/Lesson/DLS/adv-robust-lite/scripts/make_nature_figures.py': [Errno 2] No such file or directory
+[2026-06-20 23:22:41] exit=2

@@ -1,0 +1,3 @@
+stage	wall_seconds	status
+g2_train_standard	4226	OK
+g2_train_fgsm_at	6257	OK

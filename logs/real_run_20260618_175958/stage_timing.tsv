@@ -1,0 +1,8 @@
+stage	wall_seconds	status
+g5_train_fgsm_at	2630	OK
+g5_train_pgd_at	3619	OK
+g5_train_fixed_mixed_at	3618	OK
+g5_eval	615	OK
+p8_diagnostics	2799	OK
+aggregate	1	OK
+figures	3	OK
