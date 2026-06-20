@@ -25,6 +25,7 @@ printf "index\tstage\tlabel\tlog_file\n" > "${COMMANDS_FILE}"
 
 CMD_INDEX=0
 FAIL_COUNT=0
+NEXT_LOGFILE=""
 
 timestamp() {
   date "+%Y-%m-%d %H:%M:%S"
@@ -47,7 +48,7 @@ next_logfile() {
   safe_label="$(safe_name "${label}")"
   logfile="${LOG_DIR}/$(printf "%02d" "${CMD_INDEX}")_${safe_stage}_${safe_label}.log"
   printf "%02d\t%s\t%s\t%s\n" "${CMD_INDEX}" "${stage}" "${label}" "${logfile}" >> "${COMMANDS_FILE}"
-  printf "%s" "${logfile}"
+  NEXT_LOGFILE="${logfile}"
 }
 
 record_failure() {
@@ -64,7 +65,8 @@ run_cmd() {
   local label="$2"
   local logfile rc
   shift 2
-  logfile="$(next_logfile "${stage}" "${label}")"
+  next_logfile "${stage}" "${label}"
+  logfile="${NEXT_LOGFILE}"
   {
     printf "[%s] stage=%s label=%s\n" "$(timestamp)" "${stage}" "${label}"
     printf "[%s] pwd=%s\n" "$(timestamp)" "$(pwd)"
@@ -85,7 +87,8 @@ run_shell_block() {
   local stage="$1"
   local label="$2"
   local logfile script rc
-  logfile="$(next_logfile "${stage}" "${label}")"
+  next_logfile "${stage}" "${label}"
+  logfile="${NEXT_LOGFILE}"
   script="$(cat)"
   {
     printf "[%s] stage=%s label=%s\n" "$(timestamp)" "${stage}" "${label}"
